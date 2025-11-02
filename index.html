@@ -1,23 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Life Nexus</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {font-family: Arial; text-align: center; padding: 50px; background: #f8f9fa; margin: 0;}
-    h1 {color: #6a0dad; font-size: 2.8em;}
-    p {font-size: 1.3em; color: #555;}
-    .btn {padding: 18px 35px; background: #6a0dad; color: white; text-decoration: none; border-radius: 15px; display: inline-block; font-size: 20px; margin: 15px; width: 150px;}
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+    }
+    h1 {
+      color: #6a0dad;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.3rem;
+      color: #555;
+      margin: 20px 0;
+    }
+    .btn {
+      padding: 18px 35px;
+      background: #6a0dad;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 15px auto;
+      font-size: 1.4rem;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #5a0c9d;
+      transform: scale(1.05);
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 2.2rem; }
+      .btn { font-size: 1.2rem; padding: 15px 30px; }
+    }
   </style>
 </head>
 <body>
   <h1>Life Nexus</h1>
-  <p>منصة الحياة المتكاملة: مال، أعمال، حياة</p>
+  <p>منصة الحياة المتكاملة: مال، أعمال، ألعاب، حياة</p>
 
-  <a href="commerce/" class="btn">التجارة</a>
-  <a href="epic/" class="btn">الألعاب</a>
-  <a href="assets/" class="btn">الأصول</a>
-  <a href="vip/" class="btn">VIP</a>
-
-</body>
-</html>
+  <a href="commerce/" class="btn">التجارة
