@@ -1,21 +1,52 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nexus.Pi - الذكاء الاصطناعي</title>
   <style>
     body {
-      background: #000; color: #0f0; font-family: Arial; text-align: center; padding: 50px;
+      background: #000;
+      color: #0f0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      font-size: 1.5rem; /* خط عام أكبر */
     }
-    h1 { color: #0f0; text-shadow: 0 0 10px #0f0; }
-    .btn { background: #0f0; color: black; padding: 15px 30px; margin: 10px; text-decoration: none; border-radius: 10px; }
-    .btn:hover { background: #0f8; }
+    h1 {
+      color: #0f0;
+      text-shadow: 0 0 15px #0f0;
+      font-size: 4rem; /* العنوان أكبر */
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 2rem; /* الفقرة أكبر */
+      margin: 30px 0;
+    }
+    .btn {
+      background: #0f0;
+      color: black;
+      padding: 20px 40px; /* الزر أكبر */
+      margin: 15px;
+      text-decoration: none;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 2rem; /* خط الزر أكبر */
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #0f8;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
   <h1>NEXUS.PI</h1>
-  <p>الذكاء الاصطناعي اللي بيربط كل الـ .pi</p>
+  <p>الذكاء الاصطناعي اللي بيربط كل الـ .pi مع بعض</p>
   <a href="../index.html" class="btn">رجوع للرئيسية</a>
-  <a href="#" class="btn" onclick="alert('مرحبا! أنا الـ AI بتاعك')">كلمني</a>
+  <button class="btn" onclick="alert('مرحباً! أنا الـ AI بتاعك، قولي عايز إيه؟')">كلمني</button>
 </body>
 </html>
