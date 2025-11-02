@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>Ecommerce.Pi - Pi Nexus Ecosystem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecommerce.Pi - متجر ذكي</title>
   <style>
-    :root { --pi: #00ff88; --bg: #0a0a0a; --text: #e0e0e0; }
-    body { background: var(--bg); color: var(--text); font-family: 'Orbitron', sans-serif; margin: 0; padding: 20px; text-align: center; }
-    h1 { color: var(--pi); text-shadow: 0 0 20px var(--pi); }
-    .pi-btn { background: #000; color: var(--pi); border: 2px solid var(--pi); padding: 15px 30px; margin: 20px; border-radius: 50px; text-decoration: none; }
-    .pi-btn:hover { background: var(--pi); color: #000; }
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    h1 {
+      color: #0f0;
+      text-shadow: 0 0 15px #0f0;
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 2rem;
+      margin: 30px 0;
+    }
+    .btn {
+      background: #0f0;
+      color: black;
+      padding: 20px 40px;
+      margin: 15px;
+      text-decoration: none;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 2rem;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #0f8;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
-  <h1>Ecommerce.Pi</h1>
-  <p>منصة التجارة الإلكترونية الذكية في كون .pi</p>
-  <a href="../nexus/index.html" class="pi-btn">ربط بالـ AI Brain (Nexus.Pi)</a>
-  <a href="../index.html" class="pi-btn">رجوع لـ Life.Pi</a>
+  <h1>ECOMMERCE.PI</h1>
+  <p>متجرك الذكي في كون الـ .pi</p>
+  
+  <a href="#" class="btn" onclick="alert('🔥 قريباً: منتجات AI مولدة!')">تصفح المنتجات</a>
+  <a href="../nexus/index.html" class="btn">ربط بالـ AI (Nexus)</a>
+  <a href="../index.html" class="btn">رجوع للرئيسية</a>
 </body>
 </html>
