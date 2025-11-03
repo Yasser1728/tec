@@ -4,220 +4,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Life Nexus</title>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap');
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background-color: #030308;
-      color: #fff;
-      overflow-x: hidden; /* نمنع التمرير الأفقي فقط */
-      overflow-y: auto;   /* نسمح بالتمرير العمودي */
-    }
-
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-    }
-
-    /* شاشة البداية */
-    .splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 10;
-      transition: opacity 1s ease, visibility 1s;
-    }
-
-    .splash.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .splash img {
-      width: 180px;
-      animation: neonGlow 2s ease-in-out infinite alternate, scaleUp 1.5s ease;
-      filter: drop-shadow(0 0 25px #9333ea);
-    }
-
-    @keyframes neonGlow {
-      from { filter: drop-shadow(0 0 15px #3b82f6); }
-      to { filter: drop-shadow(0 0 45px #a855f7); }
-    }
-
-    @keyframes scaleUp {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    /* المحتوى */
-    #main-content {
-      position: relative;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 1s ease;
-      z-index: 5;
-      padding: 80px 20px;
-      min-height: 100vh; /* ضمان أن المحتوى يمتد على طول الشاشة */
-    }
-
-    header h1 {
-      font-size: 2.8rem;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #a855f7, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 25px rgba(147, 51, 234, 0.5);
-      animation: fadeInDown 1s ease forwards;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: #bbb;
-      margin-bottom: 60px;
-      animation: fadeIn 1.5s ease forwards;
-    }
-
-    .dynamic-text {
-      font-size: 1.3rem;
-      color: #9f9fff;
-      height: 30px;
-      margin-bottom: 40px;
-      font-weight: bold;
-      animation: fadeIn 2s ease forwards;
-    }
-
-    .btn {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(147, 51, 234, 0.4);
-      color: #fff;
-      text-decoration: none;
-      padding: 14px 40px;
-      margin: 12px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 1.05rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-      backdrop-filter: blur(6px);
-      opacity: 0;
-      animation: fadeInUp 1s ease forwards;
-    }
-
-    .btn:nth-child(1) { animation-delay: 0.3s; }
-    .btn:nth-child(2) { animation-delay: 0.5s; }
-    .btn:nth-child(3) { animation-delay: 0.7s; }
-    .btn:nth-child(4) { animation-delay: 0.9s; }
-    .btn:nth-child(5) { animation-delay: 1.1s; }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 25px rgba(147, 51, 234, 0.6);
-      background: rgba(147, 51, 234, 0.2);
-    }
-
-    footer {
-      margin-top: 70px;
-      color: #888;
-      font-size: 0.9rem;
-      animation: fadeIn 1.5s ease forwards;
-      padding-bottom: 30px; /* مسافة إضافية لضمان وضوح التاريخ */
-    }
-
-    /* حركات عامة */
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-  </style>
+  <title>Life Nexus Technology</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <canvas id="bg"></canvas>
+  <header class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <img src="logo.png" alt="Life Nexus Logo" class="logo">
+      <h1>Life Nexus Technology</h1>
+      <p>الذكاء، الابتكار، والاستثمار في عالم Pi الرقمي</p>
+      <span class="pi-tag">Powered by Pi Network</span>
+    </div>
+  </header>
 
-  <!-- شاشة البداية -->
-  <div class="splash">
-    <img src="logo.png" alt="Life Nexus Logo">
-  </div>
+  <section class="about">
+    <h2>من نحن</h2>
+    <p>
+      Life Nexus Technology هي منظومة رقمية تجمع بين التقنية، الذكاء الاصطناعي، 
+      والتمويل في إطار رؤية مستقبلية متصلة بشبكة Pi Network.
+      نمتلك مجموعة مميزة من الأصول الرقمية (الدومينات) التي تمثل قطاعات الاقتصاد الجديد.
+    </p>
+  </section>
 
-  <!-- المحتوى الرئيسي -->
-  <div id="main-content">
-    <header>
-      <h1>Life Nexus</h1>
-      <p>الذكاء، التقنية، المال، والابتكار في نظام واحد</p>
-      <div class="dynamic-text" id="dynamicText"></div>
-    </header>
+  <section class="domains">
+    <h2>محفظتنا الرقمية</h2>
+    <div class="grid">
+      <div class="card">Life</div>
+      <div class="card">Insure</div>
+      <div class="card">Commerce</div>
+      <div class="card">Ecommerce</div>
+      <div class="card">Assets</div>
+      <div class="card">Fundx</div>
+      <div class="card">Dx</div>
+      <div class="card">Analytics</div>
+      <div class="card">Nbf</div>
+      <div class="card">Epic</div>
+      <div class="card">Legend</div>
+      <div class="card">Connection</div>
+      <div class="card">System</div>
+      <div class="card">Alert</div>
+      <div class="card">Tec</div>
+      <div class="card">Estate</div>
+      <div class="card">Nx</div>
+      <div class="card">Explorer</div>
+      <div class="card">Nexus</div>
+      <div class="card">Brookfield</div>
+      <div class="card">Sab</div>
+      <div class="card">Vip</div>
+      <div class="card">Titan</div>
+      <div class="card">Zone</div>
+    </div>
+  </section>
 
-    <a href="commerce/" class="btn">Commerce</a>
-    <a href="ecommerce/" class="btn">E-Commerce</a>
-    <a href="assets/" class="btn">Assets</a>
-    <a href="insure/" class="btn">Insure</a>
-    <a href="vip/" class="btn">VIP</a>
-    <a href="nexus/" class="btn">AI Nexus</a>
-    <a href="tec/" class="btn">Technology</a>
-    <a href="system/" class="btn">System</a>
-
-    <footer>© 2025 Life Nexus — All Rights Reserved</footer>
-  </div>
-
-  <script>
-    // Splash transition
-    setTimeout(() => {
-      document.querySelector('.splash').classList.add('hidden');
-      document.getElementById('main-content').style.opacity = "1";
-    }, 2800);
-
-    // Dynamic Text Animation
-    const words = ["Intelligence", "Finance", "Innovation", "Technology", "Connection", "Life Nexus"];
-    let i = 0;
-    const dynamicText = document.getElementById("dynamicText");
-    setInterval(() => {
-      dynamicText.textContent = words[i];
-      i = (i + 1) % words.length;
-    }, 1800);
-
-    // Canvas Background (Particles)
-    const c = document.getElementById("bg");
-    const ctx = c.getContext("2d");
-    c.width = innerWidth;
-    c.height = innerHeight;
-
-    const particles = [];
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * c.width,
-        y: Math.random() * c.height,
-        r: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5
-      });
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, c.width, c.height);
-      ctx.fillStyle = "rgba(147,51,234,0.6)";
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > c.width) p.dx *= -1;
-        if (p.y < 0 || p.y > c.height) p.dy *= -1;
-      });
-      requestAnimationFrame(draw);
-    }
-    draw();
-  </script>
+  <footer>
+    <p>© 2025 Life Nexus Technology — All Rights Reserved</p>
+    <p class="powered">Powered by Pi Network</p>
+  </footer>
 </body>
 </html>
