@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life - Life Nexus Technology</title>
+<link href="../style.css" rel="stylesheet">
+<style>
+body{font-family:'Cairo',sans-serif;background:#0b0114;color:#fff;margin:0;overflow:hidden;transition:background 0.5s;color 0.5s;}
+body.light{background:#f9f9f9;color:#111;}
+canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+header{text-align:center;padding:80px 20px;}
+.logo{font-size:2.5rem;font-weight:700;color:#b86bff;text-shadow:0 0 15px rgba(165,60,255,0.6);margin-bottom:10px;}
+h1{font-size:2.8rem;color:inherit;text-shadow:0 0 20px #a53cff;margin-bottom:10px;}
+.dynamic-text{font-size:1.6rem;color:#fff;text-shadow:0 0 10px #a53cff,0 0 20px #b86bff,0 0 30px #9333ea;margin-bottom:20px;}
+p{margin-bottom:15px;}
+.btn{display:inline-block;background:linear-gradient(90deg,#a53cff,#6a00ff);color:#fff;padding:10px 25px;border-radius:30px;font-weight:700;transition:0.3s;}
+.btn:hover{transform:scale(1.05);box-shadow:0 0 20px #a53cff;}
+.theme-switch{position:fixed;top:20px;left:20px;background:#a53cff;color:#fff;padding:10px 18px;border-radius:30px;font-weight:700;cursor:pointer;z-index:100;}
+.theme-switch:hover{box-shadow:0 0 15px #b86bff;transform:scale(1.05);}
+</style>
+</head>
+<body class="dark">
+<div class="theme-switch" id="themeSwitch">🌙 Dark / Light</div>
+<canvas id="bg"></canvas>
+<header>
+  <div class="logo">Life Nexus</div>
+  <h1>Life</h1>
+  <div class="dynamic-text" id="dynamicText">Intelligence</div>
+  <p>هذه الصفحة مخصصة لدومين Life ضمن مشاريع Life Nexus.</p>
+  <a href="../" class="btn">العودة للصفحة الرئيسية</a>
+</header>
+<script>
+const words=["Intelligence","Innovation","Finance","Technology","Connection","Life Nexus"];
+let i=0;
+const dynamicText=document.getElementById("dynamicText");
+setInterval(()=>{dynamicText.textContent=words[i];i=(i+1)%words.length;},2000);
+
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+const particles=[];
+for(let j=0;j<80;j++){
+  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});
+}
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(165,60,255,0.6)";
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.x+=p.dx;
+    p.y+=p.dy;
+    if(p.x<0||p.x>canvas.width)p.dx*=-1;
+    if(p.y<0||p.y>canvas.height)p.dy*=-1;
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+
+const themeSwitch=document.getElementById('themeSwitch');
+themeSwitch.addEventListener('click',()=>{
+  document.body.classList.toggle('dark');
+  document.body.classList.toggle('light');
+});
+</script>
+</body>
+</html>
