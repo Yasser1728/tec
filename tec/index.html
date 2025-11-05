@@ -1,141 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEC.PI – Future Technology Hub</title>
-<style>
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  height:100vh;
-  overflow:hidden;
-  background: radial-gradient(circle at center, #10002b 0%, #000 100%);
-  font-family:"Poppins",Arial,sans-serif;
-  position:relative;
-  color:#fff;
-}
-.toggle-mode{
-  position:absolute;
-  top:20px;
-  right:20px;
-  background:#a64eff;
-  color:#000;
-  border:none;
-  border-radius:30px;
-  padding:8px 15px;
-  cursor:pointer;
-  font-weight:bold;
-  font-size:0.9rem;
-  box-shadow:0 0 15px #a64eff;
-  z-index:10;
-  transition:0.3s;
-}
-body.light{
-  background: linear-gradient(145deg, #ffffff, #efe3ff);
-  color:#4b0082;
-}
-body.light .toggle-mode{ background:#7d33ff; color:#fff; }
-h1{
-  color:#a64eff;
-  text-shadow:0 0 30px #a64eff;
-  font-size:3rem;
-  text-align:center;
-  margin-top:100px;
-}
-body.light h1{ color:#7d33ff; text-shadow:0 0 25px #7d33ff; }
-p{ font-size:1.2rem; color:#ccc; text-align:center; margin-bottom:40px; }
-body.light p{ color:#4b0082; }
-.btn{
-  display:block;
-  background: rgba(166,78,255,0.15);
-  color:white;
-  border:2px solid #a64eff;
-  border-radius:50px;
-  padding:14px 30px;
-  margin:10px auto;
-  width:230px;
-  font-size:1.1rem;
-  font-weight:bold;
-  text-decoration:none;
-  box-shadow:0 0 25px rgba(166,78,255,0.4);
-  text-align:center;
-  transition:all 0.3s ease;
-}
-.btn:hover{
-  background:#a64eff;
-  color:#000;
-  transform:scale(1.05);
-  box-shadow:0 0 40px #a64eff;
-}
-body.light .btn{ border-color:#7d33ff; color:#fff; box-shadow:0 0 25px rgba(125,51,255,0.4); }
-body.light .btn:hover{ background:#7d33ff; color:#fff; box-shadow:0 0 35px #7d33ff; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYSTEM.PI – Intelligent Digital Systems</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #1a001f 0%, #000 100%);
+      color: #fff;
+      font-family: "Poppins", Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+    h1 {
+      color: #b76bff;
+      text-shadow: 0 0 25px #b76bff;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 40px;
+    }
+    .btn {
+      display: block;
+      background: rgba(183, 107, 255, 0.15);
+      color: white;
+      border: 2px solid #b76bff;
+      border-radius: 50px;
+      padding: 14px 30px;
+      margin: 10px 0;
+      width: 230px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 25px rgba(183, 107, 255, 0.5);
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #b76bff;
+      color: #000;
+      box-shadow: 0 0 40px #b76bff;
+      transform: scale(1.05);
+    }
+    .toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #b76bff;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 0 15px #b76bff;
+      transition: 0.3s;
+    }
+    .toggle-mode:hover {
+      background: #d5a9ff;
+    }
 
-.particle{
-  position:absolute;
-  border-radius:50%;
-  background: rgba(166,78,255,0.5);
-}
-body.light .particle{ background: rgba(125,51,255,0.5);}
-</style>
+    /* Light Mode */
+    body.light {
+      background: linear-gradient(145deg, #ffffff, #efdcff);
+      color: #000;
+    }
+    body.light .btn {
+      border-color: #8e2dfc;
+      color: #000;
+      box-shadow: 0 0 25px rgba(142, 45, 252, 0.3);
+    }
+    body.light .btn:hover {
+      background: #8e2dfc;
+      color: #fff;
+    }
+    body.light .toggle-mode {
+      background: #8e2dfc;
+      color: #fff;
+      box-shadow: 0 0 15px #8e2dfc;
+    }
+
+    /* Floating glow particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(183, 107, 255, 0.3);
+      animation: float 10s infinite;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-50px);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
+  <button class="toggle-mode" onclick="toggleMode()">Dark / Light ☾</button>
 
-<button class="toggle-mode" onclick="document.body.classList.toggle('light')">Dark / Light ☾</button>
+  <h1>SYSTEM.PI</h1>
+  <p>Intelligent Digital Systems Powered by AI</p>
 
-<h1>TEC.PI</h1>
-<p>Innovating the Future of Technology and AI Systems</p>
+  <a href="#" class="btn" onclick="alert('System Optimization Started!')">ACTIVATE SYSTEM</a>
+  <a href="#" class="btn" onclick="alert('Connecting AI Control Center...')">AI CONTROL</a>
+  <a href="https://yasser1728.github.io/life-nexus/" class="btn">BACK TO HOME</a>
 
-<a href="#" class="btn" onclick="alert('Launching Future Systems...')">LAUNCH SYSTEM</a>
-<a href="#" class="btn" onclick="alert('Activating Neural Tech...')">ACTIVATE TEC.AI</a>
-<a href="https://yasser1728.github.io/life-nexus/" class="btn">BACK TO HOME</a>
+  <script>
+    // Toggle dark/light mode
+    function toggleMode() {
+      document.body.classList.toggle('light');
+    }
 
-<script>
-// إنشاء الجسيمات
-let particles=[];
-let particleCount=50;
-for(let i=0;i<particleCount;i++){
-  let p=document.createElement('div');
-  p.classList.add('particle');
-  p.style.width=p.style.height=(Math.random()*6+4)+'px';
-  p.style.top=Math.random()*window.innerHeight+'px';
-  p.style.left=Math.random()*window.innerWidth+'px';
-  document.body.appendChild(p);
-  p.vx=(Math.random()-0.5)*1.5;
-  p.vy=(Math.random()-0.5)*1.5;
-  particles.push(p);
-}
-
-// تحريك الجسيمات
-function animate(){
-  particles.forEach(p=>{
-    let x=parseFloat(p.style.left);
-    let y=parseFloat(p.style.top);
-    x+=p.vx; y+=p.vy;
-    if(x<0||x>window.innerWidth)p.vx*=-1;
-    if(y<0||y>window.innerHeight)p.vy*=-1;
-    p.style.left=x+'px';
-    p.style.top=y+'px';
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-
-// تفاعل مع الماوس أو اللمس
-function attractParticles(x,y){
-  particles.forEach(p=>{
-    let px=parseFloat(p.style.left);
-    let py=parseFloat(p.style.top);
-    let dx=x-px, dy=y-py;
-    let dist=Math.sqrt(dx*dx+dy*dy);
-    if(dist<120){ p.vx+=dx*0.003; p.vy+=dy*0.003; }
-  });
-}
-window.addEventListener('mousemove', e=>attractParticles(e.clientX,e.clientY));
-window.addEventListener('touchmove', e=>{
-  if(e.touches.length>0) attractParticles(e.touches[0].clientX,e.touches[0].clientY);
-});
-</script>
-
+    // Floating particles effect
+    for (let i = 0; i < 30; i++) {
+      let p = document.createElement('div');
+      p.classList.add('particle');
+      p.style.width = p.style.height = Math.random() * 6 + 'px';
+      p.style.top = Math.random() * 100 + '%';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = Math.random() * 10 + 5 + 's';
+      document.body.appendChild(p);
+    }
+  </script>
 </body>
 </html>
