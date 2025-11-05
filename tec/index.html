@@ -3,193 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEC.PI – Ultimate VR Interactive 3D</title>
+<title>TEC.PI – Interactive Glow Particles</title>
 <style>
-body{margin:0;overflow:hidden;font-family:"Poppins",Arial,sans-serif;}
+body{margin:0;overflow:hidden;font-family:"Poppins",Arial,sans-serif;background:#10002b;color:#fff;}
 .toggle-mode{position:absolute;top:20px;right:20px;padding:8px 15px;background:#a64eff;color:#000;border:none;border-radius:30px;font-weight:bold;cursor:pointer;box-shadow:0 0 15px #a64eff;z-index:10;}
+body.light{background:#fff;color:#000;}
 body.light .toggle-mode{background:#7d33ff;color:#fff;}
 </style>
 </head>
 <body>
-<button class="toggle-mode" onclick="toggleMode()"><span id="mode-icon">☾</span> Dark / Light</button>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/webxr/VRButton.js"></script>
-
+<button class="toggle-mode" onclick="document.body.classList.toggle('light')">Toggle Mode</button>
+<canvas id="c"></canvas>
 <script>
-// Scene & Camera
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 3000);
-camera.position.set(0,0,400);
-let renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.xr.enabled = true;
-document.body.appendChild(renderer.domElement);
-document.body.appendChild(THREE.VRButton.createButton(renderer));
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let w=canvas.width=window.innerWidth;
+let h=canvas.height=window.innerHeight;
 
-// Particles
-let particleCount = 400;
-let geometry = new THREE.BufferGeometry();
-let positions = new Float32Array(particleCount*3);
-let colors = new Float32Array(particleCount*3);
-for(let i=0;i<particleCount;i++){
-  positions[i*3] = (Math.random()-0.5)*2000;
-  positions[i*3+1] = (Math.random()-0.5)*2000;
-  positions[i*3+2] = (Math.random()-0.5)*2000;
-  colors[i*3] = Math.random();
-  colors[i*3+1] = Math.random();
-  colors[i*3+2] = 1;
-}
-geometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
-geometry.setAttribute('color', new THREE.BufferAttribute(colors,3));
-let material = new THREE.PointsMaterial({size:5, vertexColors:true});
-let particles = new THREE.Points(geometry, material);
-scene.add(particles);
+window.addEventListener('resize',()=>{w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight;});
 
-// Motion Trails
-let trailGeometry = new THREE.BufferGeometry();
-let trailPositions = new Float32Array(particleCount*3*10);
-let trailColors = new Float32Array(particleCount*3*10);
-trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions,3));
-trailGeometry.setAttribute('color', new THREE.BufferAttribute(trailColors,3));
-let trailMaterial = new THREE.LineBasicMaterial({vertexColors:true, transparent:true, opacity:0.5});
-let trails = new THREE.LineSegments(trailGeometry, trailMaterial);
-scene.add(trails);
-
-// Light Waves
-let waveGeometry = new THREE.RingGeometry(3,5,16);
-let waveMaterial = new THREE.MeshBasicMaterial({color:0xff80ff, side:THREE.DoubleSide, transparent:true, opacity:0.3});
-let waves = [];
-for(let i=0;i<particleCount;i++){
-  let ring = new THREE.Mesh(waveGeometry, waveMaterial.clone());
-  ring.position.set(positions[i*3], positions[i*3+1], positions[i*3+2]);
-  ring.rotation.x = Math.random()*Math.PI;
-  ring.rotation.y = Math.random()*Math.PI;
-  scene.add(ring);
-  waves.push(ring);
-}
-
-// Audio
-const listener = new THREE.AudioListener();
-camera.add(listener);
-const sound = new THREE.Audio(listener);
-const audioLoader = new THREE.AudioLoader();
-audioLoader.load('https://cdn.pixabay.com/download/audio/2021/08/04/audio_74de39d3e3.mp3?filename=cyberpunk-beat-10609.mp3', buffer=>{
-  sound.setBuffer(buffer); sound.setLoop(true); sound.setVolume(0.5); sound.play();
-});
-const analyser = new THREE.AudioAnalyser(sound,64);
-
-// Spark sounds
-let sparkBuffers = [];
-for(let i=0;i<particleCount;i++){
-  let audio = new Audio('https://freesound.org/data/previews/66/66717_931655-lq.mp3');
-  audio.volume = 0.2;
-  sparkBuffers.push(audio);
-}
-
-// Shock Wave
-let shockGeometry = new THREE.RingGeometry(1,2,16);
-let shockMaterial = new THREE.MeshBasicMaterial({color:0x00ffff, side:THREE.DoubleSide, transparent:true, opacity:0.4});
-let shocks = [];
-
-// VR Controllers
-let controller1 = renderer.xr.getController(0);
-let controller2 = renderer.xr.getController(1);
-scene.add(controller1);
-scene.add(controller2);
-
-// VR Control Panels
-let controls = {};
-function createControlPanel(x,y,z,label,onChange){
-  let panelGeo = new THREE.BoxGeometry(30,15,2);
-  let panelMat = new THREE.MeshBasicMaterial({color:0x7d33ff, transparent:true, opacity:0.7});
-  let panel = new THREE.Mesh(panelGeo,panelMat);
-  panel.position.set(x,y,z);
-  scene.add(panel);
-  panel.userData.label = label;
-  panel.userData.onChange = onChange;
-  controls[label] = panel;
-  return panel;
-}
-
-// Example control: Particle Color
-createControlPanel(-100,50,-200,"ParticleColor",(value)=>{material.color.set(value);});
-createControlPanel(-100,20,-200,"TrailColor",(value)=>{trailMaterial.color.set(value);});
-createControlPanel(-100,-10,-200,"TrailOpacity",(value)=>{trailMaterial.opacity=value;});
-createControlPanel(-100,-40,-200,"LightningColor",(value)=>{shockMaterial.color.set(value);});
-
-// Controller interaction
-function updateControllers(controller){
-  let pos = geometry.attributes.position.array;
-  for(let i=0;i<particleCount;i++){
-    let dx = pos[i*3] - controller.position.x;
-    let dy = pos[i*3+1] - controller.position.y;
-    let dz = pos[i*3+2] - controller.position.z;
-    let dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-    if(dist<50){
-      let speed = (50-dist)/50;
-      pos[i*3] += dx*0.05*speed;
-      pos[i*3+1] += dy*0.05*speed;
-      pos[i*3+2] += dz*0.05*speed;
-      for(let j=0;j<10;j++){
-        let idx = i*3*10 + j*3;
-        trailColors[idx] = 1;
-        trailColors[idx+1] = 0.4 + speed*0.6;
-        trailColors[idx+2] = 1;
-      }
+class Particle{
+  constructor(){
+    this.x=Math.random()*w;
+    this.y=Math.random()*h;
+    this.vx=(Math.random()-0.5)*1.5;
+    this.vy=(Math.random()-0.5)*1.5;
+    this.size=Math.random()*3+1;
+    this.color='rgba(166,78,255,0.7)';
+    this.trail=[];
+  }
+  update(){
+    this.x+=this.vx;
+    this.y+=this.vy;
+    if(this.x<0||this.x>w)this.vx*=-1;
+    if(this.y<0||this.y>h)this.vy*=-1;
+    this.trail.push({x:this.x,y:this.y});
+    if(this.trail.length>10)this.trail.shift();
+  }
+  draw(){
+    ctx.beginPath();
+    for(let i=0;i<this.trail.length-1;i++){
+      ctx.strokeStyle=`rgba(166,78,255,${i/this.trail.length})`;
+      ctx.lineWidth=this.size;
+      ctx.moveTo(this.trail[i].x,this.trail[i].y);
+      ctx.lineTo(this.trail[i+1].x,this.trail[i+1].y);
+      ctx.stroke();
     }
+    ctx.fillStyle=this.color;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
   }
 }
 
-// Animate
+let particles=[];
+for(let i=0;i<100;i++)particles.push(new Particle());
+
+canvas.addEventListener('mousemove',e=>{
+  particles.forEach(p=>{
+    let dx=p.x-e.clientX;
+    let dy=p.y-e.clientY;
+    let dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<100){
+      p.vx+=dx*0.0005;
+      p.vy+=dy*0.0005;
+    }
+  });
+});
+
 function animate(){
-  renderer.setAnimationLoop(()=>{
-    let data = analyser.getFrequencyData();
-    let energy = data.reduce((a,b)=>a+b,0)/data.length/256;
-
-    const pos = geometry.attributes.position.array;
-    const col = geometry.attributes.color.array;
-
-    for(let i=0;i<particleCount;i++){
-      pos[i*3+1] += Math.sin(energy*5+i)*0.5;
-      col[i*3] = energy*1.2; col[i*3+1] = 0.5*energy; col[i*3+2] = 1;
-
-      let wave = waves[i];
-      wave.scale.setScalar(1+energy*2);
-
-      if(energy>0.4 && Math.random()<0.03){
-        sparkBuffers[i].currentTime = 0; sparkBuffers[i].play();
-        let shock = new THREE.Mesh(shockGeometry, shockMaterial.clone());
-        shock.position.set(pos[i*3], pos[i*3+1], pos[i*3+2]);
-        shock.scale.setScalar(1+energy*5);
-        scene.add(shock);
-        shocks.push({mesh:shock, life:10});
-      }
-
-      for(let j=9;j>0;j--){
-        trailPositions[i*3*10 + j*3] = trailPositions[i*3*10 + (j-1)*3];
-        trailPositions[i*3*10 + j*3+1] = trailPositions[i*3*10 + (j-1)*3+1];
-        trailPositions[i*3*10 + j*3+2] = trailPositions[i*3*10 + (j-1)*3+2];
-        trailColors[i*3*10 + j*3] *=0.95;
-        trailColors[i*3*10 + j*3+1] *=0.95;
-        trailColors[i*3*10 + j*3+2] *=0.95;
-      }
-      trailPositions[i*3*10] = pos[i*3]; trailPositions[i*3*10+1] = pos[i*3+1]; trailPositions[i*3*10+2] = pos[i*3+2];
-    }
-
-    trailGeometry.attributes.position.needsUpdate = true;
-    trailGeometry.attributes.color.needsUpdate = true;
-
-    for(let i=shocks.length-1;i>=0;i--){
-      let s = shocks[i];
-      s.mesh.scale.multiplyScalar(1.05);
-      s.mesh.material.opacity *=0.95;
-      s.life--;
-      if(s.life<=0){ scene.remove(s.mesh); shocks.splice(i,1); }
-    }
-
-    updateControllers(controller1);
-    updateControllers(controller2);
-
-    geometry.attributes.position.needsUpdate = true;
-    geometry.attributes.color.ne
+  ctx.fillStyle=document.body.classList.contains('light')?'rgba(255,255,255,0.1)':'rgba(0,0,0,0.1)';
+  ctx.fillRect(0,0,w,h);
+  particles.forEach(p=>{p.update();p.draw();});
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
