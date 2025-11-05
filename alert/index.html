@@ -1,64 +1,117 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alert.Pi - التنبيهات الذكية</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #000;
-      color: #0f0;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-    h1 {
-      color: #0f0;
-      text-shadow: 0 0 15px #0f0;
-      font-size: 2.5rem;
-      margin: 10px 0;
-    }
-    p {
-      font-size: 1.5rem;
-      margin: 15px 0;
-    }
-    .btn {
-      background: #0f0;
-      color: black;
-      padding: 15px 25px;
-      margin: 15px auto;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 1.5rem;
-      display: block;
-      width: 80%;
-      max-width: 300px;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #0f8;
-      transform: scale(1.05);
-    }
-    @media (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      p { font-size: 1.3rem; }
-      .btn { font-size: 1.3rem; padding: 12px 20px; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TEC.PI – Intelligent Digital Systems</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #1a001f 0%, #000 100%);
+  color: #fff;
+  font-family: "Poppins", Arial, sans-serif;
+  text-align: center;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+h1 { color: #b76bff; text-shadow:0 0 25px #b76bff; font-size:2.8rem; margin-bottom:15px; letter-spacing:2px;}
+p { font-size:1.2rem; color:#ccc; margin-bottom:40px;}
+.btn{
+  display:block;
+  background: rgba(183,107,255,0.15);
+  color:white;
+  border:2px solid #b76bff;
+  border-radius:50px;
+  padding:14px 30px;
+  margin:10px 0;
+  width:230px;
+  font-size:1.1rem;
+  font-weight:bold;
+  text-decoration:none;
+  box-shadow:0 0 25px rgba(183,107,255,0.5);
+  transition: all 0.3s ease;
+}
+.btn:hover{ background:#b76bff; color:#000; box-shadow:0 0 40px #b76bff; transform:scale(1.05);}
+.toggle-mode{
+  position:absolute;
+  top:20px;
+  right:20px;
+  background:#b76bff;
+  color:#000;
+  border:none;
+  border-radius:30px;
+  padding:8px 15px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:0.9rem;
+  box-shadow:0 0 15px #b76bff;
+  transition:0.3s;
+}
+.toggle-mode:hover{ background:#d5a9ff; }
+body.light{ background: linear-gradient(145deg, #ffffff, #efdcff); color:#000;}
+body.light .btn{ border-color:#8e2dfc; color:#000; box-shadow:0 0 25px rgba(142,45,252,0.3);}
+body.light .btn:hover{ background:#8e2dfc; color:#fff;}
+body.light .toggle-mode{ background:#8e2dfc; color:#fff; box-shadow:0 0 15px #8e2dfc;}
+.particle{ position:absolute; border-radius:50%; background:rgba(183,107,255,0.3); animation:float 10s infinite;}
+@keyframes float{0%{transform:translateY(0);opacity:1;}50%{transform:translateY(-50px);opacity:0.4;}100%{transform:translateY(0);opacity:1;}}
+/* Alert.PI styles */
+#alertPi {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #b76bff;
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(183,107,255,0.7);
+  font-weight: bold;
+  font-size: 1rem;
+  opacity:0;
+  transition: all 0.5s ease;
+  z-index:9999;
+}
+</style>
 </head>
 <body>
-  <h1>ALERT.PI</h1>
-  <p>تنبيهات فورية، قرارات ذكية</p>
-  
-  <a href="#" class="btn" onclick="alert('تنبيه: فرصة استثمارية الآن!')">تفعيل التنبيهات</a>
-  <a href="../nexus/index.html" class="btn">استشارة الـ AI</a>
-  <a href="../index.html" class="btn">رجوع للرئيسية</a>
+<button class="toggle-mode" onclick="toggleMode()">Dark / Light ☾</button>
+
+<h1>TEC.PI</h1>
+<p>Intelligent Digital Systems Powered by AI</p>
+
+<a href="#" class="btn" onclick="alertPI('TEC System Activated!')">ACTIVATE SYSTEM</a>
+<a href="#" class="btn" onclick="alertPI('Connecting TEC AI Control...')">AI CONTROL</a>
+<a href="https://yasser1728.github.io/life-nexus/" class="btn" onclick="alertPI('Returning to Home')">BACK TO HOME</a>
+
+<div id="alertPi"></div>
+
+<script>
+function toggleMode(){ document.body.classList.toggle('light'); }
+
+// Floating particles
+for(let i=0;i<30;i++){
+  let p=document.createElement('div');
+  p.className='particle';
+  p.style.width=p.style.height=(Math.random()*6)+'px';
+  p.style.top=Math.random()*100+'%';
+  p.style.left=Math.random()*100+'%';
+  p.style.animationDuration=(Math.random()*10+5)+'s';
+  document.body.appendChild(p);
+}
+
+// Alert.PI function
+function alertPI(message){
+  const alertBox=document.getElementById('alertPi');
+  alertBox.innerText=message;
+  alertBox.style.opacity='1';
+  setTimeout(()=>{ alertBox.style.opacity='0'; },2000);
+}
+</script>
 </body>
 </html>
