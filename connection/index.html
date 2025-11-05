@@ -1,65 +1,138 @@
+
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connection.Pi - الشبكات الذكية</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONNECTION.PI – The Intelligent Link Network</title>
   <style>
     * { box-sizing: border-box; }
     body {
-      background: #000;
-      color: #0f0;
-      font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
-      padding: 20px;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 1.2rem;
+      align-items: center;
+      background: radial-gradient(circle at center, #160022 0%, #000 100%);
+      color: #fff;
+      font-family: "Poppins", Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+      transition: background 0.5s ease;
     }
     h1 {
-      color: #0f0;
-      text-shadow: 0 0 15px #0f0;
-      font-size: 2.5rem;
-      margin: 10px 0;
+      color: #c480ff;
+      text-shadow: 0 0 25px #c480ff;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
     }
     p {
-      font-size: 1.5rem;
-      margin: 15px 0;
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 40px;
     }
     .btn {
-      background: #0f0;
-      color: black;
-      padding: 15px 25px;
-      margin: 10px auto;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 1.5rem;
       display: block;
-      width: 80%;
-      max-width: 300px;
-      transition: 0.3s;
+      background: rgba(196, 128, 255, 0.15);
+      color: white;
+      border: 2px solid #c480ff;
+      border-radius: 50px;
+      padding: 14px 30px;
+      margin: 10px 0;
+      width: 230px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 25px rgba(196, 128, 255, 0.5);
+      transition: all 0.3s ease;
     }
     .btn:hover {
-      background: #0f8;
+      background: #c480ff;
+      color: #000;
+      box-shadow: 0 0 40px #c480ff;
       transform: scale(1.05);
     }
-    @media (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      p { font-size: 1.3rem; }
-      .btn { font-size: 1.3rem; padding: 12px 20px; }
+    .toggle-mode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #c480ff;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 0 15px #c480ff;
+      transition: 0.3s;
+    }
+    .toggle-mode:hover {
+      background: #ddaaff;
+    }
+
+    /* Light Mode */
+    body.light {
+      background: linear-gradient(145deg, #ffffff, #f1e4ff);
+      color: #000;
+    }
+    body.light .btn {
+      border-color: #9b4ef7;
+      color: #000;
+      box-shadow: 0 0 25px rgba(155, 78, 247, 0.3);
+    }
+    body.light .btn:hover {
+      background: #9b4ef7;
+      color: #fff;
+    }
+    body.light .toggle-mode {
+      background: #9b4ef7;
+      color: #fff;
+      box-shadow: 0 0 15px #9b4ef7;
+    }
+
+    /* Floating glow particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(196, 128, 255, 0.3);
+      animation: float 10s infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(-50px); opacity: 0.4; }
+      100% { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
 <body>
+  <button class="toggle-mode" onclick="toggleMode()">Dark / Light ☾</button>
+
   <h1>CONNECTION.PI</h1>
-  <p>شبكات قوية، تواصل لا نهائي</p>
-  
-  <a href="#" class="btn" onclick="alert('تم الاتصال بـ 50 جهة جديدة!')">اتصل الآن</a>
-  <a href="../nexus/index.html" class="btn">استشارة الـ AI</a>
-  <a href="../index.html" class="btn">رجوع للرئيسية</a>
+  <p>The Intelligent Link Network Powered by AI</p>
+
+  <a href="#" class="btn" onclick="alert('Establishing Secure Connection...')">CONNECT NOW</a>
+  <a href="#" class="btn" onclick="alert('Synchronizing AI Networks...')">SYNC NETWORK</a>
+  <a href="https://yasser1728.github.io/life-nexus/" class="btn">BACK TO HOME</a>
+
+  <script>
+    // Toggle dark/light mode
+    function toggleMode() {
+      document.body.classList.toggle('light');
+    }
+
+    // Floating particles
+    for (let i = 0; i < 30; i++) {
+      let p = document.createElement('div');
+      p.classList.add('particle');
+      p.style.width = p.style.height = Math.random() * 6 + 'px';
+      p.style.top = Math.random() * 100 + '%';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = Math.random() * 10 + 5 + 's';
+      document.body.appendChild(p);
+    }
+  </script>
 </body>
 </html>
