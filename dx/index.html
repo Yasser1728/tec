@@ -1,186 +1,147 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NX.PI - Transform Your Business</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DX.PI – Transform Your Business with AI</title>
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     body {
-      background: #0a0a1a;
-      color: #e0e0ff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* خلفية داكنة مع تأثير ضوء */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at 20% 80%, #4a00e0 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, #8e2de2 0%, transparent 50%);
-      opacity: 0.3;
-      z-index: -1;
-    }
-
-    .phone {
-      width: 380px;
-      height: 780px;
-      background: #111;
-      border-radius: 40px;
-      padding: 20px;
-      position: relative;
-      box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
-      border: 8px solid #222;
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      background: #0f0f1f;
-      border-radius: 30px;
-      overflow: hidden;
-      position: relative;
+      margin: 0;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #1a001f 0%, #000 100%);
+      color: #fff;
+      font-family: "Poppins", Arial, sans-serif;
       text-align: center;
-      padding: 40px 20px;
+      overflow: hidden;
+      transition: background 0.5s ease;
     }
-
-    .header {
+    h1 {
+      color: #bb86fc;
+      text-shadow: 0 0 20px #bb86fc;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 40px;
+    }
+    .btn {
+      display: block;
+      background: rgba(187, 134, 252, 0.2);
+      color: white;
+      border: 2px solid #bb86fc;
+      border-radius: 50px;
+      padding: 14px 30px;
+      margin: 10px 0;
+      width: 220px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 25px rgba(187, 134, 252, 0.5);
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #bb86fc;
+      color: #000;
+      box-shadow: 0 0 40px #bb86fc;
+      transform: scale(1.05);
+    }
+    .toggle-mode {
       position: absolute;
       top: 20px;
-      left: 20px;
       right: 20px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: #aaa;
-    }
-
-    .logo {
-      font-weight: bold;
-      color: #bb86fc;
-      text-shadow: 0 0 10px #bb86fc;
-    }
-
-    .time {
-      font-size: 16px;
-    }
-
-    .main-title {
-      font-size: 60px;
-      font-weight: 900;
-      background: linear-gradient(45deg, #bb86fc, #03dac6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(187, 134, 252, 0.6),
-                   0 0 60px rgba(3, 218, 198, 0.4);
-      letter-spacing: 3px;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      color: #cfd8dc;
-      margin-bottom: 50px;
-      opacity: 0.9;
-    }
-
-    .btn {
-      width: 80%;
-      padding: 16px;
-      margin: 12px 0;
+      background: #bb86fc;
+      color: #000;
       border: none;
-      border-radius: 50px;
-      font-size: 18px;
-      font-weight: bold;
-      color: white;
+      border-radius: 30px;
+      padding: 8px 15px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 0 15px #bb86fc;
+      transition: 0.3s;
+    }
+    .toggle-mode:hover {
+      background: #d0a6ff;
     }
 
-    .btn::before {
-      content: '';
+    /* Light Mode */
+    body.light {
+      background: linear-gradient(145deg, #ffffff, #dcd0ff);
+      color: #000;
+    }
+    body.light .btn {
+      border-color: #7b2ff7;
+      color: #000;
+      box-shadow: 0 0 25px rgba(123, 47, 247, 0.3);
+    }
+    body.light .btn:hover {
+      background: #7b2ff7;
+      color: #fff;
+    }
+    body.light .toggle-mode {
+      background: #7b2ff7;
+      color: #fff;
+      box-shadow: 0 0 15px #7b2ff7;
+    }
+
+    /* Floating glow particles */
+    .particle {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(45deg, #bb86fc, #03dac6);
-      opacity: 0.2;
-      border-radius: 50px;
-      z-index: -1;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 25px rgba(187, 134, 252, 0.7),
-                  0 0 50px rgba(3, 218, 198, 0.5);
-    }
-
-    .btn.start {
+      border-radius: 50%;
       background: rgba(187, 134, 252, 0.3);
-      border: 2px solid #bb86fc;
-      box-shadow: 0 0 20px rgba(187, 134, 252, 0.5);
+      animation: float 10s infinite;
     }
-
-    .btn.consult {
-      background: rgba(3, 218, 198, 0.3);
-      border: 2px solid #03dac6;
-      box-shadow: 0 0 20px rgba(3, 218, 198, 0.5);
-    }
-
-    .btn.home {
-      background: rgba(100, 100, 150, 0.3);
-      border: 2px solid #777;
-      box-shadow: 0 0 15px rgba(150, 150, 200, 0.4);
-    }
-
-    .notch {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 180px;
-      height: 30px;
-      background: #000;
-      border-radius: 20px;
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-50px);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
+  <button class="toggle-mode" onclick="toggleMode()">Dark / Light ☾</button>
 
-  <div class="phone">
-    <div class="notch"></div>
-    <div class="screen">
-      <div class="header">
-        <div class="logo">DAKK ™</div>
-        <div class="time">9:41</div>
-      </div>
+  <h1>DX.PI</h1>
+  <p>Transform Your Business with AI</p>
 
-      <h1 class="main-title">NX.PI</h1>
-      <p class="subtitle">Transform Your Business with AI.</p>
+  <a href="#" class="btn" onclick="alert('AI Transformation Started!')">START NOW</a>
+  <a href="#" class="btn" onclick="alert('AI Consultation Coming Soon!')">AI CONSULTATION</a>
+  <a href="https://yasser1728.github.io/life-nexus/" class="btn">BACK TO HOME</a>
 
-      <button class="btn start">Start Now</button>
-      <button class="btn consult">AI Consultation</button>
-      <button class="btn home">Back to Home</button>
-    </div>
-  </div>
+  <script>
+    // Toggle dark/light mode
+    function toggleMode() {
+      document.body.classList.toggle('light');
+    }
 
+    // Generate floating particles
+    for (let i = 0; i < 30; i++) {
+      let p = document.createElement('div');
+      p.classList.add('particle');
+      p.style.width = p.style.height = Math.random() * 6 + 'px';
+      p.style.top = Math.random() * 100 + '%';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = Math.random() * 10 + 5 + 's';
+      document.body.appendChild(p);
+    }
+  </script>
 </body>
 </html>
