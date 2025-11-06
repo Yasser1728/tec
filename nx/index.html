@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +8,38 @@
     * {
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
+      transition: background 0.5s, color 0.5s;
     }
 
     body {
       margin: 0;
       height: 100vh;
-      background: radial-gradient(circle at top, #3b0a66, #1a042e);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: #e0e0e0;
       text-align: center;
+      position: relative;
+      background: radial-gradient(circle at top, #3b0a66, #1a042e);
+    }
+
+    body.light {
+      background: radial-gradient(circle at top, #f7eaff, #d4e3ff);
+      color: #202020;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    h1, p, .btn, #toggleMode {
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
@@ -30,6 +49,11 @@
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 20px rgba(182, 126, 255, 0.6);
       margin-bottom: 10px;
+    }
+
+    body.light h1 {
+      background: linear-gradient(90deg, #6b3aa8, #0094ff);
+      text-shadow: none;
     }
 
     p {
@@ -51,6 +75,7 @@
       transition: 0.3s;
       text-decoration: none;
       color: #fff;
+      cursor: pointer;
     }
 
     .btn.start {
@@ -82,14 +107,145 @@
     .btn.home:hover {
       background: rgba(255, 255, 255, 0.08);
     }
+
+    /* زر التبديل */
+    #toggleMode {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: 0.3s;
+      z-index: 10;
+    }
+
+    #toggleMode:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    body.light #toggleMode {
+      background: rgba(0, 0, 0, 0.1);
+      color: #222;
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+
+    body.light #toggleMode:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
   </style>
 </head>
 <body>
+  <canvas id="particles"></canvas>
+
+  <button id="toggleMode">🌙 Night</button>
+
   <h1>NX.PI</h1>
   <p>Transform Your Business with AI.</p>
 
-  <a href="#" class="btn start">START NOW</a>
-  <a href="#" class="btn consult">AI CONSULTATION</a>
-  <a href="#" class="btn home">BACK TO HOME</a>
+  <a href="start.html" class="btn start">START NOW</a>
+  <a href="consult.html" class="btn consult">AI CONSULTATION</a>
+  <a href="index.html" class="btn home">BACK TO HOME</a>
+
+  <script>
+    // === نظام الجسيمات المتحركة ===
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    const numParticles = 80;
+    let isLightMode = false;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    });
+
+    class Particle {
+      constructor(x, y, size, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = isLightMode
+          ? 'rgba(100, 100, 255, 0.5)'
+          : 'rgba(182, 126, 255, 0.6)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < numParticles; i++) {
+        const size = Math.random() * 2 + 1;
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const speedX = (Math.random() - 0.5) * 0.8;
+        const speedY = (Math.random() - 0.5) * 0.8;
+        particlesArray.push(new Particle(x, y, size, speedX, speedY));
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          let dx = particlesArray[a].x - particlesArray[b].x;
+          let dy = particlesArray[a].y - particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            ctx.strokeStyle = isLightMode
+              ? 'rgba(0,0,0,0.08)'
+              : 'rgba(97, 215, 255, 0.1)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let particle of particlesArray) {
+        particle.update();
+        particle.draw();
+      }
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+
+    // === التبديل بين الوضع الليلي والنهاري ===
+    const toggleButton = document.getElementById('toggleMode');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      isLightMode = document.body.classList.contains('light');
+      toggleButton.textContent = isLightMode ? '🌞 Day' : '🌙 Night';
+    });
+  </script>
 </body>
 </html>
