@@ -59,7 +59,7 @@
 
     body.light h1 {
       background: none;
-      -webkit-text-fill-color: #4b0082; /* بنفسجي غامق */
+      -webkit-text-fill-color: #4b0082;
       text-shadow: none;
     }
 
@@ -119,7 +119,7 @@
       color: #222;
     }
 
-    /* زر التبديل */
+    /* زر الوضع الليلي والنهاري */
     #toggleMode {
       position: absolute;
       top: 20px;
@@ -164,7 +164,7 @@
   <button class="btn home" onclick="goHome()">BACK TO HOME</button>
 
   <script>
-    // === نظام الجسيمات ===
+    // === نظام الجسيمات المتحركة ===
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
     let particlesArray = [];
@@ -258,9 +258,9 @@
       toggleButton.textContent = isLightMode ? '🌞 Day' : '🌙 Night';
     });
 
-    // === رجوع للصفحة الرئيسية ===
+    // === زر العودة للصفحة الرئيسية ===
     function goHome() {
-      window.location.href = "index.html"; // غيّرها للرابط الرئيسي لو عندك
+      window.location.href = "https://yasser1728.github.io/life-nexus/";
     }
   </script>
 </body>
