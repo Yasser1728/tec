@@ -11,10 +11,14 @@
       transition: background 0.5s, color 0.5s;
     }
 
-    body {
+    html, body {
       margin: 0;
-      height: 100vh;
+      padding: 0;
+      height: 100%;
       overflow: hidden;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -31,9 +35,11 @@
     }
 
     canvas {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: 0;
     }
 
@@ -155,7 +161,7 @@
 
   <button class="btn start" onclick="alert('🚀 Starting AI Engine...')">START NOW</button>
   <button class="btn consult" onclick="alert('💬 Connecting to AI Consultant...')">AI CONSULTATION</button>
-  <button class="btn home" onclick="alert('🏠 Going Home...')">BACK TO HOME</button>
+  <button class="btn home" onclick="goHome()">BACK TO HOME</button>
 
   <script>
     // === نظام الجسيمات ===
@@ -244,13 +250,18 @@
     initParticles();
     animate();
 
-    // === التبديل بين الوضعين ===
+    // === الوضع الليلي والنهاري ===
     const toggleButton = document.getElementById('toggleMode');
     toggleButton.addEventListener('click', () => {
       document.body.classList.toggle('light');
       isLightMode = document.body.classList.contains('light');
       toggleButton.textContent = isLightMode ? '🌞 Day' : '🌙 Night';
     });
+
+    // === رجوع للصفحة الرئيسية ===
+    function goHome() {
+      window.location.href = "index.html"; // غيّرها للرابط الرئيسي لو عندك
+    }
   </script>
 </body>
 </html>
