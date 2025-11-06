@@ -1,238 +1,95 @@
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NX.PI - 3D AI Business</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NX.PI – Transform Your Business with AI</title>
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      background: #1a1a2e;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      perspective: 1000px;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-      user-select: none;
-    }
-
-    .scene {
-      width: 380px;
-      height: 780px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
-    }
-
-    .phone {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
-      border-radius: 45px;
-      padding: 12px;
-      box-shadow: 
-        0 20px 40px rgba(0,0,0,0.6),
-        0 0 60px rgba(138, 43, 226, 0.3),
-        inset 0 0 30px rgba(255,255,255,0.05);
-      border: 8px solid #222;
-      position: relative;
-      transform-style: preserve-3d;
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      background: #0f1626;
-      border-radius: 35px;
-      overflow: hidden;
-      position: relative;
-      padding: 50px 20px;
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at top, #0b0f19, #04060d);
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      color: #d9d9d9;
       text-align: center;
-      backdrop-filter: blur(5px);
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
     }
 
-    .notch {
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 180px;
-      height: 32px;
-      background: #000;
-      border-radius: 20px;
-      z-index: 10;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
-
-    .main-title {
-      font-size: 68px;
-      font-weight: 900;
-      background: linear-gradient(45deg, #8a2be2, #00d4ff);
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #9b5cff, #3ecaff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 
-        0 0 20px rgba(138, 43, 226, 0.8),
-        0 0 40px rgba(0, 212, 255, 0.6),
-        0 0 60px rgba(0, 212, 255, 0.4);
-      letter-spacing: 4px;
-      margin-bottom: 12px;
-      transform: translateZ(30px);
+      text-shadow: 0 0 20px rgba(94, 54, 255, 0.6);
+      margin-bottom: 10px;
     }
 
-    .subtitle {
-      font-size: 20px;
-      color: #b0c4de;
-      margin-bottom: 60px;
-      transform: translateZ(20px);
-      opacity: 0.9;
+    p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 40px;
     }
 
     .btn {
-      width: 82%;
-      padding: 18px;
-      margin: 14px 0;
-      border: none;
-      border-radius: 50px;
-      font-size: 19px;
-      font-weight: bold;
-      color: white;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      transform: translateZ(0);
-      transition: all 0.3s ease;
-      box-shadow: 
-        0 8px 20px rgba(0,0,0,0.4),
-        0 0 20px rgba(138, 43, 226, 0);
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 50px;
-      padding: 3px;
-      background: linear-gradient(45deg, #8a2be2, #00d4ff);
-      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: exclude;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.3s;
-      transform: translateZ(-1px);
-    }
-
-    .btn:hover::before {
-      opacity: 1;
-    }
-
-    .btn:hover {
-      transform: translateY(-5px) translateZ(20px);
-      box-shadow: 
-        0 15px 30px rgba(0,0,0,0.5),
-        0 0 40px rgba(138, 43, 226, 0.8);
+      display: block;
+      width: 220px;
+      padding: 14px 0;
+      margin: 12px 0;
+      border: 2px solid transparent;
+      border-radius: 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-size: 1rem;
+      transition: 0.3s;
+      text-decoration: none;
+      color: #fff;
     }
 
     .btn.start {
-      background: linear-gradient(135deg, #6a1b9a, #8e24aa);
-      border: 2px solid #9c27b0;
+      background: transparent;
+      border-color: #a45cff;
+      box-shadow: 0 0 15px rgba(164, 92, 255, 0.4);
+    }
+
+    .btn.start:hover {
+      background: rgba(164, 92, 255, 0.2);
     }
 
     .btn.consult {
-      background: linear-gradient(135deg, #00695c, #00897b);
-      border: 2px solid #00bfa5;
+      background: transparent;
+      border-color: #00ffe7;
+      box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
+    }
+
+    .btn.consult:hover {
+      background: rgba(0, 255, 231, 0.15);
     }
 
     .btn.home {
-      background: linear-gradient(135deg, #37474f, #546e7a);
-      border: 2px solid #78909c;
+      background: transparent;
+      border-color: #7a7a7a;
+      box-shadow: 0 0 12px rgba(122, 122, 122, 0.3);
     }
 
-    .glow-light {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(138,43,226,0.3) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -1;
-      transition: all 0.1s ease;
-      filter: blur(40px);
-    }
-
-    .navigation {
-      position: absolute;
-      bottom: 20px;
-      left: 0; right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      color: #666;
-      font-size: 24px;
+    .btn.home:hover {
+      background: rgba(255, 255, 255, 0.08);
     }
   </style>
 </head>
 <body>
+  <h1>NX.PI</h1>
+  <p>Transform Your Business with AI.</p>
 
-  <div class="scene" id="scene">
-    <div class="glow-light" id="glow"></div>
-    <div class="phone">
-      <div class="notch"></div>
-      <div class="screen">
-        <h1 class="main-title">NX.PI</h1>
-        <p class="subtitle">Transform Your Business with AI.</p>
-
-        <button class="btn start">Start Now</button>
-        <button class="btn consult">AI Consultation</button>
-        <button class="btn home">Back to Home</button>
-      </div>
-    </div>
-    <div class="navigation">
-      <div>◻</div>
-      <div>◀</div>
-      <div>○</div>
-      <div>|||</div>
-    </div>
-  </div>
-
-  <script>
-    const scene = document.getElementById('scene');
-    const glow = document.getElementById('glow');
-
-    document.addEventListener('mousemove', (e) => {
-      const x = e.clientX;
-      const y = e.clientY;
-      const { innerWidth, innerHeight } = window;
-
-      // حساب الإمالة بناءً على موقع الماوس
-      const tiltX = (y / innerHeight - 0.5) * 30;
-      const tiltY = (x / innerWidth - 0.5) * -30;
-
-      scene.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-
-      // تحريك الضوء الديناميكي
-      glow.style.left = `${x - 150}px`;
-      glow.style.top = `${y - 150}px`;
-    });
-
-    // إعادة الوضع عند مغادرة الماوس
-    document.addEventListener('mouseleave', () => {
-      scene.style.transform = 'rotateX(0) rotateY(0)';
-    });
-  </script>
-
+  <a href="#" class="btn start">START NOW</a>
+  <a href="#" class="btn consult">AI CONSULTATION</a>
+  <a href="#" class="btn home">BACK TO HOME</a>
 </body>
 </html>
