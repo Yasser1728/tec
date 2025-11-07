@@ -1,65 +1,266 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estate.Pi - العقارات الذكية</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estate.PI – Empowering Smart Real Estate with AI</title>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      background: #000;
-      color: #0f0;
-      font-family: Arial, sans-serif;
-      text-align: center;
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    html, body {
       margin: 0;
-      padding: 20px;
-      min-height: 100vh;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 1.2rem;
+      align-items: center;
+      color: #e0e0e0;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(circle at top, #3b0a66, #1a042e);
     }
+
+    body.light {
+      background: radial-gradient(circle at top, #e4e1ff, #d4e3ff);
+      color: #222;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    h1, p, .btn, #toggleMode {
+      position: relative;
+      z-index: 1;
+    }
+
     h1 {
-      color: #0f0;
-      text-shadow: 0 0 15px #0f0;
-      font-size: 2.5rem;
-      margin: 10px 0;
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #b67eff, #61d7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(182, 126, 255, 0.6);
+      margin-bottom: 10px;
     }
+
+    body.light h1 {
+      background: none;
+      -webkit-text-fill-color: #4b0082;
+      text-shadow: none;
+    }
+
     p {
-      font-size: 1.5rem;
-      margin: 15px 0;
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 40px;
     }
+
     .btn {
-      background: #0f0;
-      color: black;
-      padding: 15px 25px;
-      margin: 10px auto;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 1.5rem;
       display: block;
-      width: 80%;
-      max-width: 300px;
+      width: 220px;
+      padding: 14px 0;
+      margin: 12px 0;
+      border: 2px solid transparent;
+      border-radius: 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-size: 1rem;
       transition: 0.3s;
+      text-decoration: none;
+      color: #fff;
+      cursor: pointer;
     }
-    .btn:hover {
-      background: #0f8;
-      transform: scale(1.05);
+
+    .btn.start {
+      background: transparent;
+      border-color: #a45cff;
+      box-shadow: 0 0 15px rgba(164, 92, 255, 0.4);
     }
-    @media (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      p { font-size: 1.3rem; }
-      .btn { font-size: 1.3rem; padding: 12px 20px; }
+
+    .btn.start:hover {
+      background: rgba(164, 92, 255, 0.2);
+    }
+
+    .btn.consult {
+      background: transparent;
+      border-color: #00ffe7;
+      box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
+    }
+
+    .btn.consult:hover {
+      background: rgba(0, 255, 231, 0.15);
+    }
+
+    .btn.home {
+      background: transparent;
+      border-color: #999;
+      box-shadow: 0 0 12px rgba(160, 160, 160, 0.3);
+    }
+
+    .btn.home:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    body.light .btn {
+      color: #222;
+    }
+
+    #toggleMode {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: 0.3s;
+      z-index: 10;
+    }
+
+    #toggleMode:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    body.light #toggleMode {
+      background: rgba(0, 0, 0, 0.1);
+      color: #222;
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+
+    body.light #toggleMode:hover {
+      background: rgba(0, 0, 0, 0.15);
     }
   </style>
 </head>
 <body>
-  <h1>ESTATE.PI</h1>
-  <p>عقارات ذكية، استثمار آمن، حياة أفضل</p>
-  
-  <a href="#" class="btn" onclick="alert('تم العثور على 12 عقار متاح!')">ابحث عن عقار</a>
-  <a href="../nexus/index.html" class="btn">استشارة الـ AI</a>
-  <a href="../index.html" class="btn">رجوع للرئيسية</a>
+  <canvas id="particles"></canvas>
+
+  <button id="toggleMode">🌙 Night</button>
+
+  <h1>Estate.PI</h1>
+  <p>Empowering Smart Real Estate with AI.</p>
+
+  <button class="btn start" onclick="alert('🏠 Launching AI Real Estate System...')">START NOW</button>
+  <button class="btn consult" onclick="alert('📈 Connecting to AI Property Consultant...')">AI CONSULTATION</button>
+  <button class="btn home" onclick="goHome()">BACK TO HOME</button>
+
+  <script>
+    // === نظام الجسيمات ===
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    const numParticles = 80;
+    let isLightMode = false;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    });
+
+    class Particle {
+      constructor(x, y, size, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = isLightMode
+          ? 'rgba(120, 100, 255, 0.6)'
+          : 'rgba(182, 126, 255, 0.6)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < numParticles; i++) {
+        const size = Math.random() * 2 + 1;
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const speedX = (Math.random() - 0.5) * 0.8;
+        const speedY = (Math.random() - 0.5) * 0.8;
+        particlesArray.push(new Particle(x, y, size, speedX, speedY));
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          let dx = particlesArray[a].x - particlesArray[b].x;
+          let dy = particlesArray[a].y - particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            ctx.strokeStyle = isLightMode
+              ? 'rgba(0,0,0,0.08)'
+              : 'rgba(97, 215, 255, 0.1)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let particle of particlesArray) {
+        particle.update();
+        particle.draw();
+      }
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+
+    // === الوضع الليلي والنهاري ===
+    const toggleButton = document.getElementById('toggleMode');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      isLightMode = document.body.classList.contains('light');
+      toggleButton.textContent = isLightMode ? '🌞 Day' : '🌙 Night';
+    });
+
+    // === زر العودة للصفحة الرئيسية ===
+    function goHome() {
+      window.location.href = "https://yasser1728.github.io/life-nexus/";
+    }
+  </script>
 </body>
 </html>
