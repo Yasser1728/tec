@@ -3,22 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Analytics.PI – Empowering Data Intelligence with AI. Advanced analytics and AI consultation platform." />
-  <meta name="keywords" content="AI, Analytics, Data Intelligence, Machine Learning, AI Consultation" />
-  <meta name="author" content="Analytics.PI Team" />
+  <meta name="description" content="Analytics.PI – AI-Powered Data Intelligence on Pi Network. Real-time analytics, predictive insights, and Pi payments." />
+  <meta name="keywords" content="Analytics.PI, AI, Pi Network, Data Intelligence, Web3 Analytics, Pi Payments" />
+  <meta name="author" content="LifeNexus.PI" />
   <meta name="theme-color" content="#3b0a66" />
-  <title>Analytics.PI – Empowering Data Intelligence with AI</title>
+  <meta name="pi-app-id" content="analytics.pi" />
+  <meta name="pi-chain-id" content="testnet" />
+  <title>Analytics.PI – AI Data Intelligence on Pi Network</title>
+
+  <!-- Pi SDK -->
+  <script src="https://sdk.minepi.com/v2/pi-sdk.js"></script>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --primary-gradient: linear-gradient(90deg, #b67eff, #61d7ff);
-      --dark-bg: radial-gradient(circle at top, #3b0a66, #1a042e);
-      --light-bg: radial-gradient(circle at top, #e4e1ff, #d4e3ff);
-      --btn-glow-start: 0 0 15px rgba(164, 92, 255, 0.4);
-      --btn-glow-consult: 0 0 20px rgba(0, 255, 231, 0.5);
+      --pi-purple: #6d28d9;
+      --pi-cyan: #00ffe7;
+      --primary-gradient: linear-gradient(135deg, #b67eff, #61d7ff);
+      --dark-bg: radial-gradient(circle at top, #1a0033, #0a001a);
+      --light-bg: radial-gradient(circle at top, #f0eaff, #d6e6ff);
+      --glow-purple: 0 0 20px rgba(164, 92, 255, 0.5);
+      --glow-cyan: 0 0 25px rgba(0, 255, 231, 0.6);
     }
 
     * {
@@ -42,7 +49,7 @@
       text-align: center;
       color: #e0e0e0;
       background: var(--dark-bg);
-      transition: background 0.6s ease, color 0.6s ease;
+      transition: all 0.6s ease;
       position: relative;
     }
 
@@ -53,138 +60,126 @@
 
     canvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       z-index: 0;
       pointer-events: none;
     }
 
     .container {
-      position: relative;
       z-index: 1;
       max-width: 90%;
       padding: 20px;
     }
 
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 3rem);
+    .logo {
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-weight: 700;
       background: var(--primary-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 20px rgba(182, 126, 255, 0.6);
-      margin-bottom: 12px;
-      font-weight: 700;
+      text-shadow: 0 0 25px rgba(182, 126, 255, 0.7);
+      margin-bottom: 8px;
     }
 
-    body.light h1 {
-      background: none;
-      -webkit-text-fill-color: #4b0082;
-      text-shadow: none;
-    }
-
-    p {
-      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-      opacity: 0.85;
-      margin-bottom: 40px;
+    .tagline {
+      font-size: clamp(1rem, 2.8vw, 1.2rem);
+      opacity: 0.9;
+      margin-bottom: 35px;
       line-height: 1.6;
-      max-width: 600px;
     }
 
     .btn-group {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
       align-items: center;
     }
 
     .btn {
-      width: 240px;
+      width: 260px;
       max-width: 90%;
-      padding: 15px 0;
+      padding: 16px 0;
       border: 2px solid transparent;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 0.6px;
+      font-size: 1.05rem;
+      letter-spacing: 0.7px;
       text-decoration: none;
       color: #fff;
       background: transparent;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.35s ease;
       position: relative;
       overflow: hidden;
       z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
     .btn::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: 0.6s;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: 0.7s;
       z-index: -1;
     }
 
-    .btn:hover::before {
-      left: 100%;
-    }
+    .btn:hover::before { left: 100%; }
 
     .btn.start {
       border-color: #a45cff;
-      box-shadow: var(--btn-glow-start);
+      box-shadow: var(--glow-purple);
     }
 
     .btn.start:hover {
-      background: rgba(164, 92, 255, 0.25);
+      background: rgba(164, 92, 255, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 0 30px rgba(164, 92, 255, 0.7);
+    }
+
+    .btn.pi-pay {
+      border-color: var(--pi-cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .btn.pi-pay:hover {
+      background: rgba(0, 255, 231, 0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 0 35px rgba(0, 255, 231, 0.8);
+    }
+
+    .btn.nexus {
+      border-color: #999;
+      box-shadow: 0 0 15px rgba(160, 160, 160, 0.4);
+    }
+
+    .btn.nexus:hover {
+      background: rgba(255, 255, 255, 0.15);
       transform: translateY(-3px);
-      box-shadow: 0 0 25px rgba(164, 92, 255, 0.6);
     }
 
-    .btn.consult {
-      border-color: #00ffe7;
-      box-shadow: var(--btn-glow-consult);
-    }
-
-    .btn.consult:hover {
-      background: rgba(0, 255, 231, 0.2);
-      transform: translateY(-3px);
-      box-shadow: 0 0 30px rgba(0, 255, 231, 0.7);
-    }
-
-    .btn.home {
-      border-color: #aaa;
-      box-shadow: 0 0 12px rgba(160, 160, 160, 0.3);
-    }
-
-    .btn.home:hover {
-      background: rgba(255, 255, 255, 0.12);
-      transform: translateY(-2px);
-    }
-
-    body.light .btn {
-      color: #222;
-    }
+    body.light .btn { color: #222; }
 
     #toggleMode {
       position: absolute;
       top: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.3);
       color: #fff;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 30px;
-      cursor: pointer;
       font-weight: 500;
       font-size: 0.9rem;
-      transition: all 0.3s ease;
+      cursor: pointer;
+      transition: all 0.3s;
       z-index: 10;
       display: flex;
       align-items: center;
@@ -192,154 +187,148 @@
     }
 
     #toggleMode:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255,255,255,0.25);
       transform: scale(1.05);
     }
 
     body.light #toggleMode {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0,0,0,0.1);
       color: #222;
-      border-color: rgba(0, 0, 0, 0.3);
+      border-color: rgba(0,0,0,0.3);
     }
 
-    body.light #toggleMode:hover {
-      background: rgba(0, 0, 0, 0.18);
+    .pi-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 1;
     }
 
-    /* Toast Notification */
+    body.light .pi-badge {
+      background: rgba(0,0,0,0.08);
+      color: #222;
+      border-color: rgba(0,0,0,0.2);
+    }
+
     .toast {
       position: fixed;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0,0,0,0.9);
       color: #fff;
-      padding: 14px 28px;
+      padding: 14px 30px;
       border-radius: 50px;
-      font-size: 0.95rem;
       font-weight: 500;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s ease;
       z-index: 1000;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
     }
 
     .toast.show {
       opacity: 1;
       visibility: visible;
-      transform: translateX(-50%) translateY(-10px);
+      transform: translateX(-50%) translateY(-12px);
     }
 
     @media (max-width: 480px) {
-      .btn-group {
-        gap: 12px;
-      }
-      .btn {
-        width: 100%;
-        font-size: 0.95rem;
-      }
-      #toggleMode {
-        top: 15px;
-        right: 15px;
-        padding: 8px 16px;
-        font-size: 0.8rem;
-      }
+      .btn { width: 100%; font-size: 0.98rem; }
+      #toggleMode { top: 15px; right: 15px; padding: 8px 16px; font-size: 0.8rem; }
     }
   </style>
 </head>
 <body>
   <canvas id="particles"></canvas>
 
-  <button id="toggleMode">🌙 Night</button>
+  <button id="toggleMode">Night</button>
 
   <div class="container">
-    <h1>Analytics.PI</h1>
-    <p>Empowering Data Intelligence with AI. Unlock insights, automate decisions, and scale smarter.</p>
+    <h1 class="logo">Analytics.PI</h1>
+    <p class="tagline">AI-Powered Data Intelligence on Pi Network<br>Real-time Insights • Predictive Analytics • Pi Payments</p>
 
     <div class="btn-group">
-      <button class="btn start" id="startBtn">START NOW</button>
-      <button class="btn consult" id="consultBtn">AI CONSULTATION</button>
-      <a href="https://yasser1728.github.io/life-nexus/" class="btn home" target="_blank" rel="noopener">BACK TO HOME</a>
+      <button class="btn start" id="startBtn">
+        Launch Dashboard
+      </button>
+      <button class="btn pi-pay" id="piPayBtn">
+        Pay with Pi
+      </button>
+      <a href="https://lifenexus.pi" class="btn nexus" target="_blank" rel="noopener">
+        LifeNexus.PI Hub
+      </a>
     </div>
   </div>
 
+  <div class="pi-badge">Powered by Pi Network • Testnet Active</div>
   <div class="toast" id="toast"></div>
 
   <script>
-    // === نظام الجسيمات المتقدم ===
+    // === Pi SDK Initialization ===
+    let piUser = null;
+    Pi.init({ version: "2.0" });
+
+    // === Particles System ===
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
-    let particlesArray = [];
-    const numParticles = window.innerWidth < 768 ? 50 : 80;
-    let mouse = { x: null, y: null, radius: 120 };
+    let particles = [];
+    const mouse = { x: null, y: null, radius: 130 };
     let isLightMode = false;
 
-    // تحسين الأداء: استخدام offscreen canvas للخطوط
-    const lineCanvas = document.createElement('canvas');
-    const lineCtx = lineCanvas.getContext('2d');
-
-    function resizeCanvas() {
+    function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      lineCanvas.width = canvas.width;
-      lineCanvas.height = canvas.height;
       initParticles();
     }
 
-    window.addEventListener('resize', debounce(resizeCanvas, 200));
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-    });
-
-    window.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      mouse.x = touch.clientX;
-      mouse.y = touch.clientY;
+    window.addEventListener('resize', debounce(resize, 200));
+    window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+    window.addEventListener('touchmove', e => {
+      const t = e.touches[0];
+      mouse.x = t.clientX; mouse.y = t.clientY;
     }, { passive: true });
 
     class Particle {
-      constructor() {
-        this.reset();
-      }
+      constructor() { this.reset(); }
       reset() {
         this.size = Math.random() * 2.5 + 1;
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.speedX = (Math.random() - 0.5) * 1.2;
-        this.speedY = (Math.random() - 0.5) * 1.2;
-        this.baseSpeedX = this.speedX;
-        this.baseSpeedY = this.speedY;
+        this.baseX = (Math.random() - 0.5) * 1.3;
+        this.baseY = (Math.random() - 0.5) * 1.3;
+        this.speedX = this.baseX;
+        this.speedY = this.baseY;
       }
       update() {
-        // تفاعل مع المؤشر
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const force = mouse.radius / (distance * distance);
-
-        if (distance < mouse.radius) {
-          this.speedX = this.baseSpeedX + dx * force * 0.08;
-          this.speedY = this.baseSpeedY + dy * force * 0.08;
+        const dist = Math.hypot(dx, dy);
+        if (dist < mouse.radius) {
+          const force = mouse.radius / (dist * dist);
+          this.speedX = this.baseX + dx * force * 0.09;
+          this.speedY = this.baseY + dy * force * 0.09;
         } else {
-          this.speedX += (this.baseSpeedX - this.speedX) * 0.05;
-          this.speedY += (this.baseSpeedY - this.speedY) * 0.05;
+          this.speedX += (this.baseX - this.speedX) * 0.05;
+          this.speedY += (this.baseY - this.speedY) * 0.05;
         }
-
         this.x += this.speedX;
         this.y += this.speedY;
-
-        // إعادة الوضع عند الخروج
-        if (this.x < 0 || this.x > canvas.width) this.reset();
-        if (this.y < 0 || this.y > canvas.height) this.reset();
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
       }
       draw() {
-        ctx.fillStyle = isLightMode
-          ? 'rgba(120, 100, 255, 0.7)'
-          : 'rgba(182, 126, 255, 0.7)';
+        ctx.fillStyle = isLightMode ? 'rgba(120,100,255,0.75)' : 'rgba(182,126,255,0.75)';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -347,87 +336,103 @@
     }
 
     function initParticles() {
-      particlesArray = [];
-      for (let i = 0; i < numParticles; i++) {
-        particlesArray.push(new Particle());
-      }
+      particles = [];
+      const count = window.innerWidth < 768 ? 50 : 80;
+      for (let i = 0; i < count; i++) particles.push(new Particle());
     }
 
-    function connectParticles() {
-      lineCtx.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
-      lineCtx.strokeStyle = isLightMode ? 'rgba(0,0,0,0.08)' : 'rgba(97, 215, 255, 0.12)';
-      lineCtx.lineWidth = 1;
-
-      for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a + 1; b < particlesArray.length; b++) {
-          const dx = particlesArray[a].x - particlesArray[b].x;
-          const dy = particlesArray[a].y - particlesArray[b].y;
-          const distance = dx * dx + dy * dy;
-
-          if (distance < 10000) { // 100^2
-            const opacity = (1 - Math.sqrt(distance) / 100) * 0.3;
-            lineCtx.globalAlpha = opacity;
-            lineCtx.beginPath();
-            lineCtx.moveTo(particlesArray[a].x, particlesArray[a].y);
-            lineCtx.lineTo(particlesArray[b].x, particlesArray[b].y);
-            lineCtx.stroke();
+    function connect() {
+      ctx.strokeStyle = isLightMode ? 'rgba(0,0,0,0.1)' : 'rgba(97,215,255,0.15)';
+      ctx.lineWidth = 1;
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const dist = dx * dx + dy * dy;
+          if (dist < 12000) {
+            ctx.globalAlpha = 1 - Math.sqrt(dist) / 110;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
           }
         }
       }
-      lineCtx.globalAlpha = 1;
-      ctx.drawImage(lineCanvas, 0, 0);
+      ctx.globalAlpha = 1;
     }
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      connectParticles();
+      particles.forEach(p => { p.update(); p.draw(); });
+      connect();
       requestAnimationFrame(animate);
     }
 
-    // === تحسين الأداء: Debounce ===
     function debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+      let t;
+      return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => func(...args), wait);
       };
     }
 
-    // === الوضع الليلي والنهاري ===
-    const toggleButton = document.getElementById('toggleMode');
-    toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      isLightMode = document.body.classList.contains('light');
-      toggleButton.innerHTML = isLightMode ? '🌞 Day' : '🌙 Night';
-      initParticles(); // إعادة تهيئة الألوان
-    });
-
-    // === إشعارات مخصصة (بدل alert) ===
+    // === UI & Pi Payments ===
     const toast = document.getElementById('toast');
-    function showToast(message, duration = 3000) {
-      toast.textContent = message;
+    function showToast(msg, dur = 3000) {
+      toast.textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), duration);
+      setTimeout(() => toast.classList.remove('show'), dur);
     }
 
     document.getElementById('startBtn').addEventListener('click', () => {
-      showToast('Launching Analytics AI System...', 2500);
+      showToast('Launching AI Analytics Dashboard...');
+      setTimeout(() => window.location.href = '/dashboard', 1500);
     });
 
-    document.getElementById('consultBtn').addEventListener('click', () => {
-      showToast('Connecting to AI Data Consultant...', 2500);
+    document.getElementById('piPayBtn').addEventListener('click', async () => {
+      try {
+        const user = await Pi.authenticate(['username', 'payments'], onIncompletePayment);
+        piUser = user;
+        await Pi.createPayment({
+          amount: 1,
+          memo: "Analytics.PI Pro Access",
+          metadata: { product: "pro_plan", domain: "analytics.pi" }
+        }, {
+          onReadyForServerApproval: approvePayment,
+          onReadyForServerCompletion: completePayment,
+          onCancel: () => showToast('Payment Cancelled'),
+          onError: (err) => showToast('Payment Error: ' + err.message)
+        });
+      } catch (err) {
+        showToast('Pi Login Required');
+      }
     });
 
-    // === بدء النظام ===
-    resizeCanvas();
+    function approvePayment(paymentId) {
+      // Simulate server approval
+      Pi.approvePayment(paymentId, { status: "success" });
+      showToast('Payment Approved! Access Granted.');
+    }
+
+    function completePayment(paymentId, txid) {
+      showToast('Payment Completed! TXID: ' + txid.slice(0, 8) + '...');
+      setTimeout(() => window.location.href = '/pro-dashboard', 2000);
+    }
+
+    function onIncompletePayment(payment) {
+      showToast('Incomplete Payment Detected');
+    }
+
+    // === Light/Dark Mode ===
+    document.getElementById('toggleMode').addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      isLightMode = document.body.classList.contains('light');
+      document.getElementById('toggleMode').innerHTML = isLightMode ? 'Day' : 'Night';
+      initParticles();
+    });
+
+    // === Init ===
+    resize();
     animate();
   </script>
 </body>
