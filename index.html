@@ -8,6 +8,7 @@
   
   <script src="https://sdk.mine.pi/pi-sdk.js"></script>
   <style>
+    /* (كود CSS بالكامل كما هو، لم يتم تغييره) */
     /* ====== General Settings ====== */
     *{box-sizing:border-box;margin:0;padding:0;}
     body{
@@ -237,44 +238,40 @@
 
   <script>
     
-    // === [تعديل Pi #3: كود Pi SDK للمصادقة] ===
+    // === [دمج جميع وظائف JavaScript في window.onload واحد] ===
     window.onload = function() {
-        // 1. تهيئة Pi SDK
-        Pi.init({ version: "2.0", sandbox: false }); // sandbox: false يعني استخدام الشبكة الرئيسية
+        
+        // =====================================
+        // 1. وظائف Pi SDK للمصادقة
+        // =====================================
+        Pi.init({ version: "2.0", sandbox: false }); // تهيئة Pi SDK
 
         const piLoginBtn = document.getElementById('piLoginBtn');
         
-        // 2. دالة التعامل مع الدفعات غير المكتملة (مطلوبة من Pi SDK)
         function onIncompletePaymentFound(payment) {
             console.warn('Incomplete payment found:', payment);
         }
 
-        // 3. دالة تسجيل الدخول عند الضغط على الزر
         piLoginBtn.addEventListener('click', () => {
-            Pi.authenticate(['username'], onIncompletePaymentFound) // طلب اسم المستخدم فقط
+            Pi.authenticate(['username'], onIncompletePaymentFound) 
             .then(function(auth) {
-                // النجاح في تسجيل الدخول
                 alert(`Welcome back, ${auth.user.username}!`);
                 console.log('Authentication Success:', auth);
                 
-                // تحديث واجهة المستخدم
                 piLoginBtn.textContent = `Hello, ${auth.user.username}`;
-                piLoginBtn.style.pointerEvents = 'none'; // تعطيل الزر بعد الدخول
-
-                // في تطبيق حقيقي، يجب إرسال بيانات المستخدم (auth.user) إلى خادمك الخلفي!
+                piLoginBtn.style.pointerEvents = 'none'; 
 
             })
             .catch(function(error) {
-                // فشل تسجيل الدخول
                 console.error('Authentication Failed:', error);
                 alert('Login failed. Please try again.');
             });
         });
         
-        // === نهاية كود Pi SDK ===
         
-        
-        // ====== Dynamic Text ======
+        // =====================================
+        // 2. وظيفة Dynamic Text (النص المتحرك)
+        // =====================================
         const words = ["Intelligence","Innovation","Finance","Technology","Connection","Elite","Life Nexus"];
         let i = 0;
         const dynamicText = document.getElementById("dynamicText");
@@ -283,7 +280,9 @@
           i = (i + 1) % words.length;
         }, 2000);
 
-        // ====== Scroll Reveal ======
+        // =====================================
+        // 3. وظيفة Scroll Reveal (إظهار العناصر بالتمرير)
+        // =====================================
         function revealOnScroll() {
           const elements = document.querySelectorAll('.domains, .contact, footer');
           const windowBottom = window.innerHeight + window.scrollY;
@@ -298,7 +297,9 @@
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
 
-        // ====== Canvas Particles ======
+        // =====================================
+        // 4. وظيفة Canvas Particles (خلفية الجزيئات المتحركة)
+        // =====================================
         const canvas = document.getElementById('bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -333,13 +334,16 @@
           canvas.height = window.innerHeight;
         });
 
-        // ====== Dark/Light Mode Switch ======
+        // =====================================
+        // 5. وظيفة Dark/Light Mode Switch
+        // =====================================
         const themeSwitch = document.getElementById('themeSwitch');
         themeSwitch.addEventListener('click', () => {
           document.body.classList.toggle('dark');
           document.body.classList.toggle('light');
         });
-    }; // نهاية window.onload
+
+    }; // نهاية دالة window.onload
   </script>
 </body>
 </html>
