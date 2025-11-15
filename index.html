@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Titan Elite Commerce (TEC) - The Apex of Digital Commerce</title>
+  <title>Life Nexus Technology</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
   
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
@@ -18,12 +18,7 @@
       transition:background 0.5s,color 0.5s;
     }
     a{text-decoration:none;color:inherit;}
-    /* الألوان المعتمدة: الأزرق الداكن، الذهبي، الموف */
-    --titan-blue: #001f3f; 
-    --elite-gold: #FFD700; 
-    --nexus-mauve: #9932CC; 
-    
-    body.dark{background:var(--titan-blue);color:#fff;}
+    body.dark{background:#0b0114;color:#fff;}
     body.light{background:#f9f9f9;color:#111;}
 
     /* ====== Canvas Background ====== */
@@ -37,15 +32,14 @@
       text-align:center;padding:100px 20px;position:relative;
     }
     .logo{
-      font-size:2.5rem;font-weight:700;color:var(--elite-gold);
-      /* استخدام الأزرق الداكن في الخلفية يبرز الذهبي */
-      text-shadow:0 0 15px rgba(255,215,0,0.6); 
+      font-size:2.5rem;font-weight:700;color:#b86bff;
+      text-shadow:0 0 15px rgba(165,60,255,0.6);
       margin-bottom:20px;
       animation:fadeInDown 1s ease forwards;
     }
     h1{
       font-size:2.8rem;color:inherit;margin-bottom:10px;
-      text-shadow:0 0 15px rgba(255,215,0,0.7);
+      text-shadow:0 0 15px rgba(165,60,255,0.7);
       animation:fadeInDown 1.2s ease forwards;
     }
     p{
@@ -55,8 +49,8 @@
 
     /* ====== Dynamic Text ====== */
     .dynamic-text{
-      font-size:1.6rem;font-weight:700;color:var(--nexus-mauve);
-      text-shadow:0 0 10px var(--nexus-mauve),0 0 20px #b86bff,0 0 30px #9333ea;
+      font-size:1.6rem;font-weight:700;color:#fff;
+      text-shadow:0 0 10px #a53cff,0 0 20px #b86bff,0 0 30px #9333ea;
       margin-bottom:30px;
       animation:fadeIn 1.5s ease forwards;
       min-height:40px;
@@ -66,7 +60,7 @@
     /* ====== Buttons ====== */
     .btn{
       display:inline-block;
-      background:linear-gradient(90deg,var(--nexus-mauve),#6a00ff);
+      background:linear-gradient(90deg,#a53cff,#6a00ff);
       color:#fff;
       padding:12px 35px;
       margin:6px;
@@ -77,12 +71,12 @@
     }
     .btn:hover{
       transform:scale(1.05);
-      box-shadow:0 0 15px var(--nexus-mauve);
+      box-shadow:0 0 15px #a53cff;
     }
     
-    /* ====== Pi Login Button Style (Blue/Pi Brand) ====== */
+    /* ====== Pi Login Button Style (New) ====== */
     .pi-btn{
-      background:linear-gradient(90deg, #2a76f7, #007bff); 
+      background:linear-gradient(90deg, #2a76f7, #007bff); /* Blue color for Pi button */
     }
 
     /* ====== Domains (Grid Cards + Neon Glow) ====== */
@@ -96,31 +90,31 @@
     }
     .card{
       background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,215,0,0.3); /* إطار ذهبي */
+      border:1px solid rgba(165,60,255,0.3);
       padding:15px;
       border-radius:15px;
       text-align:center;
       font-weight:600;
       color:inherit;
       transition:all 0.3s ease;
-      box-shadow:0 0 5px rgba(255,215,0,0.2);
+      box-shadow:0 0 5px rgba(165,60,255,0.2);
     }
     .card:hover{
-      background:rgba(255,215,0,0.15); /* تظليل ذهبي/موف */
+      background:rgba(165,60,255,0.15);
       transform:translateY(-5px);
-      box-shadow:0 0 20px var(--elite-gold),0 0 40px var(--nexus-mauve),0 0 60px #9333ea;
+      box-shadow:0 0 20px #a53cff,0 0 40px #b86bff,0 0 60px #9333ea;
       animation:neonBlink 1.5s infinite alternate;
     }
     @keyframes neonBlink{
-      0%{box-shadow:0 0 10px var(--elite-gold),0 0 20px var(--nexus-mauve),0 0 30px #9333ea;}
-      100%{box-shadow:0 0 20px var(--elite-gold),0 0 40px var(--nexus-mauve),0 0 60px #9333ea;}
+      0%{box-shadow:0 0 10px #a53cff,0 0 20px #b86bff,0 0 30px #9333ea;}
+      100%{box-shadow:0 0 20px #a53cff,0 0 40px #b86bff,0 0 60px #9333ea;}
     }
 
     /* ====== Contact Section ====== */
     .contact{
       text-align:center;
       padding:50px 20px;
-      background:linear-gradient(180deg,var(--titan-blue),#16002a);
+      background:linear-gradient(180deg,#0b0114,#16002a);
       opacity:0;
       transform:translateY(20px);
       transition:background 0.5s;
@@ -129,13 +123,13 @@
       background:linear-gradient(180deg,#e0e0e0,#f0f0f0);
     }
     .contact h2{
-      color:var(--elite-gold);
+      color:#b86bff;
       margin-bottom:10px;
-      text-shadow:0 0 10px var(--elite-gold);
+      text-shadow:0 0 10px #a53cff;
     }
     .contact p{margin-bottom:15px;}
     .call-btn{
-      background:linear-gradient(90deg,var(--nexus-mauve),#9b30ff);
+      background:linear-gradient(90deg,#6a0dad,#9b30ff);
       color:#fff;
       padding:12px 28px;
       border-radius:30px;
@@ -145,7 +139,7 @@
     }
     .call-btn:hover{
       transform:scale(1.05);
-      box-shadow:0 0 15px var(--nexus-mauve);
+      box-shadow:0 0 15px #a53cff;
     }
     .phone-number{
       margin-top:6px;
@@ -160,7 +154,7 @@
       opacity:0;
       transform:translateY(20px);
       transition:color 0.5s;
-      border-color:rgba(255,215,0,0.2); /* إطار ذهبي خفيف */
+      border-color:rgba(165,60,255,0.2);
     }
 
     /* ====== Animations ====== */
@@ -172,7 +166,7 @@
       position:fixed;
       top:20px;
       left:20px;
-      background:var(--nexus-mauve);
+      background:#a53cff;
       color:#fff;
       padding:10px 18px;
       border-radius:30px;
@@ -182,7 +176,7 @@
       z-index:100;
     }
     .theme-switch:hover{
-      box-shadow:0 0 15px var(--elite-gold);
+      box-shadow:0 0 15px #b86bff;
       transform:scale(1.05);
     }
   </style>
@@ -194,11 +188,11 @@
   <canvas id="bg"></canvas>
 
   <header>
-    <div class="logo">TEC Nexus</div>
-    <h1>Titan Elite Commerce</h1>
-    <div class="dynamic-text" id="dynamicText">Titan</div>
-    <p>The Apex of Digital Commerce, powered by Pi Network's Elite Ecosystem</p>
-    <a href="#domains" class="btn">Our Services</a>
+    <div class="logo">Life Nexus Logo</div>
+    <h1>Life Nexus Technology</h1>
+    <div class="dynamic-text" id="dynamicText">Intelligence</div>
+    <p>Intelligence, Technology, Finance, and Innovation in One Ecosystem</p>
+    <a href="#domains" class="btn">Our Projects</a>
     
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
     
@@ -208,42 +202,42 @@
   </header>
 
   <section id="domains" class="domains">
-    <a href="commerce/" class="card">TEC Commerce</a>
-    <a href="assets/" class="card">TEC Assets</a>
-    <a href="fundx/" class="card">FundX Finance</a>
-    <a href="analytics/" class="card">TEC Analytics</a>
-    <a href="elite/" class="card">TEC Elite VIP</a>
-    <a href="estate/" class="card">Estate Explorer</a>
-    <a href="system/" class="card">TEC System</a>
-    <a href="legend/" class="card">Legend Rewards</a>
-    <a href="titan/" class="card">Titan Group</a>
-    <a href="nexus/" class="card">Nexus Hub</a>
-    <a href="life/" class="card">Life Insure</a>
+    <a href="life/" class="card">Life</a>
     <a href="insure/" class="card">Insure</a>
-    <a href="ecommerce/" class="card">ECommerce</a>
+    <a href="commerce/" class="card">Commerce</a>
+    <a href="ecommerce/" class="card">Ecommerce</a>
+    <a href="assets/" class="card">Assets</a>
+    <a href="fundx/" class="card">Fundx</a>
     <a href="dx/" class="card">Dx</a>
-    <a href="nbf/" class="card">NBF</a>
+    <a href="analytics/" class="card">Analytics</a>
+    <a href="nbf/" class="card">Nbf</a>
     <a href="epic/" class="card">Epic</a>
+    <a href="legend/" class="card">Legend</a>
     <a href="connection/" class="card">Connection</a>
+    <a href="system/" class="card">System</a>
     <a href="alert/" class="card">Alert</a>
-    <a href="tec/" class="card">TEC Home</a>
-    <a href="nx/" class="card">NX</a>
+    <a href="tec/" class="card">Tec</a>
+    <a href="estate/" class="card">Estate</a>
+    <a href="nx/" class="card">Nx</a>
     <a href="explorer/" class="card">Explorer</a>
+    <a href="nexus/" class="card">Nexus</a>
     <a href="brookfield/" class="card">Brookfield</a>
-    <a href="sab/" class="card">SAB</a>
-    <a href="vip/" class="card">VIP</a>
+    <a href="sab/" class="card">Sab</a>
+    <a href="vip/" class="card">Vip</a>
+    <a href="elite/" class="card">Elite</a>
+    <a href="titan/" class="card">Titan</a>
     <a href="zone/" class="card">Zone</a>
   </section>
 
   <section id="contact" class="contact">
-    <h2>Contact Titan Elite Commerce</h2>
+    <h2>Contact Us</h2>
     <p>Have a question or potential partnership? We'd love to hear from you.</p>
     <a href="tel:01115141346" class="call-btn">Call Us Now</a>
     <p class="phone-number">01115141346</p>
   </section>
 
   <footer>
-    <p>© 2025 Titan Elite Commerce, Inc. — All Rights Reserved.</p>
+    <p>© 2025 Life Nexus Technology — All Rights Reserved.</p>
   </footer>
 
   <script>
@@ -252,11 +246,11 @@
     // [Pi SDK Authentication & Payment Code]
     // =======================================
     if (typeof Pi !== 'undefined') {
-        // 🟢 2. يجب عليك التأكد من استخدام App ID الصحيح لـ TEC
+        // 🟢 2. تم إضافة App ID و sandbox: true للعمل على Testnet
         Pi.init({ version: "2.0", sandbox: true, app_id: "z-4f622fa3756f5cea" }); 
 
         const piLoginBtn = document.getElementById('piLoginBtn');
-        const piPaymentBtn = document.getElementById('piPaymentBtn'); 
+        const piPaymentBtn = document.getElementById('piPaymentBtn'); // 🟢 جلب الزر الجديد
         
         function onIncompletePaymentFound(payment) {
             console.warn('Incomplete payment found:', payment);
@@ -279,12 +273,12 @@
         // 2. وظيفة الدفع التجريبي (Payment)
         piPaymentBtn.addEventListener('click', () => {
             
-            // ⚠️ هام: يجب استخدام عنوان مستلم (Receiver) حقيقي في شبكة Testnet
-            const recipientAddress = "GATitan...Elite..."; 
+            // ⚠️ هام: يجب تغيير هذا العنوان إلى 10 محافظ Testnet مختلفة في كل مرة
+            const recipientAddress = "GAQ6M...4TGB"; // مثال: يجب استبداله بعناوين Testnet حقيقية
             
             Pi.createPayment({
-                amount: 0.01, 
-                memo: "Titan Elite Commerce Test Transaction", 
+                amount: 0.01, // مبلغ صغير للتجربة
+                memo: "Life Nexus Test Transaction for Listing", 
                 metadata: { type: "test_listing_requirement" },
                 destinationAddress: recipientAddress,
             }, {
@@ -292,7 +286,7 @@
                     alert('Payment started. Please approve in your Pi Wallet.');
                 },
                 onReadyForServerCompletion: function(paymentId, txid) {
-                    alert('Payment confirmed! TXID: ' + txid + '. Ready for next step.');
+                    alert('Payment confirmed! TXID: ' + txid + '. This transaction counts towards the 10 required.');
                 },
                 onCancel: function(paymentId) {
                     alert('Payment cancelled.');
@@ -311,8 +305,8 @@
     // =======================================
 
 
-    // ====== Dynamic Text (الكلمات الجديدة) ======
-    const words = ["Titan","Elite","Nexus","Commerce","Finance","Analytics","Web 3.0"];
+    // ====== Dynamic Text (كما هو) ======
+    const words = ["Intelligence","Innovation","Finance","Technology","Connection","Elite","Life Nexus"];
     let i = 0;
     const dynamicText = document.getElementById("dynamicText");
     setInterval(() => {
@@ -320,7 +314,7 @@
       i = (i + 1) % words.length;
     }, 2000);
 
-    // ====== Scroll Reveal (الكود الأصلي) ======
+    // ====== Scroll Reveal (كما هو) ======
     function revealOnScroll() {
       const elements = document.querySelectorAll('.domains, .contact, footer');
       const windowBottom = window.innerHeight + window.scrollY;
@@ -335,7 +329,7 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
-    // ====== Canvas Particles (الكود الأصلي) ======
+    // ====== Canvas Particles (كما هو) ======
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -352,7 +346,7 @@
     }
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(153,50,205,0.6)"; // لون الموف
+      ctx.fillStyle = "rgba(165,60,255,0.6)";
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -370,7 +364,7 @@
       canvas.height = window.innerHeight;
     });
 
-    // ====== Dark/Light Mode Switch (الكود الأصلي) ======
+    // ====== Dark/Light Mode Switch (كما هو) ======
     const themeSwitch = document.getElementById('themeSwitch');
     themeSwitch.addEventListener('click', () => {
       document.body.classList.toggle('dark');
