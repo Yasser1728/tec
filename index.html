@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Life Nexus Technology</title>
+  <title>Titan Elite Commerce</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
   
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
@@ -32,14 +32,14 @@
       text-align:center;padding:100px 20px;position:relative;
     }
     .logo{
-      font-size:2.5rem;font-weight:700;color:#b86bff;
-      text-shadow:0 0 15px rgba(165,60,255,0.6);
+      font-size:2.5rem;font-weight:700;color:#ffd700;
+      text-shadow:0 0 15px rgba(255,215,0,0.6);
       margin-bottom:20px;
       animation:fadeInDown 1s ease forwards;
     }
     h1{
       font-size:2.8rem;color:inherit;margin-bottom:10px;
-      text-shadow:0 0 15px rgba(165,60,255,0.7);
+      text-shadow:0 0 15px rgba(255,215,0,0.7);
       animation:fadeInDown 1.2s ease forwards;
     }
     p{
@@ -50,7 +50,7 @@
     /* ====== Dynamic Text ====== */
     .dynamic-text{
       font-size:1.6rem;font-weight:700;color:#fff;
-      text-shadow:0 0 10px #a53cff,0 0 20px #b86bff,0 0 30px #9333ea;
+      text-shadow:0 0 10px #ffd700,0 0 20px #ffcc00,0 0 30px #e6b800;
       margin-bottom:30px;
       animation:fadeIn 1.5s ease forwards;
       min-height:40px;
@@ -60,8 +60,8 @@
     /* ====== Buttons ====== */
     .btn{
       display:inline-block;
-      background:linear-gradient(90deg,#a53cff,#6a00ff);
-      color:#fff;
+      background:linear-gradient(90deg,#ffd700,#ffcc00);
+      color:#000;
       padding:12px 35px;
       margin:6px;
       border-radius:40px;
@@ -71,12 +71,12 @@
     }
     .btn:hover{
       transform:scale(1.05);
-      box-shadow:0 0 15px #a53cff;
+      box-shadow:0 0 15px #ffd700;
     }
     
-    /* ====== Pi Login Button Style (New) ====== */
+    /* ====== Pi Login Button Style ====== */
     .pi-btn{
-      background:linear-gradient(90deg, #2a76f7, #007bff); /* Blue color for Pi button */
+      background:linear-gradient(90deg, #2a76f7, #007bff);
     }
 
     /* ====== Domains (Grid Cards + Neon Glow) ====== */
@@ -90,24 +90,24 @@
     }
     .card{
       background:rgba(255,255,255,0.05);
-      border:1px solid rgba(165,60,255,0.3);
+      border:1px solid rgba(255,215,0,0.3);
       padding:15px;
       border-radius:15px;
       text-align:center;
       font-weight:600;
       color:inherit;
       transition:all 0.3s ease;
-      box-shadow:0 0 5px rgba(165,60,255,0.2);
+      box-shadow:0 0 5px rgba(255,215,0,0.2);
     }
     .card:hover{
-      background:rgba(165,60,255,0.15);
+      background:rgba(255,215,0,0.15);
       transform:translateY(-5px);
-      box-shadow:0 0 20px #a53cff,0 0 40px #b86bff,0 0 60px #9333ea;
+      box-shadow:0 0 20px #ffd700,0 0 40px #ffcc00,0 0 60px #e6b800;
       animation:neonBlink 1.5s infinite alternate;
     }
     @keyframes neonBlink{
-      0%{box-shadow:0 0 10px #a53cff,0 0 20px #b86bff,0 0 30px #9333ea;}
-      100%{box-shadow:0 0 20px #a53cff,0 0 40px #b86bff,0 0 60px #9333ea;}
+      0%{box-shadow:0 0 10px #ffd700,0 0 20px #ffcc00,0 0 30px #e6b800;}
+      100%{box-shadow:0 0 20px #ffd700,0 0 40px #ffcc00,0 0 60px #e6b800;}
     }
 
     /* ====== Contact Section ====== */
@@ -123,14 +123,14 @@
       background:linear-gradient(180deg,#e0e0e0,#f0f0f0);
     }
     .contact h2{
-      color:#b86bff;
+      color:#ffd700;
       margin-bottom:10px;
-      text-shadow:0 0 10px #a53cff;
+      text-shadow:0 0 10px #ffd700;
     }
     .contact p{margin-bottom:15px;}
     .call-btn{
-      background:linear-gradient(90deg,#6a0dad,#9b30ff);
-      color:#fff;
+      background:linear-gradient(90deg,#cc9900,#ffcc00);
+      color:#000;
       padding:12px 28px;
       border-radius:30px;
       font-weight:700;
@@ -139,7 +139,7 @@
     }
     .call-btn:hover{
       transform:scale(1.05);
-      box-shadow:0 0 15px #a53cff;
+      box-shadow:0 0 15px #ffd700;
     }
     .phone-number{
       margin-top:6px;
@@ -154,7 +154,7 @@
       opacity:0;
       transform:translateY(20px);
       transition:color 0.5s;
-      border-color:rgba(165,60,255,0.2);
+      border-color:rgba(255,215,0,0.2);
     }
 
     /* ====== Animations ====== */
@@ -166,8 +166,8 @@
       position:fixed;
       top:20px;
       left:20px;
-      background:#a53cff;
-      color:#fff;
+      background:#ffd700;
+      color:#000;
       padding:10px 18px;
       border-radius:30px;
       font-weight:700;
@@ -176,7 +176,7 @@
       z-index:100;
     }
     .theme-switch:hover{
-      box-shadow:0 0 15px #b86bff;
+      box-shadow:0 0 15px #ffd700;
       transform:scale(1.05);
     }
   </style>
@@ -188,10 +188,10 @@
   <canvas id="bg"></canvas>
 
   <header>
-    <div class="logo">Life Nexus Logo</div>
-    <h1>Life Nexus Technology</h1>
-    <div class="dynamic-text" id="dynamicText">Intelligence</div>
-    <p>Intelligence, Technology, Finance, and Innovation in One Ecosystem</p>
+    <div class="logo">Titan Elite Commerce</div>
+    <h1>Titan Elite Commerce</h1>
+    <div class="dynamic-text" id="dynamicText">Commerce</div>
+    <p>Commerce, Finance, Technology, and Elite Services in One Ecosystem</p>
     <a href="#domains" class="btn">Our Projects</a>
     
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
@@ -237,26 +237,23 @@
   </section>
 
   <footer>
-    <p>© 2025 Life Nexus Technology — All Rights Reserved.</p>
+    <p>© 2025 Titan Elite Commerce — All Rights Reserved.</p>
   </footer>
 
   <script>
-    
     // =======================================
     // [Pi SDK Authentication & Payment Code]
     // =======================================
     if (typeof Pi !== 'undefined') {
-        // 🟢 2. تم إضافة App ID و sandbox: true للعمل على Testnet
         Pi.init({ version: "2.0", sandbox: true, app_id: "z-4f622fa3756f5cea" }); 
 
         const piLoginBtn = document.getElementById('piLoginBtn');
-        const piPaymentBtn = document.getElementById('piPaymentBtn'); // 🟢 جلب الزر الجديد
+        const piPaymentBtn = document.getElementById('piPaymentBtn');
         
         function onIncompletePaymentFound(payment) {
             console.warn('Incomplete payment found:', payment);
         }
 
-        // 1. وظيفة المصادقة (Authentication)
         piLoginBtn.addEventListener('click', () => {
             Pi.authenticate(['username'], onIncompletePaymentFound) 
             .then(function(auth) {
@@ -270,15 +267,12 @@
             });
         });
 
-        // 2. وظيفة الدفع التجريبي (Payment)
         piPaymentBtn.addEventListener('click', () => {
-            
-            // ⚠️ هام: يجب تغيير هذا العنوان إلى 10 محافظ Testnet مختلفة في كل مرة
-            const recipientAddress = "GAQ6M...4TGB"; // مثال: يجب استبداله بعناوين Testnet حقيقية
+            const recipientAddress = "GAQ6M...4TGB";
             
             Pi.createPayment({
-                amount: 0.01, // مبلغ صغير للتجربة
-                memo: "Life Nexus Test Transaction for Listing", 
+                amount: 0.01,
+                memo: "Titan Elite Commerce Test Transaction", 
                 metadata: { type: "test_listing_requirement" },
                 destinationAddress: recipientAddress,
             }, {
@@ -298,15 +292,13 @@
             });
         });
 
-
     } else {
-        console.warn("Pi SDK is not loaded. Login button may not function.");
+        console.warn("Pi SDK is not loaded.");
     }
     // =======================================
 
-
-    // ====== Dynamic Text (كما هو) ======
-    const words = ["Intelligence","Innovation","Finance","Technology","Connection","Elite","Life Nexus"];
+    // Dynamic Text
+    const words = ["Commerce","Elite","Titan","Finance","Technology","Innovation","TEC"];
     let i = 0;
     const dynamicText = document.getElementById("dynamicText");
     setInterval(() => {
@@ -314,7 +306,7 @@
       i = (i + 1) % words.length;
     }, 2000);
 
-    // ====== Scroll Reveal (كما هو) ======
+    // Scroll Reveal
     function revealOnScroll() {
       const elements = document.querySelectorAll('.domains, .contact, footer');
       const windowBottom = window.innerHeight + window.scrollY;
@@ -329,7 +321,7 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
-    // ====== Canvas Particles (كما هو) ======
+    // Canvas Particles
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -346,7 +338,7 @@
     }
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(165,60,255,0.6)";
+      ctx.fillStyle = "rgba(255,215,0,0.6)";
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -364,7 +356,7 @@
       canvas.height = window.innerHeight;
     });
 
-    // ====== Dark/Light Mode Switch (كما هو) ======
+    // Dark/Light Mode
     const themeSwitch = document.getElementById('themeSwitch');
     themeSwitch.addEventListener('click', () => {
       document.body.classList.toggle('dark');
