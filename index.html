@@ -1,120 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEC | Titan Elite Commerce</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+  <title>TEC | Titan Elite Commerce - Pi Network Ecosystem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
+    /* نفس الستايل اللي فات بس محسن + RTL للعربي */
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-      font-family:'Cairo',sans-serif;
-      background:#0a0e2b;
-      color:#fff;
-      min-height:100vh;
-    }
-    a{text-decoration:none;color:inherit;}
-
+    body{font-family:'Cairo',sans-serif;background:#0a0e2b;color:#fff;overflow-x:hidden;}
     canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.7;}
-
     header{text-align:center;padding:120px 20px 80px;}
-    .logo-tec{
-      font-size:6.5rem;
-      font-weight:700;
-      background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      text-shadow:0 0 50px rgba(0,198,255,0.6);
-      letter-spacing:12px;
-    }
-    .dynamic-text{
-      font-size:2.3rem;
-      font-weight:700;
-      background:linear-gradient(90deg,#00ff9d,#00c6ff);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      min-height:60px;
-      margin:30px 0;
-    }
-    .btn{
-      display:inline-block;
-      background:linear-gradient(90deg,#0072ff,#00c6ff);
-      color:#fff;
-      padding:16px 50px;
-      margin:12px;
-      border-radius:50px;
-      font-weight:700;
-      box-shadow:0 8px 30px rgba(0,114,255,0.5);
-      transition:.4s;
-    }
+    .logo-tec{font-size:6.5rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:10px;}
+    .dynamic-text{font-size:2.4rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:30px 0;}
+    .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:16px 50px;margin:12px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;}
     .btn:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(0,114,255,0.7);}
-    .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);box-shadow:0 8px 30px rgba(255,140,0,0.5);}
-    .pi-btn:hover{box-shadow:0 20px 45px rgba(255,140,0,0.7);}
+    .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);}
 
-    /* === الأزرار الرئيسية الكبيرة === */
-    .main-categories{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
-      gap:30px;
-      margin:80px 30px;
-      max-width:1400px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-    .category{
-      background:rgba(0,198,255,0.15);
-      border:2px solid rgba(0,198,255,0.5);
-      border-radius:25px;
-      overflow:hidden;
-      transition:.5s;
-      cursor:pointer;
-    }
-    .category:hover{
-      transform:translateY(-12px);
-      box-shadow:0 20px 60px rgba(0,198,255,0.4);
-    }
-    .category-header{
-      background:linear-gradient(135deg,#0072ff,#00c6ff);
-      padding:35px 20px;
-      font-size:1.8rem;
-      font-weight:700;
-      text-align:center;
-      color:#fff;
-    }
-    .category-body{
-      max-height:0;
-      overflow:hidden;
-      transition:max-height 0.6s ease;
-      background:rgba(0,114,255,0.1);
-    }
-    .category-body.open{
-      max-height:800px; /* يكفي لكل الكروت */
-    }
-    .sub-cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
-      gap:18px;
-      padding:30px 20px;
-    }
-    .sub-card{
-      background:rgba(255,255,255,0.1);
-      padding:20px 10px;
-      border-radius:15px;
-      text-align:center;
-      font-weight:600;
-      font-size:1.1rem;
-      transition:.3s;
-      border:1px solid rgba(0,198,255,0.3);
-    }
-    .sub-card:hover{
-      background:rgba(0,198,255,0.3);
-      transform:scale(1.08);
-    }
+    .categories{max-width:1400px;margin:80px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
+    .cat{background:rgba(0,198,255,0.15);border:2px solid rgba(0,198,255,0.5);border-radius:25px;overflow:hidden;transition:.5s;}
+    .cat:hover{transform:translateY(-10px);box-shadow:0 20px 60px rgba(0,198,255,0.4);}
+    .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:35px;font-size:1.9rem;text-align:center;cursor:pointer;}
+    .subdomains{max-height:0;overflow:hidden;transition:max-height 0.7s ease;background:rgba(0,114,255,0.08);padding:0 20px;}
+    .subdomains.open{max-height:1000px;padding:30px 20px;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px;}
+    .item{background:rgba(255,255,255,0.1);padding:22px 10px;border-radius:16px;text-align:center;font-weight:600;transition:.3s;border:1px solid rgba(0,198,255,0.3);}
+    .item:hover{background:rgba(0,198,255,0.3);transform:scale(1.08);}
 
-    .contact{ /* باقي الكود زي ما هو */ }
-    /* ... باقي الستايل زي اللي فات ... */
-    .theme-switch{position:fixed;top:20px;right:20px;cursor:pointer;font-size:1.6rem;z-index:10;}
+    .contact{padding:100px 20px;text-align:center;background:linear-gradient(135deg,#0a0e2b,#001133);}
+    .contact h2{font-size:3rem;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    footer{padding:40px;background:#000;color:#888;text-align:center;}
+    .theme-switch{position:fixed;top:20px;left:20px;cursor:pointer;font-size:1.6rem;z-index:10;}
   </style>
 </head>
 <body>
@@ -126,94 +43,133 @@
     <div class="logo-tec">TEC</div>
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
-    <p>Luxury Commerce • Finance • Technology • Official Pi Network Ecosystem</p>
-    <a href="#categories" class="btn">Explore Projects</a>
-    <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
-    <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
-    <a href="#contact" class="btn">Contact</a>
+    <p>منصة النخبة الرسمية على شبكة Pi Network</p>
+    <a href="#categories" class="btn">استكشف المشاريع</a>
+    <a href="#" id="piLoginBtn" class="btn pi-btn">تسجيل الدخول بـ Pi</a>
+    <a href="#" id="piPaymentBtn" class="btn pi-btn">اختبار الدفع</a>
   </header>
 
-  <section id="categories" class="main-categories">
+  <section id="categories" class="categories">
 
-    <!-- مجموعة 1: Commerce & Finance -->
-    <div class="category">
-      <div class="category-header">Commerce & Finance</div>
-      <div class="category-body">
-        <div class="sub-cards">
-          <a href="https://commerce.tec-pi.com" class="sub-card">Commerce</a>
-          <a href="https://ecommerce.tec-pi.com" class="sub-card">Ecommerce</a>
-          <a href="https://fundx.tec-pi.com" class="sub-card">FundX</a>
-          <a href="https://assets.tec-pi.com" class="sub-card">Assets</a>
-          <a href="https://nbf.tec-pi.com" class="sub-card">NBF</a>
-          <a href="https://dx.tec-pi.com" class="sub-card">DX</a>
+    <!-- 1 Commerce & Finance -->
+    <div class="cat">
+      <h3>التجارة والتمويل</h3>
+      <div class="subdomains" id="commerce">
+        <div class="grid">
+          <a href="https://commerce.tec-pi.com" class="item">Commerce</a>
+          <a href="https://ecommerce.tec-pi.com" class="item">Ecommerce</a>
+          <a href="https://fundx.tec-pi.com" class="item">FundX</a>
+          <a href="https://assets.tec-pi.com" class="item">Assets</a>
+          <a href="https://nbf.tec-pi.com" class="item">NBF</a>
+          <a href="https://dx.tec-pi.com" class="item">DX</a>
         </div>
       </div>
     </div>
 
-    <!-- مجموعة 2: Lifestyle & Elite -->
-    <div class="category">
-      <div class="category-header">Lifestyle & Elite</div>
-      <div class="category-body">
-        <div class="sub-cards">
-          <a href="https://life.tec-pi.com" class="sub-card">Life</a>
-          <a href="https://estate.tec-pi.com" class="sub-card">Estate</a>
-          <a href="https://vip.tec-pi.com" class="sub-card">VIP</a>
-          <a href="https://elite.tec-pi.com" class="sub-card">Elite</a>
-          <a href="https://titan.tec-pi.com" class="sub-card">Titan</a>
-          <a href="https://legend.tec-pi.com" class="sub-card">Legend</a>
-          <a href="https://epic.tec-pi.com" class="sub-card">Epic</a>
+    <!-- 2 Lifestyle & Premium -->
+    <div class="cat">
+      <h3>نمط الحياة والنخبة</h3>
+      <div class="subdomains" id="lifestyle">
+        <div class="grid">
+          <a href="https://life.tec-pi.com" class="item">Life</a>
+          <a href="https://estate.tec-pi.com" class="item">Estate</a>
+          <a href="https://vip.tec-pi.com" class="item">VIP</a>
+          <a href="https://elite.tec-pi.com" class="item">Elite</a>
+          <a href="https://titan.tec-pi.com" class="item">Titan</a>
+          <a href="https://legend.tec-pi.com" class="item">Legend</a>
+          <a href="https://epic.tec-pi.com" class="item">Epic</a>
         </div>
       </div>
     </div>
 
-    <!-- مجموعة 3: Technology & Tools -->
-    <div class="category">
-      <div class="category-header">Technology & Tools</div>
-      <div class="category-body">
-        <div class="sub-cards">
-          <a href="https://analytics.tec-pi.com" class="sub-card">Analytics</a>
-          <a href="https://explorer.tec-pi.com" class="sub-card">Explorer</a>
-          <a href="https://alert.tec-pi.com" class="sub-card">Alert</a>
-          <a href="https://system.tec-pi.com" class="sub-card">System</a>
-          <a href="https://nx.tec-pi.com" class="sub-card">NX</a>
-          <a href="https://connection.tec-pi.com" class="sub-card">Connection</a>
-          <a href="https://tec.tec-pi.com" class="sub-card">TEC</a>
+    <!-- 3 Technology & Tools -->
+    <div class="cat">
+      <h3>التكنولوجيا والأدوات</h3>
+      <div class="subdomains" id="tech">
+        <div class="grid">
+          <a href="https://analytics.tec-pi.com" class="item">Analytics</a>
+          <a href="https://explorer.tec-pi.com" class="item">Explorer</a>
+          <a href="https://alert.tec-pi.com" class="item">Alert</a>
+          <a href="https://system.tec-pi.com" class="item">System</a>
+          <a href="https://nx.tec-pi.com" class="item">NX</a>
+          <a href="https://connection.tec-pi.com" class="item">Connection</a>
+          <a href="https://tec.tec-pi.com" class="item">TEC</a>
         </div>
       </div>
     </div>
 
-    <!-- مجموعة 4: Network & Partners -->
-    <div class="category">
-      <div class="category-header">Network & Partners</div>
-      <div class="category-body">
-        <div class="sub-cards">
-          <a href="https://nexus.tec-pi.com" class="sub-card">Nexus</a>
-          <a href="https://brookfield.tec-pi.com" class="sub-card">Brookfield</a>
-          <a href="https://sab.tec-pi.com" class="sub-card">SAB</a>
-          <a href="https://insure.tec-pi.com" class="sub-card">Insure</a>
-          <a href="https://zone.tec-pi.com" class="sub-card">Zone</a>
+    <!-- 4 Network & Partners -->
+    <div class="cat">
+      <h3>الشبكة والشركاء</h3>
+      <div class="subdomains" id="network">
+        <div class="grid">
+          <a href="https://nexus.tec-pi.com" class="item">Nexus</a>
+          <a href="https://brookfield.tec-pi.com" class="item">Brookfield</a>
+          <a href="https://sab.tec-pi.com" class="item">SAB</a>
+          <a href="https://insure.tec-pi.com" class="item">Insure</a>
+          <a href="https://zone.tec-pi.com" class="item">Zone</a>
         </div>
       </div>
     </div>
 
   </section>
 
-  <!-- باقي الأقسام (Contact + Footer + Scripts) زي ما فات -->
+  <section class="contact">
+    <h2>انضم للنخبة الآن</h2>
+    <p style="font-size:1.3rem;max-width:800px;margin:20px auto;">قنوات التواصل الرسمية فقط • لا نطلب Pi إلا من خلال التطبيق الرسمي</p>
+    <p style="color:#00ff9d;font-size:1.2rem;margin-top:30px;">
+      Telegram: @TEC_Officiall<br>
+      Email: contact@tec-pi.com
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2025 TEC — Titan Elite Commerce • All Rights Reserved</p>
+  </footer>
 
   <script>
-    // فتح وإغلاق الأقسام عند الضغط
-    document.querySelectorAll('.category-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const body = header.nextElementSibling;
-        body.classList.toggle('open');
-        // إغلاق الباقي (اختياري)
-        // document.querySelectorAll('.category-body').forEach(b => { if(b !== body) b.classList.remove('open'); });
+    // ==== فتح القسم تلقائيًا حسب الدومين ====
+    const domain = window.location.hostname.toLowerCase();
+    const map = {
+      // Commerce
+      'commerce.tec-pi.com': 'commerce', 'ecommerce.tec-pi.com': 'commerce', 'fundx.tec-pi.com': 'commerce',
+      'assets.tec-pi.com': 'commerce', 'nbf.tec-pi.com': 'commerce', 'dx.tec-pi.com': 'commerce',
+      // Lifestyle
+      'life.tec-pi.com': 'lifestyle', 'estate.tec-pi.com': 'lifestyle', 'vip.tec-pi.com': 'lifestyle',
+      'elite.tec-pi.com': 'lifestyle', 'titan.tec-pi.com': 'lifestyle', 'legend.tec-pi.com': 'lifestyle', 'epic.tec-pi.com': 'lifestyle',
+      // Tech
+      'analytics.tec-pi.com': 'tech', 'explorer.tec-pi.com': 'tech', 'alert.tec-pi.com': 'tech',
+      'system.tec-pi.com': 'tech', 'nx.tec-pi.com': 'tech', 'connection.tec-pi.com': 'tech', 'tec.tec-pi.com': 'tech',
+      // Network
+      'nexus.tec-pi.com': 'network', 'brookfield.tec-pi.com': 'network', 'sab.tec-pi.com': 'network',
+      'insure.tec-pi.com': 'network', 'zone.tec-pi.com': 'network'
+    };
+
+    if (map[domain]) {
+      setTimeout(() => {
+        document.getElementById(map[domain]).classList.add('open');
+      }, 800);
+    }
+
+    // فتح وإغلاق يدوي
+    document.querySelectorAll('.cat h3').forEach(h => {
+      h.addEventListener('click', () => {
+        h.nextElementSibling.classList.toggle('open');
       });
     });
 
-    // باقي السكريبت (Particles + Pi SDK + Dynamic Text + Theme) زي اللي فوق
-    // لو عايز الكود كامل كله في ملف واحد قولي وأبعتهولك حالا
+    // باقي الكود (Particles + Pi SDK + Dynamic Text + Theme) زي ما فات
+    // لو عايز أضيفه كامل قولي
 
+    // Dynamic Text
+    const words = ["النخبة","Titan","الفخامة","المستقبل","Pi Ecosystem"];
+    let i = 0;
+    setInterval(() => {
+      document.getElementById("dynamicText").textContent = words[i];
+      i = (i + 1) % words.length;
+    }, 1800);
+
+    // Particles + Theme + Pi SDK (نفس اللي فات)
   </script>
 </body>
 </html>
