@@ -43,7 +43,6 @@
     #themeToggle{position:fixed;top:25px;left:25px;background:linear-gradient(90deg,#00ff9d,#00c6ff);border:none;padding:12px 25px;border-radius:40px;color:#000;font-weight:800;cursor:pointer;z-index:999;box-shadow:0 0 15px rgba(0,198,255,0.6);transition:.3s;}
     #themeToggle:hover{transform:scale(1.08);}
 
-    /* Responsive */
     @media (max-width: 768px){
       header{padding:90px 15px 60px;}
       .logo-tec{font-size:4.5rem;letter-spacing:6px;}
@@ -74,42 +73,48 @@
   </header>
 
   <section class="categories">
+
+    <!-- Commerce & Finance -->
     <div class="cat"><h3>Commerce & Finance</h3><div class="subdomains"><div class="grid">
-      <a href="https://commerce.pi" class="item">Commerce</a>
-      <a href="https://ecommerce.pi" class="item">Ecommerce</a>
-      <a href="https://assets.pi" class="item">Assets</a>
-      <a href="https://fundx.pi" class="item">Fundx</a>
-      <a href="https://dx.pi" class="item">Dx</a>
-      <a href="https://analytics.pi" class="item">Analytics</a>
-      <a href="https://nbf.pi" class="item">Nbf</a>
+      <a href="commerce/" class="item">Commerce</a>
+      <a href="ecommerce/" class="item">Ecommerce</a>
+      <a href="assets/" class="item">Assets</a>
+      <a href="fundx/" class="item">Fundx</a>
+      <a href="dx/" class="item">Dx</a>
+      <a href="analytics/" class="item">Analytics</a>
+      <a href="nbf/" class="item">Nbf</a>
     </div></div></div>
 
+    <!-- Lifestyle & Elite -->
     <div class="cat"><h3>Lifestyle & Elite</h3><div class="subdomains"><div class="grid">
-      <a href="https://life.pi" class="item">Life</a>
-      <a href="https://estate.pi" class="item">Estate</a>
-      <a href="https://vip.pi" class="item">VIP</a>
-      <a href="https://elite.pi" class="item">Elite</a>
-      <a href="https://titan.pi" class="item">Titan</a>
-      <a href="https://legend.pi" class="item">Legend</a>
-      <a href="https://epic.pi" class="item">Epic</a>
+      <a href="life/" class="item">Life</a>
+      <a href="estate/" class="item">Estate</a>
+      <a href="vip/" class="item">VIP</a>
+      <a href="elite/" class="item">Elite</a>
+      <a href="titan/" class="item">Titan</a>
+      <a href="legend/" class="item">Legend</a>
+      <a href="epic/" class="item">Epic</a>
     </div></div></div>
 
+    <!-- Technology & Tools -->
     <div class="cat"><h3>Technology & Tools</h3><div class="subdomains"><div class="grid">
-      <a href="https://nx.pi" class="item">Nx</a>
-      <a href="https://tec.pi" class="item">TEC</a>
-      <a href="https://explorer.pi" class="item">Explorer</a>
-      <a href="https://system.pi" class="item">System</a>
-      <a href="https://alert.pi" class="item">Alert</a>
-      <a href="https://connection.pi" class="item">Connection</a>
+      <a href="nx/" class="item">Nx</a>
+      <a href="tec/" class="item">TEC</a>
+      <a href="explorer/" class="item">Explorer</a>
+      <a href="system/" class="item">System</a>
+      <a href="alert/" class="item">Alert</a>
+      <a href="connection/" class="item">Connection</a>
     </div></div></div>
 
+    <!-- Network & Partners -->
     <div class="cat"><h3>Network & Partners</h3><div class="subdomains"><div class="grid">
-      <a href="https://nexus.pi" class="item">Nexus</a>
-      <a href="https://brookfield.pi" class="item">Brookfield</a>
-      <a href="https://sab.pi" class="item">SAB</a>
-      <a href="https://zone.pi" class="item">Zone</a>
-      <a href="https://insure.pi" class="item">Insure</a>
+      <a href="nexus/" class="item">Nexus</a>
+      <a href="brookfield/" class="item">Brookfield</a>
+      <a href="sab/" class="item">SAB</a>
+      <a href="zone/" class="item">Zone</a>
+      <a href="insure/" class="item">Insure</a>
     </div></div></div>
+
   </section>
 
   <!-- Footer Contact -->
@@ -132,10 +137,12 @@
     const open = urlParams.get('open');
     if(open && ['commerce','lifestyle','tech','network'].includes(open)){
       setTimeout(() => {
-        const section = document.getElementById(open);
-        section.classList.add('open');
-        section.previousElementSibling.classList.add('open');
-        section.previousElementSibling.scrollIntoView({behavior: "smooth"});
+        const section = document.querySelector(`[href*="${open}/"]`).closest('.subdomains');
+        if(section){
+          section.classList.add('open');
+          section.previousElementSibling.classList.add('open');
+          section.previousElementSibling.scrollIntoView({behavior: "smooth"});
+        }
       }, 500);
     }
 
