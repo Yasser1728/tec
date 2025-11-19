@@ -67,7 +67,10 @@
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
     <p>Official Luxury Commerce & Finance Ecosystem on Pi Network</p>
-    <a href="/" class="btn">Home</a>
+    
+    <!-- تم تعديل الزرار هنا عشان يرجع للرئيسية من أي مكان بدون 404 -->
+    <a href="https://tec.pi/" class="btn">Back to Home</a>
+    
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
     <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
   </header>
@@ -133,19 +136,6 @@
   </footer>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const open = urlParams.get('open');
-    if(open && ['commerce','lifestyle','tech','network'].includes(open)){
-      setTimeout(() => {
-        const section = document.querySelector(`[href*="${open}/"]`).closest('.subdomains');
-        if(section){
-          section.classList.add('open');
-          section.previousElementSibling.classList.add('open');
-          section.previousElementSibling.scrollIntoView({behavior: "smooth"});
-        }
-      }, 500);
-    }
-
     document.querySelectorAll('.cat h3').forEach(h => {
       h.onclick = () => {
         h.classList.toggle('open');
