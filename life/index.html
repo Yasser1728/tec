@@ -11,20 +11,17 @@
     body{font-family:'Cairo',sans-serif;background:#0a0e2b;color:#fff;overflow-x:hidden;}
     canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.7;}
     header{text-align:center;padding:100px 15px 60px;}
-    .logo-tec{font-size:16vw;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 40px rgba(0,198,255,0.6);}
+    .logo-tec{font-size:16vw;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
     .dynamic-text{font-size:7vw;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:25px 0;}
     .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:14px 40px;margin:8px;border-radius:50px;font-weight:700;}
     .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);}
     .categories{margin:60px 15px;display:flex;flex-direction:column;gap:25px;}
     .cat{background:rgba(0,198,255,0.15);border:2px solid rgba(0,198,255,0.5);border-radius:24px;overflow:hidden;}
-    .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:28px;font-size:1.7rem;text-align:center;color:#fff;cursor:pointer;position:relative;}
-    .cat h3::after{content:'▼';position:absolute;right:20px;top:50%;transform:translateY(-50%);}
-    .cat h3.open::after{content:'▲';}
+    .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:28px;font-size:1.7rem;text-align:center;color:#fff;cursor:pointer;}
     .subdomains{max-height:0;overflow:hidden;transition:max-height 0.8s ease;background:rgba(0,114,255,0.08);}
     .subdomains.open{max-height:3000px;padding:25px 15px;}
     .grid{display:flex;flex-direction:column;gap:14px;}
-    .item{background:rgba(255,255,255,0.1);padding:16px 20px;border-radius:16px;text-align:center;font-weight:700;font-size:1.1rem;transition:.4s;border:1px solid rgba(0,198,255,0.3);}
-    .item:hover{background:rgba(0,198,255,0.4);transform:translateX(8px);}
+    .item{background:rgba(255,255,255,0.1);padding:18px;border-radius:16px;text-align:center;font-weight:700;font-size:1.2rem;color:#00ff9d;}
   </style>
 </head>
 <body>
@@ -34,7 +31,6 @@
     <div class="logo-tec">TEC</div>
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
-    <a href="../" class="btn">Main Site</a>
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
     <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
   </header>
@@ -42,45 +38,46 @@
   <section class="categories">
 
     <div class="cat"><h3>Commerce & Finance</h3><div class="subdomains" id="commerce"><div class="grid">
-      <a href="../commerce/" class="item">Commerce</a>
-      <a href="../ecommerce/" class="item">Ecommerce</a>
-      <a href="../fundx/" class="item">FundX</a>
-      <a href="../assets/" class="item">Assets</a>
-      <a href="../nbf/" class="item">NBF</a>
-      <a href="../dx/" class="item">DX</a>
+      <div class="item">commerce.tec-pi.com</div>
+      <div class="item">ecommerce.tec-pi.com</div>
+      <div class="item">fundx.tec-pi.com</div>
+      <div class="item">assets.tec-pi.com</div>
+      <div class="item">nbf.tec-pi.com</div>
+      <div class="item">dx.tec-pi.com</div>
     </div></div></div>
 
     <div class="cat"><h3>Lifestyle & Elite</h3><div class="subdomains" id="lifestyle"><div class="grid">
-      <a href="../life/" class="item">Life</a>
-      <a href="../estate/" class="item">Estate</a>
-      <a href="../vip/" class="item">VIP</a>
-      <a href="../elite/" class="item">Elite</a>
-      <a href="../titan/" class="item">Titan</a>
-      <a href="../legend/" class="item">Legend</a>
-      <a href="../epic/" class="item">Epic</a>
+      <div class="item">life.tec-pi.com</div>
+      <div class="item">estate.tec-pi.com</div>
+      <div class="item">vip.tec-pi.com</div>
+      <div class="item">elite.tec-pi.com</div>
+      <div class="item">titan.tec-pi.com</div>
+      <div class="item">legend.tec-pi.com</div>
+      <div class="item">epic.tec-pi.com</div>
     </div></div></div>
 
     <div class="cat"><h3>Technology & Tools</h3><div class="subdomains" id="tech"><div class="grid">
-      <a href="../analytics/" class="item">Analytics</a>
-      <a href="../explorer/" class="item">Explorer</a>
-      <a href="../alert/" class="item">Alert</a>
-      <a href="../system/" class="item">System</a>
-      <a href="../nx/" class="item">NX</a>
-      <a href="../connection/" class="item">Connection</a>
-      <a href="../tec/" class="item">TEC</a>
+      <div class="item">analytics.tec-pi.com</div>
+      <div class="item">explorer.tec-pi.com</div>
+      <div class="item">alert.tec-pi.com</div>
+      <div class="item">system.tec-pi.com</div>
+      <div class="item">nx.tec-pi.com</div>
+      <div class="item">connection.tec-pi.com</div>
+      <div class="item">tec.tec-pi.com</div>
     </div></div></div>
 
     <div class="cat"><h3>Network & Partners</h3><div class="subdomains" id="network"><div class="grid">
-      <a href="../nexus/" class="item">Nexus</a>
-      <a href="../brookfield/" class="item">Brookfield</a>
-      <a href="../sab/" class="item">SAB</a>
-      <a href="../insure/" class="item">Insure</a>
-      <a href="../zone/" class="item">Zone</a>
+      <div class="item">nexus.tec-pi.com</div>
+      <div class="item">brookfield.tec-pi.com</div>
+      <div class="item">sab.tec-pi.com</div>
+      <div class="item">insure.tec-pi.com</div>
+      <div class="item">zone.tec-pi.com</div>
     </div></div></div>
 
   </section>
 
   <script>
+    // نفس الكود بتاع فتح القسم تلقائي
     const path = window.location.pathname.toLowerCase();
     let section = null;
     if (path.includes('commerce') || path.includes('ecommerce') || path.includes('fundx') || path.includes('assets') || path.includes('nbf') || path.includes('dx')) section = 'commerce';
@@ -106,17 +103,14 @@
     let i = 0;
     setInterval(() => { document.getElementById("dynamicText").textContent = words[i]; i = (i + 1) % words.length; }, 1800);
 
+    // Particles + Pi SDK (مختصر)
     const canvas = document.getElementById('bg'), ctx = canvas.getContext('2d');
     canvas.width = innerWidth; canvas.height = innerHeight;
     window.addEventListener('resize', () => {canvas.width = innerWidth; canvas.height = innerHeight;});
     const particles = Array.from({length:100},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.8,dy:(Math.random()-0.5)*0.8}));
     (function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,198,255,0.7)";ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});requestAnimationFrame(anim);})();
 
-    if(typeof Pi !== 'undefined'){
-      Pi.init({version:"2.0", sandbox:true});
-      document.getElementById('piLoginBtn').onclick = () => Pi.authenticate(['username'],()=>{}).then(a=>alert("Welcome " + a.user.username)).catch(()=>alert("Failed"));
-      document.getElementById('piPaymentBtn').onclick = () => Pi.createPayment({amount:0.01,memo:"TEC Test"},{onReadyForServerApproval:()=>alert("Open Wallet"),onReadyForServerCompletion:(p,t)=>alert("Paid! "+t),onCancel:()=>alert("Cancelled")});
-    }
+    if(typeof Pi !== 'undefined') Pi.init({version:"2.0", sandbox:true});
   </script>
 </body>
 </html>
