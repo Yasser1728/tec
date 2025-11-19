@@ -7,97 +7,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
-    /* ====== الإعدادات العامة ====== */
     *{box-sizing:border-box;margin:0;padding:0;}
     body{
-        font-family:'Cairo',sans-serif;
-        background:#0a0e2b; /* الوضع الليلي الافتراضي */
-        color:#fff;
-        overflow-x:hidden;
-        transition:background 0.5s, color 0.5s; /* للانتقال السلس */
+      font-family:'Cairo',sans-serif;
+      background:#0a0e2b;
+      color:#fff;
+      overflow-x:hidden;
+      transition:background 0.5s,color 0.5s;
     }
-    a{text-decoration:none;color:inherit;}
+    body.light{background:#f5f7ff;color:#111;}
     canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.7;}
-
-    /* ====== التبديل للوضع النهاري (Light Mode) ====== */
-    body.light{
-        background:#f5f7ff; /* خلفية فاتحة هادئة */
-        color:#111;
-    }
-    /* تأثير الأزرار والبطاقات في الوضع النهاري */
-    body.light .btn{box-shadow:0 8px 30px rgba(0,0,0,0.15);}
-    body.light .pi-btn{box-shadow:0 8px 30px rgba(255,140,0,0.3);}
-    body.light .cat{
-        background:rgba(200,220,255,0.4);
-        border-color:rgba(0,198,255,0.5);
-    }
-    body.light .cat:hover{
-        box-shadow:0 15px 40px rgba(0,198,255,0.2);
-    }
-    body.light .cat h3{
-        color:#111;
-        background:linear-gradient(135deg,#e0eaff,#c8d6ff); /* خلفية فاتحة للعناوين */
-    }
-    body.light .subdomains{background:rgba(0,114,255,0.05);}
-    body.light .item{
-        background:rgba(255,255,255,0.8);
-        border-color:rgba(0,198,255,0.2);
-        color:#111;
-    }
-    body.light .item:hover{
-        background:rgba(0,198,255,0.1);
-        box-shadow:0 0 20px rgba(0,198,255,0.4);
-        color:#0072ff;
-    }
-    body.light .theme-switch{
-        background:#0072ff;
-        color:#fff;
-    }
-
-    /* ====== الرأس والتأثيرات النيون (الوضع الليلي) ====== */
     header{text-align:center;padding:130px 20px 90px;}
     .logo-tec{font-size:6.8rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:12px;}
-    h1{font-size:2.1rem;margin:15px 0;opacity:0.95;letter-spacing:3px;}
     .dynamic-text{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:30px 0;min-height:70px;}
-
-    /* ====== الأزرار ====== */
     .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:15px 45px;margin:10px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;}
     .btn:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(0,114,255,0.7);}
-    .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);box-shadow:0 8px 30px rgba(255,140,0,0.5);}
-    .pi-btn:hover{box-shadow:0 20px 45px rgba(255,140,0,0.7);}
-
-    /* ====== الأقسام القابلة للطي (Accordion) ====== */
+    .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);}
     .categories{max-width:1400px;margin:90px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;}
     .cat{background:rgba(0,198,255,0.15);border:2px solid rgba(0,198,255,0.5);border-radius:26px;overflow:hidden;transition:.5s;}
-    .cat:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,198,255,0.3);}
-    .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:32px;font-size:1.9rem;text-align:center;color:#fff;cursor:pointer;position:relative;font-weight:700;}
-    .cat h3::after{content:'▼';position:absolute;right:25px;top:50%;transform:translateY(-50%);transition:transform 0.3s;}
+    body.light .cat{background:rgba(0,123,255,0.1);border-color:rgba(0,123,255,0.3);}
+    .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:32px;font-size:1.9rem;text-align:center;color:#fff;cursor:pointer;position:relative;}
+    .cat h3::after{content:'▼';position:absolute;right:25px;top:50%;transform:translateY(-50%);}
     .cat h3.open::after{content:'▲';}
     .subdomains{max-height:0;overflow:hidden;transition:max-height 0.8s ease;background:rgba(0,114,255,0.08);}
     .subdomains.open{max-height:2000px;padding:30px 20px;}
     .grid{display:flex;flex-direction:column;gap:16px;}
     .item{background:rgba(255,255,255,0.1);padding:18px 22px;border-radius:16px;text-align:center;font-weight:700;font-size:1.1rem;transition:.4s;border:1px solid rgba(0,198,255,0.3);}
     .item:hover{background:rgba(0,198,255,0.4);transform:translateX(10px);box-shadow:0 0 30px rgba(0,198,255,0.6);}
-
-    /* ====== زر التبديل ====== */
-    .theme-switch{
-      position:fixed;top:20px;right:20px;
-      cursor:pointer;font-size:1.4rem;
-      z-index:100;background:rgba(255,255,255,0.1);
-      padding:10px 15px;border-radius:50px;
-      font-weight:700;
-      color:#fff;
-      transition:background 0.3s, color 0.3s;
-    }
+    body.light .item{background:rgba(0,123,255,0.1);border-color:rgba(0,123,255,0.3);}
+    .theme-switch{position:fixed;top:20px;right:20px;background:rgba(255,255,255,0.2);color:#fff;padding:12px 20px;border-radius:50px;font-size:1.5rem;cursor:pointer;z-index:100;transition:0.4s;}
+    body.light .theme-switch{background:rgba(0,0,0,0.2);color:#111;}
+    .theme-switch:hover{transform:scale(1.1);}
   </style>
 </head>
-<body class="dark"> <canvas id="bg"></canvas>
-  <div class="theme-switch" id="themeSwitch">☀️ / 🌙</div>
+<body class="dark">
+
+  <div class="theme-switch" id="themeSwitch">☀️/🌙</div>
+  <canvas id="bg"></canvas>
 
   <header>
     <div class="logo-tec">TEC</div>
     <h1>Titan Elite Commerce</h1>
-    <div class="dynamic-text" id="dynamicText">Elite</div>
+    <div class="dynamic-text" id="dynamicText">Elite for</div>
     <p>Official Luxury Commerce & Finance Ecosystem on Pi Network</p>
     <a href="/" class="btn">Home</a>
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
@@ -146,14 +97,13 @@
   </section>
 
   <script>
-    // ====== منطق النظام النهاري (Light Mode Logic) ======
+    // النظام النهاري/الليلي
     document.getElementById('themeSwitch').onclick = () => {
-        document.body.classList.toggle('light');
-        document.body.classList.toggle('dark');
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
     };
-    // ===============================================
 
-    // قراءة الـ ?open= من اللينك وفتح القسم المناسب
+    // فتح القسم تلقائي من ?open=
     const urlParams = new URLSearchParams(window.location.search);
     const open = urlParams.get('open');
     if(open === 'commerce' || open === 'lifestyle' || open === 'tech' || open === 'network'){
@@ -161,5 +111,4 @@
         const section = document.getElementById(open);
         section.classList.add('open');
         section.previousElementSibling.classList.add('open');
-        section.previousElementSibling.scrollIntoView({behavior: "smooth"});
-      }, 500);
+        section.previousElementSibling.scrollInto
