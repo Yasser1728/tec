@@ -1,265 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Legend.PI – Empowering Legendary Innovation with AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEC | Titan Elite Commerce</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      transition: background 0.5s, color 0.5s;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #e0e0e0;
-      text-align: center;
-      position: relative;
-      background: radial-gradient(circle at top, #3b0a66, #1a042e);
-    }
-
-    body.light {
-      background: radial-gradient(circle at top, #e4e1ff, #d4e3ff);
-      color: #222;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-
-    h1, p, .btn, #toggleMode {
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      background: linear-gradient(90deg, #b67eff, #61d7ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(182, 126, 255, 0.6);
-      margin-bottom: 10px;
-    }
-
-    body.light h1 {
-      background: none;
-      -webkit-text-fill-color: #4b0082;
-      text-shadow: none;
-    }
-
-    p {
-      font-size: 1rem;
-      opacity: 0.85;
-      margin-bottom: 40px;
-    }
-
-    .btn {
-      display: block;
-      width: 220px;
-      padding: 14px 0;
-      margin: 12px 0;
-      border: 2px solid transparent;
-      border-radius: 30px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 1rem;
-      transition: 0.3s;
-      text-decoration: none;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .btn.start {
-      background: transparent;
-      border-color: #a45cff;
-      box-shadow: 0 0 15px rgba(164, 92, 255, 0.4);
-    }
-
-    .btn.start:hover {
-      background: rgba(164, 92, 255, 0.2);
-    }
-
-    .btn.consult {
-      background: transparent;
-      border-color: #00ffe7;
-      box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
-    }
-
-    .btn.consult:hover {
-      background: rgba(0, 255, 231, 0.15);
-    }
-
-    .btn.home {
-      background: transparent;
-      border-color: #999;
-      box-shadow: 0 0 12px rgba(160, 160, 160, 0.3);
-    }
-
-    .btn.home:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    body.light .btn {
-      color: #222;
-    }
-
-    #toggleMode {
-      position: absolute;
-      top: 20px;
-      right: 25px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      color: #fff;
-      padding: 8px 18px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: 0.3s;
-      z-index: 10;
-    }
-
-    #toggleMode:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    body.light #toggleMode {
-      background: rgba(0, 0, 0, 0.1);
-      color: #222;
-      border-color: rgba(0, 0, 0, 0.3);
-    }
-
-    body.light #toggleMode:hover {
-      background: rgba(0, 0, 0, 0.15);
-    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Cairo',sans-serif;background:#0a0e2b;color:#fff;overflow-x:hidden;}
+    canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.7;}
+    header{text-align:center;padding:130px 20px 90px;}
+    .logo-tec{font-size:6.8rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:12px;}
+    .dynamic-text{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:30px 0;min-height:70px;}
+    .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:15px 45px;margin:10px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;}
+    .btn:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(0,114,255,0.7);}
+    .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);}
+    .categories{max-width:1400px;margin:90px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;}
+    .cat{background:rgba(0,198,255,0.15);border:2px solid rgba(0,198,255,0.5);border-radius:26px;overflow:hidden;transition:.5s;}
+    .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:32px;font-size:1.9rem;text-align:center;color:#fff;cursor:pointer;position:relative;}
+    .cat h3::after{content:'▼';position:absolute;right:25px;top:50%;transform:translateY(-50%);}
+    .cat h3.open::after{content:'▲';}
+    .subdomains{max-height:0;overflow:hidden;transition:max-height 0.8s ease;background:rgba(0,114,255,0.08);}
+    .subdomains.open{max-height:2000px;padding:30px 20px;}
+    .grid{display:flex;flex-direction:column;gap:16px;}
+    .item{background:rgba(255,255,255,0.1);padding:18px 22px;border-radius:16px;text-align:center;font-weight:700;font-size:1.1rem;transition:.4s;border:1px solid rgba(0,198,255,0.3);}
+    .item:hover{background:rgba(0,198,255,0.4);transform:translateX(10px);box-shadow:0 0 30px rgba(0,198,255,0.6);}
   </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
 
-  <button id="toggleMode">🌙 Night</button>
+  <canvas id="bg"></canvas>
 
-  <h1>Legend.PI</h1>
-  <p>Empowering Legendary Innovation with AI.</p>
+  <header>
+    <div class="logo-tec">TEC</div>
+    <h1>Titan Elite Commerce</h1>
+    <div class="dynamic-text" id="dynamicText">Elite</div>
+    <p>Official Luxury Commerce & Finance Ecosystem on Pi Network</p>
+    <a href="https://tec-pi.com" class="btn">Main Site</a>
+    <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
+    <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
+  </header>
 
-  <button class="btn start" onclick="alert('🚀 Launching AI Legend System...')">START NOW</button>
-  <button class="btn consult" onclick="alert('🤖 Connecting to AI Innovation Advisor...')">AI CONSULTATION</button>
-  <button class="btn home" onclick="goHome()">BACK TO HOME</button>
+  <section class="categories">
+
+    <div class="cat"><h3>Commerce & Finance</h3><div class="subdomains" id="commerce"><div class="grid">
+      <a href="https://commerce.tec-pi.com" class="item">Commerce</a>
+      <a href="https://ecommerce.tec-pi.com" class="item">Ecommerce</a>
+      <a href="https://fundx.tec-pi.com" class="item">FundX</a>
+      <a href="https://assets.tec-pi.com" class="item">Assets</a>
+      <a href="https://nbf.tec-pi.com" class="item">NBF</a>
+      <a href="https://dx.tec-pi.com" class="item">DX</a>
+    </div></div></div>
+
+    <div class="cat"><h3>Lifestyle & Elite</h3><div class="subdomains" id="lifestyle"><div class="grid">
+      <a href="https://life.tec-pi.com" class="item">Life</a>
+      <a href="https://estate.tec-pi.com" class="item">Estate</a>
+      <a href="https://vip.tec-pi.com" class="item">VIP</a>
+      <a href="https://elite.tec-pi.com" class="item">Elite</a>
+      <a href="https://titan.tec-pi.com" class="item">Titan</a>
+      <a href="https://legend.tec-pi.com" class="item">Legend</a>
+      <a href="https://epic.tec-pi.com" class="item">Epic</a>
+    </div></div></div>
+
+    <div class="cat"><h3>Technology & Tools</h3><div class="subdomains" id="tech"><div class="grid">
+      <a href="https://analytics.tec-pi.com" class="item">Analytics</a>
+      <a href="https://explorer.tec-pi.com" class="item">Explorer</a>
+      <a href="https://alert.tec-pi.com" class="item">Alert</a>
+      <a href="https://system.tec-pi.com" class="item">System</a>
+      <a href="https://nx.tec-pi.com" class="item">NX</a>
+      <a href="https://connection.tec-pi.com" class="item">Connection</a>
+      <a href="https://tec.tec-pi.com" class="item">TEC</a>
+    </div></div></div>
+
+    <div class="cat"><h3>Network & Partners</h3><div class="subdomains" id="network"><div class="grid">
+      <a href="https://nexus.tec-pi.com" class="item">Nexus</a>
+      <a href="https://brookfield.tec-pi.com" class="item">Brookfield</a>
+      <a href="https://sab.tec-pi.com" class="item">SAB</a>
+      <a href="https://insure.tec-pi.com" class="item">Insure</a>
+      <a href="https://zone.tec-pi.com" class="item">Zone</a>
+    </div></div></div>
+
+  </section>
 
   <script>
-    // === نظام الجسيمات ===
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let particlesArray = [];
-    const numParticles = 80;
-    let isLightMode = false;
+    // === الجزء السحري: يحدد الدومين ويفتح القسم تلقائياً ===
+    const hostname = window.location.hostname.toLowerCase();
+    let sectionToOpen = null;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    if(hostname.includes('commerce') || hostname.includes('ecommerce') || hostname.includes('fundx') || hostname.includes('assets') || hostname.includes('nbf') || hostname.includes('dx')){
+      sectionToOpen = 'commerce';
+    }
+    else if(hostname.includes('life') || hostname.includes('estate') || hostname.includes('vip') || hostname.includes('elite') || hostname.includes('titan') || hostname.includes('legend') || hostname.includes('epic')){
+      sectionToOpen = 'lifestyle';
+    }
+    else if(hostname.includes('analytics') || hostname.includes('explorer') || hostname.includes('alert') || hostname.includes('system') || hostname.includes('nx') || hostname.includes('connection') || hostname.includes('tec.')){
+      sectionToOpen = 'tech';
+    }
+    else if(hostname.includes('nexus') || hostname.includes('brookfield') || hostname.includes('sab') || hostname.includes('insure') || hostname.includes('zone')){
+      sectionToOpen = 'network';
+    }
 
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
+    if(sectionToOpen){
+      setTimeout(() => {
+        const el = document.getElementById(sectionToOpen);
+        el.classList.add('open');
+        el.previousElementSibling.classList.add('open');
+        el.previousElementSibling.scrollIntoView({behavior: "smooth"});
+      }, 800);
+    }
+
+    // فتح وإغلاق عادي
+    document.querySelectorAll('.cat h3').forEach(h => {
+      h.onclick = () => {
+        h.classList.toggle('open');
+        h.nextElementSibling.classList.toggle('open');
+      };
     });
 
-    class Particle {
-      constructor(x, y, size, speedX, speedY) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.speedX = speedX;
-        this.speedY = speedY;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = isLightMode
-          ? 'rgba(120, 100, 255, 0.6)'
-          : 'rgba(182, 126, 255, 0.6)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
-      }
-    }
+    // باقي الكود (particles + dynamic + Pi SDK) زي ما هو
+    const words = ["Elite","Titan","Luxury","Innovation","Pi Ecosystem","Future"];
+    let i = 0;
+    setInterval(() => { document.getElementById("dynamicText").textContent = words[i]; i = (i + 1) % words.length; }, 1800);
 
-    function initParticles() {
-      particlesArray = [];
-      for (let i = 0; i < numParticles; i++) {
-        const size = Math.random() * 2 + 1;
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const speedX = (Math.random() - 0.5) * 0.8;
-        const speedY = (Math.random() - 0.5) * 0.8;
-        particlesArray.push(new Particle(x, y, size, speedX, speedY));
-      }
-    }
+    const canvas = document.getElementById('bg'), ctx = canvas.getContext('2d');
+    canvas.width = innerWidth; canvas.height = innerHeight;
+    window.addEventListener('resize', () => {canvas.width = innerWidth; canvas.height = innerHeight;});
+    const particles = Array.from({length:150},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2.5+1,dx:(Math.random()-0.5)*0.9,dy:(Math.random()-0.5)*0.9}));
+    (function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,198,255,0.7)";ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});requestAnimationFrame(anim);})();
 
-    function connectParticles() {
-      for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a; b < particlesArray.length; b++) {
-          let dx = particlesArray[a].x - particlesArray[b].x;
-          let dy = particlesArray[a].y - particlesArray[b].y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 100) {
-            ctx.strokeStyle = isLightMode
-              ? 'rgba(0,0,0,0.08)'
-              : 'rgba(97, 215, 255, 0.1)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let particle of particlesArray) {
-        particle.update();
-        particle.draw();
-      }
-      connectParticles();
-      requestAnimationFrame(animate);
-    }
-
-    initParticles();
-    animate();
-
-    // === الوضع الليلي والنهاري ===
-    const toggleButton = document.getElementById('toggleMode');
-    toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      isLightMode = document.body.classList.contains('light');
-      toggleButton.textContent = isLightMode ? '🌞 Day' : '🌙 Night';
-    });
-
-    // === زر العودة للصفحة الرئيسية ===
-    function goHome() {
-      window.location.href = "https://yasser1728.github.io/life-nexus/";
+    if(typeof Pi !== 'undefined'){
+      Pi.init({version:"2.0", sandbox:true});
+      document.getElementById('piLoginBtn').onclick = () => Pi.authenticate(['username'],()=>{}).then(a=>alert("Welcome " + a.user.username)).catch(()=>alert("Login failed"));
+      document.getElementById('piPaymentBtn').onclick = () => Pi.createPayment({amount:0.01,memo:"TEC Test Payment"},{onReadyForServerApproval:()=>alert("Open Pi Wallet"),onReadyForServerCompletion:(p,t)=>alert("Success! TXID: "+t),onCancel:()=>alert("Cancelled")});
     }
   </script>
 </body>
