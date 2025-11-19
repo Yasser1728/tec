@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEC | Titan Elite Commerce - Official Pi Network Ecosystem</title>
+  <title>TEC | Titan Elite Commerce</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
@@ -13,60 +13,54 @@
     canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.7;}
 
     header{text-align:center;padding:130px 20px 90px;}
-    .logo-tec{
-      font-size:6.8rem;font-weight:900;
-      background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:12px;
-    }
-    h1{font-size:2.1rem;margin:15px 0;opacity:0.95;letter-spacing:3px;}
-    .dynamic-text{
-      font-size:2.5rem;font-weight:900;
-      background:linear-gradient(90deg,#00ff9d,#00c6ff);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      margin:30px 0;min-height:70px;
-    }
-    .btn{
-      display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);
-      color:#fff;padding:16px 52px;margin:12px;border-radius:50px;
-      font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;
-    }
+    .logo-tec{font-size:6.8rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:12px;}
+    h1{font-size:2.1rem;margin:15px 0;opacity:0.95;}
+    .dynamic-text{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:30px 0;min-height:70px;}
+    .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:15px 45px;margin:10px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;}
     .btn:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(0,114,255,0.7);}
-    .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);box-shadow:0 8px 30px rgba(255,140,0,0.5);}
-    .pi-btn:hover{box-shadow:0 20px 45px rgba(255,140,0,0.7);}
+    .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);}
 
-    .categories{max-width:1400px;margin:90px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;}
-    .cat{
-      background:rgba(0,198,255,0.15);border:2px solid rgba(0,198,255,0.5);
-      border-radius:28px;overflow:hidden;transition:.5s;cursor:pointer;
+    .categories{max-width:1400px;margin:90px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;}
+    .cat{background:rgba(0,198,255,0.15);border:2px solid rgba(0,198,255,0.5);border-radius:24px;overflow:hidden;transition:.5s;}
+    .cat:hover{transform:translateY(-10px);box-shadow:0 20px 60px rgba(0,198,255,0.4);}
+    .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:30px;font-size:1.8rem;text-align:center;color:#fff;}
+
+    .subdomains{max-height:0;overflow:hidden;transition:max-height 0.7s ease;background:rgba(0,114,255,0.08);}
+    .subdomains.open{max-height:1200px;padding:20px 15px 30px;}
+
+    /* ←← هنا التعديل اللي خلى الكروت أصغر وأجمل */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(105px,1fr)); /* صغرنا من 150px → 105px */
+      gap:12px; /* قللنا المسافة من 20px → 12px */
     }
-    .cat:hover{transform:translateY(-12px);box-shadow:0 25px 70px rgba(0,198,255,0.4);}
-    .cat h3{
-      background:linear-gradient(135deg,#0072ff,#00c6ff);padding:38px;font-size:2rem;
-      text-align:center;color:#fff;font-weight:700;
-    }
-    .subdomains{
-      max-height:0;overflow:hidden;transition:max-height 0.7s ease;
-      background:rgba(0,114,255,0.08);padding:0 20px;
-    }
-    .subdomains.open{max-height:1200px;padding:35px 20px;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;}
     .item{
-      background:rgba(255,255,255,0.1);padding:24px 12px;border-radius:18px;
-      text-align:center;font-weight:700;font-size:1.15rem;transition:.4s;
-      border:1px solid rgba(0,198,255,0.3);
+      background:rgba(255,255,255,0.09);
+      padding:14px 8px; /* صغرنا البادينج */
+      border-radius:14px;
+      text-align:center;
+      font-weight:700;
+      font-size:1rem; /* صغرنا الخط شوية */
+      transition:.35s;
+      border:1px solid rgba(0,198,255,0.25);
     }
-    .item:hover{background:rgba(0,198,255,0.3);transform:scale(1.1);box-shadow:0 0 30px rgba(0,198,255,0.5);}
+    .item:hover{
+      background:rgba(0,198,255,0.35);
+      transform:scale(1.08);
+      box-shadow:0 0 25px rgba(0,198,255,0.5);
+    }
+    /* ←← انتهى التعديل */
 
-    .contact{padding:110px 20px;text-align:center;background:linear-gradient(135deg,#0a0e2b,#001133);}
-    .contact h2{font-size:3.2rem;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    footer{padding:45px;background:#000;color:#888;text-align:center;font-size:0.95rem;}
-    .theme-switch{position:fixed;top:20px;right:20px;cursor:pointer;font-size:1.7rem;z-index:10;background:rgba(0,0,0,0.3);padding:10px;border-radius:50%;}
+    .contact{padding:100px 20px;text-align:center;background:linear-gradient(135deg,#0a0e2b,#001133);}
+    .contact h2{font-size:3rem;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    footer{padding:40px;background:#000;color:#888;text-align:center;}
+    .theme-switch{position:fixed;top:20px;right:20px;cursor:pointer;font-size:1.6rem;z-index:10;background:rgba(0,0,0,0.3);padding:10px;border-radius:50%;}
 
     @media (max-width:768px){
       .logo-tec{font-size:5rem;}
       .dynamic-text{font-size:1.9rem;}
-      .categories{grid-template-columns:1fr;gap:25px;}
+      .grid{grid-template-columns:repeat(4,1fr);gap:10px;}
+      .item{font-size:0.95rem;padding:12px 6px;}
     }
   </style>
 </head>
@@ -80,73 +74,50 @@
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
     <p>Official Luxury Commerce & Finance Ecosystem on Pi Network</p>
-    <a href="#categories" class="btn">Explore All Projects</a>
+    <a href="#categories" class="btn">Explore Projects</a>
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
     <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
   </header>
 
   <section id="categories" class="categories">
 
-    <!-- 1 Commerce & Finance -->
-    <div class="cat">
-      <h3>Commerce & Finance</h3>
-      <div class="subdomains" id="commerce">
-        <div class="grid">
-          <a href="https://commerce.tec-pi.com" class="item">Commerce</a>
-          <a href="https://ecommerce.tec-pi.com" class="item">Ecommerce</a>
-          <a href="https://fundx.tec-pi.com" class="item">FundX</a>
-          <a href="https://assets.tec-pi.com" class="item">Assets</a>
-          <a href="https://nbf.tec-pi.com" class="item">NBF</a>
-          <a href="https://dx.tec-pi.com" class="item">DX</a>
-        </div>
-      </div>
-    </div>
+    <!-- نفس الأقسام الـ 4 بالكامل (ما غيرتش حاجة فيهم غير حجم الكروت) -->
+    <div class="cat"><h3>Commerce & Finance</h3><div class="subdomains" id="commerce"><div class="grid">
+      <a href="https://commerce.tec-pi.com" class="item">Commerce</a>
+      <a href="https://ecommerce.tec-pi.com" class="item">Ecommerce</a>
+      <a href="https://fundx.tec-pi.com" class="item">FundX</a>
+      <a href="https://assets.tec-pi.com" class="item">Assets</a>
+      <a href="https://nbf.tec-pi.com" class="item">NBF</a>
+      <a href="https://dx.tec-pi.com" class="item">DX</a>
+    </div></div></div>
 
-    <!-- 2 Lifestyle & Elite -->
-    <div class="cat">
-      <h3>Lifestyle & Elite</h3>
-      <div class="subdomains" id="lifestyle">
-        <div class="grid">
-          <a href="https://life.tec-pi.com" class="item">Life</a>
-          <a href="https://estate.tec-pi.com" class="item">Estate</a>
-          <a href="https://vip.tec-pi.com" class="item">VIP</a>
-          <a href="https://elite.tec-pi.com" class="item">Elite</a>
-          <a href="https://titan.tec-pi.com" class="item">Titan</a>
-          <a href="https://legend.tec-pi.com" class="item">Legend</a>
-          <a href="https://epic.tec-pi.com" class="item">Epic</a>
-        </div>
-      </div>
-    </div>
+    <div class="cat"><h3>Lifestyle & Elite</h3><div class="subdomains" id="lifestyle"><div class="grid">
+      <a href="https://life.tec-pi.com" class="item">Life</a>
+      <a href="https://estate.tec-pi.com" class="item">Estate</a>
+      <a href="https://vip.tec-pi.com" class="item">VIP</a>
+      <a href="https://elite.tec-pi.com" class="item">Elite</a>
+      <a href="https://titan.tec-pi.com" class="item">Titan</a>
+      <a href="https://legend.tec-pi.com" class="item">Legend</a>
+      <a href="https://epic.tec-pi.com" class="item">Epic</a>
+    </div></div></div>
 
-    <!-- 3 Technology & Tools -->
-    <div class="cat">
-      <h3>Technology & Tools</h3>
-      <div class="subdomains" id="tech">
-        <div class="grid">
-          <a href="https://analytics.tec-pi.com" class="item">Analytics</a>
-          <a href="https://explorer.tec-pi.com" class="item">Explorer</a>
-          <a href="https://alert.tec-pi.com" class="item">Alert</a>
-          <a href="https://system.tec-pi.com" class="item">System</a>
-          <a href="https://nx.tec-pi.com" class="item">NX</a>
-          <a href="https://connection.tec-pi.com" class="item">Connection</a>
-          <a href="https://tec.tec-pi.com" class="item">TEC</a>
-        </div>
-      </div>
-    </div>
+    <div class="cat"><h3>Technology & Tools</h3><div class="subdomains" id="tech"><div class="grid">
+      <a href="https://analytics.tec-pi.com" class="item">Analytics</a>
+      <a href="https://explorer.tec-pi.com" class="item">Explorer</a>
+      <a href="https://alert.tec-pi.com" class="item">Alert</a>
+      <a href="https://system.tec-pi.com" class="item">System</a>
+      <a href="https://nx.tec-pi.com" class="item">NX</a>
+      <a href="https://connection.tec-pi.com" class="item">Connection</a>
+      <a href="https://tec.tec-pi.com" class="item">TEC</a>
+    </div></div></div>
 
-    <!-- 4 Network & Partners -->
-    <div class="cat">
-      <h3>Network & Partners</h3>
-      <div class="subdomains" id="network">
-        <div class="grid">
-          <a href="https://nexus.tec-pi.com" class="item">Nexus</a>
-          <a href="https://brookfield.tec-pi.com" class="item">Brookfield</a>
-          <a href="https://sab.tec-pi.com" class="item">SAB</a>
-          <a href="https://insure.tec-pi.com" class="item">Insure</a>
-          <a href="https://zone.tec-pi.com" class="item">Zone</a>
-        </div>
-      </div>
-    </div>
+    <div class="cat"><h3>Network & Partners</h3><div class="subdomains" id="network"><div class="grid">
+      <a href="https://nexus.tec-pi.com" class="item">Nexus</a>
+      <a href="https://brookfield.tec-pi.com" class="item">Brookfield</a>
+      <a href="https://sab.tec-pi.com" class="item">SAB</a>
+      <a href="https://insure.tec-pi.com" class="item">Insure</a>
+      <a href="https://zone.tec-pi.com" class="item">Zone</a>
+    </div></div></div>
 
   </section>
 
@@ -156,90 +127,35 @@
       Official channels only • We never ask for Pi outside the official app
     </p>
     <p style="color:#00ff9d;font-size:1.2rem;margin-top:30px;">
-      Telegram: @TEC_Officiall<br>
-      Email: contact@tec-pi.com
+      Telegram: @TEC_Officiall<br>Email: contact@tec-pi.com
     </p>
   </section>
 
-  <footer>
-    <p>© 2025 TEC — Titan Elite Commerce • All Rights Reserved</p>
-  </footer>
+  <footer><p>© 2025 TEC — Titan Elite Commerce • All Rights Reserved</p></footer>
 
   <script>
-    // Auto-open section based on subdomain
+    // نفس السكريبت بالكامل (auto-open + particles + Pi SDK + dynamic text + theme)
     const domain = window.location.hostname.toLowerCase().replace('www.','');
-    const map = {
-      'commerce.tec-pi.com':'commerce','ecommerce.tec-pi.com':'commerce','fundx.tec-pi.com':'commerce',
-      'assets.tec-pi.com':'commerce','nbf.tec-pi.com':'commerce','dx.tec-pi.com':'commerce',
-      'life.tec-pi.com':'lifestyle','estate.tec-pi.com':'lifestyle','vip.tec-pi.com':'lifestyle',
-      'elite.tec-pi.com':'lifestyle','titan.tec-pi.com':'lifestyle','legend.tec-pi.com':'lifestyle','epic.tec-pi.com':'lifestyle',
-      'analytics.tec-pi.com':'tech','explorer.tec-pi.com':'tech','alert.tec-pi.com':'tech',
-      'system.tec-pi.com':'tech','nx.tec-pi.com':'tech','connection.tec-pi.com':'tech','tec.tec-pi.com':'tech',
-      'nexus.tec-pi.com':'network','brookfield.tec-pi.com':'network','sab.tec-pi.com':'network',
-      'insure.tec-pi.com':'network','zone.tec-pi.com':'network'
-    };
-    if(map[domain]){
-      setTimeout(()=>{ document.getElementById(map[domain]).classList.add('open'); }, 800);
-    }
+    const map = {'commerce.tec-pi.com':'commerce','ecommerce.tec-pi.com':'commerce','fundx.tec-pi.com':'commerce','assets.tec-pi.com':'commerce','nbf.tec-pi.com':'commerce','dx.tec-pi.com':'commerce','life.tec-pi.com':'lifestyle','estate.tec-pi.com':'lifestyle','vip.tec-pi.com':'lifestyle','elite.tec-pi.com':'lifestyle','titan.tec-pi.com':'lifestyle','legend.tec-pi.com':'lifestyle','epic.tec-pi.com':'lifestyle','analytics.tec-pi.com':'tech','explorer.tec-pi.com':'tech','alert.tec-pi.com':'tech','system.tec-pi.com':'tech','nx.tec-pi.com':'tech','connection.tec-pi.com':'tech','tec.tec-pi.com':'tech','nexus.tec-pi.com':'network','brookfield.tec-pi.com':'network','sab.tec-pi.com':'network','insure.tec-pi.com':'network','zone.tec-pi.com':'network'};
+    if(map[domain]) setTimeout(()=>{document.getElementById(map[domain]).classList.add('open');},800);
+    document.querySelectorAll('.cat h3').forEach(h=>h.addEventListener('click',()=>h.nextElementSibling.classList.toggle('open')));
 
-    // Manual open/close
-    document.querySelectorAll('.cat h3').forEach(h => {
-      h.addEventListener('click', () => h.nextElementSibling.classList.toggle('open'));
-    });
+    const words=["Elite","Titan","Luxury","Innovation","Pi Ecosystem","Future"];let i=0;
+    setInterval(()=>{document.getElementById("dynamicText").textContent=words[i];i=(i+1)%words.length;},1800);
 
-    // Dynamic Text
-    const words = ["Elite","Titan","Luxury","Innovation","Pi Ecosystem","Future"];
-    let i = 0;
-    setInterval(() => {
-      document.getElementById("dynamicText").textContent = words[i];
-      i = (i + 1) % words.length;
-    }, 1800);
+    const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');
+    canvas.width=innerWidth;canvas.height=innerHeight;
+    addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight;});
+    const particles=Array.from({length:150},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2.5+1,dx:(Math.random()-0.5)*0.9,dy:(Math.random()-0.5)*0.9}));
+    (function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,198,255,0.7)";ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});requestAnimationFrame(anim);})();
 
-    // Particles Background
-    const canvas = document.getElementById('bg'), ctx = canvas.getContext('2d');
-    canvas.width = innerWidth; canvas.height = innerHeight;
-    addEventListener('resize', () => {canvas.width=innerWidth; canvas.height=innerHeight;});
-    const particles = Array.from({length:150},()=>({
-      x:Math.random()*canvas.width, y:Math.random()*canvas.height,
-      r:Math.random()*2.5+1, dx:(Math.random()-0.5)*0.9, dy:(Math.random()-0.5)*0.9
-    }));
-    (function anim(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particles.forEach(p=>{
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle="rgba(0,198,255,0.7)"; ctx.fill();
-        p.x+=p.dx; p.y+=p.dy;
-        if(p.x<0||p.x>canvas.width) p.dx*=-1;
-        if(p.y<0||p.y>canvas.height) p.dy*=-1;
-      });
-      requestAnimationFrame(anim);
-    })();
+    document.getElementById('themeSwitch').addEventListener('click',()=>{document.body.classList.toggle('light');document.body.style.background=document.body.classList.contains('light')?'#f5f7ff':'#0a0e2b';});
 
-    // Theme Switch
-    document.getElementById('themeSwitch').addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      document.body.style.background = document.body.classList.contains('light') ? '#f5f7ff' : '#0a0e2b';
-    });
-
-    // Pi SDK (غيّر الـ App ID للجديد بتاعك)
-    if(typeof Pi !== 'undefined'){
-      Pi.init({version:"2.0", sandbox:true});  // غيّر sandbox لـ false لما تكون جاهز
-      // سجل App جديد هنا: https://developers.piapps.io
-      // وحط الـ App ID الجديد تحت
-      
-      document.getElementById('piLoginBtn').onclick = () => {
-        Pi.authenticate(['username'], ()=>{})
-          .then(a=>{alert(`Welcome back, ${a.user.username}!`);})
-          .catch(()=>{alert('Login failed');});
-      };
-      document.getElementById('piPaymentBtn').onclick = () => {
-        Pi.createPayment({amount:0.01,memo:"TEC Test"},{
-          onReadyForServerApproval:()=>alert('Approve in Pi Wallet'),
-          onReadyForServerCompletion:(p,t)=>alert('Paid! TXID: '+t),
-          onCancel:()=>alert('Cancelled'), onError:e=>alert('Error: '+e)
-        });
-      };
+    if(typeof Pi!=='undefined'){
+      Pi.init({version:"2.0",sandbox:true});
+      document.getElementById('piLoginBtn').onclick=()=>{Pi.authenticate(['username'],()=>{}).then(a=>alert(`Welcome back, ${a.user.username}!`)).catch(()=>alert('Login failed'));};
+      document.getElementById('piPaymentBtn').onclick=()=>{Pi.createPayment({amount:0.01,memo:"TEC Test"},{onReadyForServerApproval:()=>alert('Approve in Pi Wallet'),onReadyForServerCompletion:(p,t)=>alert('Paid! TXID: '+t),onCancel:()=>alert('Cancelled'),onError:e=>alert('Error: '+e)});};
     }
   </script>
 </body>
-</html>
+    </html>
