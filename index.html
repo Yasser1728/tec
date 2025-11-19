@@ -6,44 +6,151 @@
   <title>TEC | Titan Elite Commerce</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-  
+
   <style>
+    /* ====== الإعدادات العامة والتصميم الأساسي ====== */
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Cairo',sans-serif;line-height:1.6;overflow-x:hidden;background:#0b0114;color:#fff;transition:all .5s;}
+    body{
+      font-family:'Cairo',sans-serif;
+      line-height:1.6;
+      overflow-x:hidden;
+      background:#0b0114; /* خلفية داكنة احترافية */
+      color:#fff;
+      transition:all .5s;
+    }
     a{text-decoration:none;color:inherit;}
+
+    /* وضع الإضاءة (Light Mode) */
     body.light{background:#f9f9f9;color:#111;}
+    body.light .card{background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.1);}
+    body.light .card:hover{box-shadow:0 0 10px rgba(0,0,0,0.2);}
+    body.light .contact{background:linear-gradient(135deg,#e0e0e0,#f0f0f0);}
+
+    /* الخلفية المتحركة (Canvas) */
     canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+
+    /* ====== الرأس (Header) ====== */
+    header{text-align:center;padding:120px 20px 80px;position:relative;}
+    .logo-tec{
+      font-size:5.5rem;
+      font-weight:700;
+      color:#a53cff; /* لون النيون الأساسي */
+      text-shadow:0 0 30px #a53cff, 0 0 40px #b86bff; /* تأثير النيون القوي */
+      letter-spacing:10px;
+      margin-bottom:5px;
+    }
+    h1{font-size:1.8rem;opacity:0.9;margin-bottom:15px;letter-spacing:3px;}
     
-    header{text-align:center;padding:120px 20px 80px;}
-    .logo{font-size:5.5rem;font-weight:700;color:#a53cff;text-shadow:0 0 30px #a53cff;letter-spacing:10px;margin-bottom:10px;}
-    h1{font-size:2.4rem;opacity:0.9;margin-bottom:15px;}
-    .dynamic-text{font-size:1.9rem;font-weight:700;color:#fff;text-shadow:0 0 20px #a53cff;margin:35px 0;min-height:60px;}
-    p{font-size:1.35rem;margin:25px 0;opacity:0.9;}
+    /* النص المتحرك (Dynamic Text) */
+    .dynamic-text{
+      font-size:1.9rem;
+      font-weight:700;
+      color:#fff;
+      text-shadow:0 0 20px #a53cff;
+      margin:35px 0;
+      min-height:40px; /* لضمان عدم اهتزاز الصفحة */
+    }
+    p{font-size:1.15rem;margin:25px 0;opacity:0.8;}
 
-    .btn{display:inline-block;background:linear-gradient(90deg,#a53cff,#6a00ff);color:#fff;padding:14px 42px;margin:10px;border-radius:50px;font-weight:700;transition:.3s;box-shadow:0 5px 20px rgba(165,60,255,0.4);}
-    .btn:hover{transform:translateY(-4px);box-shadow:0 15px 30px rgba(165,60,255,0.6);}
-    .pi-btn{background:linear-gradient(90deg,#2a76f7,#007bff);}
+    /* ====== الأزرار (Buttons) ====== */
+    .btn{
+      display:inline-block;
+      background:linear-gradient(90deg,#a53cff,#6a00ff);
+      color:#fff;
+      padding:14px 42px;
+      margin:10px;
+      border-radius:50px;
+      font-weight:700;
+      transition:.3s;
+      box-shadow:0 5px 20px rgba(165,60,255,0.4);
+    }
+    .btn:hover{
+      transform:translateY(-4px);
+      box-shadow:0 15px 30px rgba(165,60,255,0.6);
+    }
+    .pi-btn{background:linear-gradient(90deg,#2a76f7,#007bff);box-shadow:0 5px 20px rgba(42,118,247,0.4);}
+    .pi-btn:hover{box-shadow:0 15px 30px rgba(42,118,247,0.6);}
 
-    .domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;margin:60px 20px;opacity:0;transform:translateY(30px);}
-    .card{background:rgba(165,60,255,0.1);border:1px solid rgba(165,60,255,0.4);padding:22px;border-radius:20px;text-align:center;font-weight:700;font-size:1.1rem;transition:.4s;box-shadow:0 5px 15px rgba(0,0,0,0.4);}
-    .card:hover{transform:translateY(-10px);background:rgba(165,60,255,0.25);box-shadow:0 0 40px #a53cff;}
+    /* ====== المشاريع (Domains/Cards) ====== */
+    .domains{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:20px;
+      margin:60px 20px;
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity 1s ease, transform 1s ease;
+    }
+    .card{
+      background:rgba(165,60,255,0.1);
+      border:1px solid rgba(165,60,255,0.4);
+      padding:22px;
+      border-radius:20px;
+      text-align:center;
+      font-weight:700;
+      font-size:1.1rem;
+      transition:.4s;
+      box-shadow:0 5px 15px rgba(0,0,0,0.4);
+    }
+    .card:hover{
+      transform:scale(1.05); /* تغيير طفيف لجعله احترافياً أكثر من translateY */
+      background:rgba(165,60,255,0.25);
+      box-shadow:0 0 40px #a53cff;
+    }
 
-    .contact{padding:90px 20px;background:linear-gradient(135deg,#0b0114,#1a0033);text-align:center;opacity:0;transform:translateY(30px);}
-    .call-btn{background:linear-gradient(90deg,#6a0dad,#9b30ff);padding:16px 50px;font-size:1.3rem;border-radius:50px;}
+    /* ====== قسم التواصل (Contact) ====== */
+    .contact{
+      padding:90px 20px;
+      background:linear-gradient(135deg,#0b0114,#1a0033);
+      text-align:center;
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity 1s ease, transform 1s ease;
+    }
+    .contact h2{
+      font-size:2.8rem;
+      color:#a53cff;
+      text-shadow:0 0 25px #a53cff;
+      margin-bottom:10px;
+    }
+    .call-btn{
+      background:linear-gradient(90deg,#6a0dad,#9b30ff);
+      padding:16px 50px;
+      font-size:1.3rem;
+      border-radius:50px;
+    }
+    .phone-number-text{font-size:1.1rem;opacity:0.7;margin-top:10px;}
 
-    footer{text-align:center;padding:35px;background:#000;color:#888;font-size:0.95rem;opacity:0;transform:translateY(20px);}
-
-    .theme-switch{position:fixed;top:20px;left:20px;background:#a53cff;color:#fff;padding:12px 22px;border-radius:50px;font-weight:700;cursor:pointer;z-index:100;box-shadow:0 0 20px rgba(165,60,255,0.6);}
-    .theme-switch:hover{transform:scale(1.1);}
+    /* ====== التذييل (Footer) ====== */
+    footer{
+      text-align:center;
+      padding:35px;
+      background:#000;
+      color:#888;
+      font-size:0.95rem;
+      opacity:0;
+      transform:translateY(20px);
+      transition:opacity 1s ease, transform 1s ease;
+    }
+    
+    /* تحسينات الاستجابة (Responsive) */
+    @media (max-width: 600px) {
+        .logo-tec {font-size: 4rem; letter-spacing: 5px;}
+        h1 {font-size: 1.5rem;}
+        .dynamic-text {font-size: 1.5rem;}
+        .btn {padding: 10px 30px; margin: 8px;}
+        .domains {margin: 40px 10px; gap: 15px;}
+        .contact h2 {font-size: 2rem;}
+        .call-btn {font-size: 1.1rem; padding: 12px 40px;}
+    }
   </style>
 </head>
-
 <body class="dark">
   <div class="theme-switch" id="themeSwitch">☀️/🌙</div>
   <canvas id="bg"></canvas>
 
   <header>
-    <div class="logo">TEC</div>
+    <div class="logo-tec">TEC</div>
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
     <p>Luxury Commerce • Finance • Technology • Elite Ecosystem on Pi Network</p>
@@ -55,7 +162,6 @@
   </header>
 
   <section id="domains" class="domains">
-    <!-- نفس الكروت اللي عندك بالظبط -->
     <a href="life/" class="card">Life</a>
     <a href="insure/" class="card">Insure</a>
     <a href="commerce/" class="card">Commerce</a>
@@ -84,9 +190,10 @@
   </section>
 
   <section id="contact" class="contact">
-    <h2 style="font-size:2.8rem;color:#a53cff;text-shadow:0 0 25px #a53cff;">Ready to Join TEC?</h2>
-    <p style="font-size:1.4rem;margin:25px 0;">Partnerships • Investments • Luxury Services</p>
-    <a href="tel:01115141346" class="call-btn">Call Now: 01115141346</a>
+    <h2>Ready to Join TEC?</h2>
+    <p style="font-size:1.15rem;opacity:0.9;margin:15px 0;">Partnerships • Investments • Luxury Services</p>
+    <a href="tel:01115141346" class="call-btn">Call Us Now</a>
+    <p class="phone-number-text">01115141346</p>
   </section>
 
   <footer>
@@ -94,12 +201,14 @@
   </footer>
 
   <script>
-    // Pi SDK كامل زي ما كان عندك بالظبط
+    // =======================================
+    // [Pi SDK Authentication & Payment Code]
+    // =======================================
     if (typeof Pi !== 'undefined') {
         Pi.init({ version: "2.0", sandbox: true, app_id: "z-4f622fa3756f5cea" });
         const piLoginBtn = document.getElementById('piLoginBtn');
         const piPaymentBtn = document.getElementById('piPaymentBtn');
-        
+
         piLoginBtn.addEventListener('click', () => {
             Pi.authenticate(['username'], () => {})
             .then(auth => {
@@ -122,26 +231,72 @@
                 onError: (err) => alert('Error: ' + err)
             });
         });
+    } else {
+        console.warn("Pi SDK is not loaded. Functionality disabled.");
     }
+    // =======================================
 
-    // Dynamic Text
+    // ====== النص المتحرك (Dynamic Text) ======
     const words = ["TEC","Elite","Titan","Luxury","Commerce","Finance","Innovation"];
     let i = 0;
     const dynamicText = document.getElementById("dynamicText");
     setInterval(() => {
       dynamicText.textContent = words[i];
       i = (i + 1) % words.length;
-    }, 1800);
+    }, 1800); // تغيير الكلمة كل 1.8 ثانية
 
-    // Particles + Scroll Reveal + Theme (كل حاجة شغالة 100%)
+    // ====== مؤثرات الانتقال عند التمرير (Scroll Reveal) ======
+    function revealOnScroll() {
+        const elements = document.querySelectorAll('.domains, .contact, footer');
+        const windowBottom = window.innerHeight + window.scrollY;
+        elements.forEach(el => {
+            // كشف العنصر عندما يكون أعلى بـ 100 بكسل من أسفل النافذة
+            if (el.offsetTop < windowBottom - 100) {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll); // للتأكد من ظهورها عند تحميل الصفحة
+
+    // ====== خلفية الجسيمات (Canvas Particles) ======
     const canvas = document.getElementById('bg'), ctx = canvas.getContext('2d');
-    canvas.width = innerWidth; canvas.height = innerHeight;
-    const particles = Array.from({length:100},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*0.8,dy:(Math.random()-0.5)*0.8}));
-    (function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(165,60,255,0.7)";ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});requestAnimationFrame(animate);})();
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = Array.from({length:100},()=>({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:Math.random()*2+1, // نصف قطر أصغر قليلاً
+      dx:(Math.random()-0.5)*0.8,
+      dy:(Math.random()-0.5)*0.8
+    }));
     
-    window.onscroll = () => document.querySelectorAll('.domains, .contact, footer').forEach(el => {if(el.getBoundingClientRect().top < innerHeight-100){el.style.opacity=1;el.style.transform='translateY(0)';}});
-    document.getElementById('themeSwitch').onclick = () => document.body.classList.toggle('light');
-    window.onresize = () => {canvas.width=innerWidth;canvas.height=innerHeight;};
+    (function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle="rgba(165,60,255,0.7)";
+        ctx.fill();
+        p.x+=p.dx;p.y+=p.dy;
+        // ارتداد الجسيمات
+        if(p.x<0||p.x>canvas.width)p.dx*=-1;
+        if(p.y<0||p.y>canvas.height)p.dy*=-1;
+      });
+      requestAnimationFrame(animate);
+    })();
+
+    // ====== التبديل بين الوضعين (Theme Switch) ======
+    document.getElementById('themeSwitch').onclick = () => {
+        document.body.classList.toggle('light');
+        document.body.classList.toggle('dark');
+    };
   </script>
 </body>
 </html>
