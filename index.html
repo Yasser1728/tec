@@ -7,13 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
+    /* لم يتم تغيير أكواد الـ CSS */
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Cairo',sans-serif;background:#0a0e2b;color:#fff;overflow-x:hidden;transition: all .5s;}
     canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.7;}
     header{text-align:center;padding:130px 20px 90px;}
-    .logo-tec{font-size:6.8rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:12px;}
+    .logo-tec{font-size:6.8rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:12px;cursor:pointer;}
     .dynamic-text{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:30px 0;min-height:70px;}
-    .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:15px 45px;margin:10px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;}
+    .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:15px 45px;margin:10px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;text-decoration:none;}
     .btn:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(0,114,255,0.7);}
     .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);}
     .categories{max-width:1400px;margin:90px auto 120px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;}
@@ -24,20 +25,21 @@
     .subdomains{max-height:0;overflow:hidden;transition:max-height 0.8s ease;background:rgba(0,114,255,0.08);}
     .subdomains.open{max-height:2000px;padding:30px 20px;}
     .grid{display:flex;flex-direction:column;gap:16px;}
-    .item{background:rgba(255,255,255,0.1);padding:18px 22px;border-radius:16px;text-align:center;font-weight:700;font-size:1.1rem;transition:.4s;border:1px solid rgba(0,198,255,0.3);}
+    .item{background:rgba(255,255,255,0.1);padding:18px 22px;border-radius:16px;text-align:center;font-weight:700;font-size:1.1rem;transition:.4s;border:1px solid rgba(0,198,255,0.3);text-decoration:none;color:inherit;}
     .item:hover{background:rgba(0,198,255,0.4);transform:translateX(10px);box-shadow:0 0 30px rgba(0,198,255,0.6);}
 
     /* Footer Contact */
     footer{margin-top:80px;padding:80px 20px 60px;background:rgba(0,198,255,0.1);border-top:2px solid rgba(0,198,255,0.4);}
     .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;max-width:1000px;margin:0 auto 50px;}
-    .contact-item{background:rgba(0,198,255,0.2);border:1px solid rgba(0,198,255,0.5);padding:28px;border-radius:20px;font-size:1.3rem;font-weight:700;text-align:center;transition:.4s;}
+    .contact-item{background:rgba(0,198,255,0.2);border:1px solid rgba(0,198,255,0.5);padding:28px;border-radius:20px;font-size:1.3rem;font-weight:700;text-align:center;transition:.4s;text-decoration:none;color:inherit;}
     .contact-item:hover{transform:translateY(-10px);box-shadow:0 15px 40px rgba(0,198,255,0.4);background:rgba(0,198,255,0.35);}
 
+    /* Light Mode Adjustments */
     body.light-mode {background:#f5f7ff;color:#000;}
     body.light-mode .cat {background:rgba(0,100,255,0.08);border-color:rgba(0,100,255,0.4);}
     body.light-mode .item {background:rgba(0,0,0,0.06);border-color:rgba(0,100,255,0.3);color:#000;}
     body.light-mode .item:hover {background:rgba(0,100,255,0.3);color:#fff;}
-    body.light-mode .contact-item {background:rgba(0,100,255,0.15);}
+    body.light-mode .contact-item {background:rgba(0,100,255,0.15);color:#000;}
     body.light-mode footer {background:rgba(0,100,255,0.08);border-top-color:rgba(0,100,255,0.3);}
 
     #themeToggle{position:fixed;top:25px;left:25px;background:linear-gradient(90deg,#00ff9d,#00c6ff);border:none;padding:12px 25px;border-radius:40px;color:#000;font-weight:800;cursor:pointer;z-index:999;box-shadow:0 0 15px rgba(0,198,255,0.6);transition:.3s;}
@@ -63,13 +65,10 @@
   <canvas id="bg"></canvas>
 
   <header>
-    <div class="logo-tec">TEC</div>
+    <a href="/" style="text-decoration:none;"><div class="logo-tec">TEC</div></a>
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
     <p>Official Luxury Commerce & Finance Ecosystem on Pi Network</p>
-    
-    <!-- تم تعديل الزرار هنا عشان يرجع للرئيسية من أي مكان بدون 404 -->
-    <a href="https://tec.pi/" class="btn">Back to Home</a>
     
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
     <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
@@ -77,7 +76,6 @@
 
   <section class="categories">
 
-    <!-- Commerce & Finance -->
     <div class="cat"><h3>Commerce & Finance</h3><div class="subdomains"><div class="grid">
       <a href="commerce/" class="item">Commerce</a>
       <a href="ecommerce/" class="item">Ecommerce</a>
@@ -88,7 +86,6 @@
       <a href="nbf/" class="item">Nbf</a>
     </div></div></div>
 
-    <!-- Lifestyle & Elite -->
     <div class="cat"><h3>Lifestyle & Elite</h3><div class="subdomains"><div class="grid">
       <a href="life/" class="item">Life</a>
       <a href="estate/" class="item">Estate</a>
@@ -99,7 +96,6 @@
       <a href="epic/" class="item">Epic</a>
     </div></div></div>
 
-    <!-- Technology & Tools -->
     <div class="cat"><h3>Technology & Tools</h3><div class="subdomains"><div class="grid">
       <a href="nx/" class="item">Nx</a>
       <a href="tec/" class="item">TEC</a>
@@ -109,7 +105,6 @@
       <a href="connection/" class="item">Connection</a>
     </div></div></div>
 
-    <!-- Network & Partners -->
     <div class="cat"><h3>Network & Partners</h3><div class="subdomains"><div class="grid">
       <a href="nexus/" class="item">Nexus</a>
       <a href="brookfield/" class="item">Brookfield</a>
@@ -120,7 +115,6 @@
 
   </section>
 
-  <!-- Footer Contact -->
   <footer>
     <div style="max-width:1400px;margin:0 auto;text-align:center;">
       <h3 style="font-size:2.4rem;margin-bottom:50px;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
@@ -136,6 +130,7 @@
   </footer>
 
   <script>
+    // JavaScript الخاص بفتح وإغلاق الأقسام
     document.querySelectorAll('.cat h3').forEach(h => {
       h.onclick = () => {
         h.classList.toggle('open');
@@ -143,6 +138,7 @@
       };
     });
 
+    // JavaScript الخاص بالنص المتحرك
     const words = ["Elite","Titan","Luxury","Innovation","Pi Ecosystem","Future"];
     let i = 0;
     setInterval(() => {
@@ -150,6 +146,7 @@
       i = (i + 1) % words.length;
     }, 1800);
 
+    // JavaScript الخاص بالخلفية المتحركة (Particles)
     const canvas = document.getElementById('bg'), ctx = canvas.getContext('2d');
     canvas.width = innerWidth; canvas.height = innerHeight;
     window.addEventListener('resize', () => {canvas.width = innerWidth; canvas.height = innerHeight;});
@@ -169,6 +166,7 @@
       requestAnimationFrame(anim);
     })();
 
+    // JavaScript الخاص بـ Pi SDK (Login & Payment)
     if(typeof Pi !== 'undefined'){
       Pi.init({version:"2.0", sandbox:true});
       document.getElementById('piLoginBtn').onclick = () => Pi.authenticate(['username'],()=>{}).then(a=>alert("Welcome " + a.user.username)).catch(()=>alert("Failed"));
@@ -179,6 +177,7 @@
       });
     }
 
+    // JavaScript الخاص بتبديل الثيم (الوضع الفاتح/الداكن)
     const themeBtn = document.getElementById("themeToggle");
     if (localStorage.getItem("theme") === "light") {
       document.body.classList.add("light-mode");
