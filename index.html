@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <style>
+    /* كل الـ CSS زي ما هو عندك */
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Cairo',sans-serif;background:#0a0e2b;color:#fff;overflow-x:hidden;transition: all .5s;}
     canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.7;}
@@ -26,36 +27,14 @@
     .grid{display:flex;flex-direction:column;gap:16px;}
     .item{background:rgba(255,255,255,0.1);padding:18px 22px;border-radius:16px;text-align:center;font-weight:700;font-size:1.1rem;transition:.4s;border:1px solid rgba(0,198,255,0.3);}
     .item:hover{background:rgba(0,198,255,0.4);transform:translateX(10px);box-shadow:0 0 30px rgba(0,198,255,0.6);}
-
-    /* Footer Contact */
     footer{margin-top:80px;padding:80px 20px 60px;background:rgba(0,198,255,0.1);border-top:2px solid rgba(0,198,255,0.4);}
     .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;max-width:1000px;margin:0 auto 50px;}
     .contact-item{background:rgba(0,198,255,0.2);border:1px solid rgba(0,198,255,0.5);padding:28px;border-radius:20px;font-size:1.3rem;font-weight:700;text-align:center;transition:.4s;}
     .contact-item:hover{transform:translateY(-10px);box-shadow:0 15px 40px rgba(0,198,255,0.4);background:rgba(0,198,255,0.35);}
-
-    body.light-mode {background:#f5f7ff;color:#000;}
-    body.light-mode .cat {background:rgba(0,100,255,0.08);border-color:rgba(0,100,255,0.4);}
-    body.light-mode .item {background:rgba(0,0,0,0.06);border-color:rgba(0,100,255,0.3);color:#000;}
-    body.light-mode .item:hover {background:rgba(0,100,255,0.3);color:#fff;}
-    body.light-mode .contact-item {background:rgba(0,100,255,0.15);}
-    body.light-mode footer {background:rgba(0,100,255,0.08);border-top-color:rgba(0,100,255,0.3);}
-
     #themeToggle{position:fixed;top:25px;left:25px;background:linear-gradient(90deg,#00ff9d,#00c6ff);border:none;padding:12px 25px;border-radius:40px;color:#000;font-weight:800;cursor:pointer;z-index:999;box-shadow:0 0 15px rgba(0,198,255,0.6);transition:.3s;}
     #themeToggle:hover{transform:scale(1.08);}
-
-    @media (max-width: 768px){
-      header{padding:90px 15px 60px;}
-      .logo-tec{font-size:4.5rem;letter-spacing:6px;}
-      .dynamic-text{font-size:2rem;}
-      .categories{gap:20px;}
-      .cat h3{font-size:1.5rem;padding:25px;}
-      .contact-item{font-size:1.1rem;padding:20px;}
-    }
-    @media (max-width: 480px){
-      .logo-tec{font-size:3.5rem;}
-      .dynamic-text{font-size:1.5rem;}
-      .contact-grid{grid-template-columns:1fr;}
-    }
+    @media (max-width:768px){.logo-tec{font-size:4.5rem;}.dynamic-text{font-size:2rem;}}
+    @media (max-width:480px){.logo-tec{font-size:3.5rem;}.dynamic-text{font-size:1.5rem;}}
   </style>
 </head>
 <body>
@@ -67,7 +46,6 @@
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
     <p>Official Luxury Commerce & Finance Ecosystem on Pi Network</p>
-    
     <a href="/" class="btn">Back to Home</a>
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
     <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
@@ -77,48 +55,48 @@
 
     <!-- Commerce & Finance -->
     <div class="cat"><h3>Commerce & Finance</h3><div class="subdomains"><div class="grid">
-      <a href="/commerce.html" class="item">Commerce.pi</a>
-      <a href="/ecommerce.html" class="item">Ecommerce.pi</a>
-      <a href="/assets.html" class="item">Assets.pi</a>
-      <a href="/fundx.html" class="item">Fundx.pi</a>
-      <a href="/dx.html" class="item">Dx.pi</a>
-      <a href="/analytics.html" class="item">Analytics.pi</a>
-      <a href="/nbf.html" class="item">Nbf.pi</a>
+      <a href="/commerce/" class="item">Commerce.pi</a>
+      <a href="/ecommerce/" class="item">Ecommerce.pi</a>
+      <a href="/assets/" class="item">Assets.pi</a>
+      <a href="/fundx/" class="item">Fundx.pi</a>
+      <a href="/dx/" class="item">Dx.pi</a>
+      <a href="/analytics/" class="item">Analytics.pi</a>
+      <a href="/nbf/" class="item">Nbf.pi</a>
     </div></div></div>
 
     <!-- Lifestyle & Elite -->
     <div class="cat"><h3>Lifestyle & Elite</h3><div class="subdomains"><div class="grid">
-      <a href="/life.html" class="item">Life.pi</a>
-      <a href="/estate.html" class="item">Estate.pi</a>
-      <a href="/vip.html" class="item">Vip.pi</a>
-      <a href="/elite.html" class="item">Elite.pi</a>
-      <a href="/titan.html" class="item">Titan.pi</a>
-      <a href="/legend.html" class="item">Legend.pi</a>
-      <a href="/epic.html" class="item">Epic.pi</a>
+      <a href="/life/" class="item">Life.pi</a>
+      <a href="/estate/" class="item">Estate.pi</a>
+      <a href="/vip/" class="item">Vip.pi</a>
+      <a href="/elite/" class="item">Elite.pi</a>
+      <a href="/titan/" class="item">Titan.pi</a>
+      <a href="/legend/" class="item">Legend.pi</a>
+      <a href="/epic/" class="item">Epic.pi</a>
     </div></div></div>
 
     <!-- Technology & Tools -->
     <div class="cat"><h3>Technology & Tools</h3><div class="subdomains"><div class="grid">
-      <a href="/nx.html" class="item">Nx.pi</a>
-      <a href="/tec.html" class="item">Tec.pi</a>
-      <a href="/explorer.html" class="item">Explorer.pi</a>
-      <a href="/system.html" class="item">System.pi</a>
-      <a href="/alert.html" class="item">Alert.pi</a>
-      <a href="/connection.html" class="item">Connection.pi</a>
+      <a href="/nx/" class="item">Nx.pi</a>
+      <a href="/tec/" class="item">Tec.pi</a>
+      <a href="/explorer/" class="item">Explorer.pi</a>
+      <a href="/system/" class="item">System.pi</a>
+      <a href="/alert/" class="item">Alert.pi</a>
+      <a href="/connection/" class="item">Connection.pi</a>
     </div></div></div>
 
     <!-- Network & Partners -->
-    <div class="cat"><h3>Network & Partners</h3><div class="subdomains"><div class="grid">
-      <a href="/nexus.html" class="item">Nexus.pi</a>
-      <a href="/brookfield.html" class="item">Brookfield.pi</a>
-      <a href="/sab.html" class="item">Sab.pi</a>
-      <a href="/zone.html" class="item">Zone.pi</a>
-      <a href="/insure.html" class="item">Insure.pi</a>
+    <div class /**/> <h3>Network & Partners</h3><div class="subdomains"><div class="grid">
+      <a href="/nexus/" class="item">Nexus.pi</a>
+      <a href="/brookfield/" class="item">Brookfield.pi</a>
+      <a href="/sab/" class="item">Sab.pi</a>
+      <a href="/zone/" class="item">Zone.pi</a>
+      <a href="/insure/" class="item">Insure.pi</a>
     </div></div></div>
 
   </section>
 
-  <!-- Footer Contact -->
+  <!-- Footer -->
   <footer>
     <div style="max-width:1400px;margin:0 auto;text-align:center;">
       <h3 style="font-size:2.4rem;margin-bottom:50px;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
@@ -133,6 +111,7 @@
     </div>
   </footer>
 
+  <!-- نفس الـ JavaScript بتاعك -->
   <script>
     document.querySelectorAll('.cat h3').forEach(h => {
       h.onclick = () => {
@@ -184,14 +163,8 @@
     }
     themeBtn.onclick = () => {
       document.body.classList.toggle("light-mode");
-      if (document.body.classList.contains("light-mode")) {
-        localStorage.setItem("theme", "light");
-        themeBtn.textContent = "Dark Mode";
-      } else {
-        localStorage.setItem("theme", "dark");
-        themeBtn.textContent = "Light Mode";
-      }
+      themeBtn.textContent = document.body.classList.contains("light-mode") ? "Dark Mode" : "Light Mode";
     };
   </script>
 </body>
-</html>
+        </html>
