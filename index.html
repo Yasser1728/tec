@@ -14,21 +14,11 @@
     header{text-align:center;padding:130px 20px 90px;}
     .logo-tec{font-size:6.8rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff,#0072ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 50px rgba(0,198,255,0.6);letter-spacing:12px;cursor:pointer;}
     .dynamic-text{font-size:2.5rem;font-weight:900;background:linear-gradient(90deg,#00ff9d,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:30px 0;min-height:70px;}
-    /* تم تحديث خصائص .btn لتشمل جميع الأزرار */
-    .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:15px 45px;margin:10px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;text-decoration:none;border:none;cursor:pointer;} /* إضافة border:none و cursor:pointer */
+    .btn{display:inline-block;background:linear-gradient(90deg,#0072ff,#00c6ff);color:#fff;padding:15px 45px;margin:10px;border-radius:50px;font-weight:700;box-shadow:0 8px 30px rgba(0,114,255,0.5);transition:.4s;text-decoration:none;border:none;cursor:pointer;}
     .btn:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(0,114,255,0.7);}
     .pi-btn{background:linear-gradient(90deg,#ff8c00,#ff5e00);box-shadow:0 8px 30px rgba(255,94,0,0.5);}
     .pi-btn:hover{box-shadow:0 20px 45px rgba(255,94,0,0.7);}
-    /* تنسيق خاص لزر تبديل الوضع ليتناسب مع باقي الأزرار */
-    #themeToggle{
-        background:linear-gradient(90deg,#00ff9d,#00c6ff);
-        color:#000;
-        box-shadow:0 8px 30px rgba(0,198,255,0.5);
-    }
-    #themeToggle:hover{
-        box-shadow:0 20px 45px rgba(0,198,255,0.7);
-    }
-
+    
     .categories{max-width:1400px;margin:90px auto 120px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;}
     .cat{background:rgba(0,198,255,0.15);border:2px solid rgba(0,198,255,0.5);border-radius:26px;overflow:hidden;transition:.5s;}
     .cat h3{background:linear-gradient(135deg,#0072ff,#00c6ff);padding:32px;font-size:1.9rem;text-align:center;color:#fff;cursor:pointer;position:relative;}
@@ -54,10 +44,23 @@
     body.light-mode .contact-item {background:rgba(0,100,255,0.15);color:#000;}
     body.light-mode footer {background:rgba(0,100,255,0.08);border-top-color:rgba(0,100,255,0.3);}
 
-    /* تم حذف تحديد الموقع الثابت لزر تبديل الوضع */
-    /*
-    #themeToggle{position:fixed;top:25px;left:25px;...} 
-    */
+    /* تم إعادة هذا التحديد لوضع الزر في الزاوية العلوية اليسرى */
+    #themeToggle{
+        position:fixed;
+        top:25px;
+        left:25px;
+        background:linear-gradient(90deg,#00ff9d,#00c6ff);
+        border:none;
+        padding:12px 25px;
+        border-radius:40px;
+        color:#000;
+        font-weight:800;
+        cursor:pointer;
+        z-index:999;
+        box-shadow:0 0 15px rgba(0,198,255,0.6);
+        transition:.3s;
+    }
+    #themeToggle:hover{transform:scale(1.08);box-shadow:0 0 25px rgba(0,198,255,0.8);}
 
     @media (max-width: 768px){
       header{padding:90px 15px 60px;}
@@ -75,6 +78,7 @@
   </style>
 </head>
 <body>
+  <button id="themeToggle">Light Mode</button>
   <canvas id="bg"></canvas>
 
   <header>
@@ -86,7 +90,6 @@
     <a href="#" id="piLoginBtn" class="btn pi-btn">Login with Pi</a>
     <a href="#" id="piPaymentBtn" class="btn pi-btn">Test Payment</a>
     
-    <button id="themeToggle" class="btn">Light Mode</button>
   </header>
 
   <section class="categories">
