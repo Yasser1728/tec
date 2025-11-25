@@ -81,8 +81,9 @@
       font-size: 1rem;
       transition: 0.3s;
       text-decoration: none;
-      color: #fff; /* تم التأكد من بقاء لون النص أبيض داخل الأزرار */
+      color: #fff;
       cursor: pointer;
+      text-align: center; /* لضمان توسيط النص في الروابط A */
     }
 
     .btn.start {
@@ -95,15 +96,26 @@
       background: rgba(164, 92, 255, 0.2);
     }
 
-    .btn.consult {
+    .btn.consult { /* سيستخدم هذا النمط للوحة البائع الآن */
+      background: transparent;
+      border-color: #61d7ff; /* تغيير اللون قليلاً للتمييز */
+      box-shadow: 0 0 20px rgba(97, 215, 255, 0.5);
+    }
+
+    .btn.consult:hover {
+      background: rgba(97, 215, 255, 0.15);
+    }
+    
+    .btn.ai-consult { /* نمط جديد للاستشارة الآلية */
       background: transparent;
       border-color: #00ffe7;
       box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
     }
 
-    .btn.consult:hover {
+    .btn.ai-consult:hover {
       background: rgba(0, 255, 231, 0.15);
     }
+
 
     .btn.home {
       background: transparent;
@@ -183,11 +195,13 @@
   <h1>Commerce.PI</h1>
   <p>Empower Your Vision with AI.</p>
 
-  <a href="products.html" class="btn start">START NOW</a> 
+  <a href="products.html" class="btn start">START NOW (Buyer)</a> 
 
-  <a href="ai_consult.html" class="btn consult">AI CONSULTATION</a>
+  <a href="seller_dashboard.html" class="btn consult">SELLER DASHBOARD</a>
   
-  <button class="btn home" onclick="goHome()">BACK TO HOME</button>
+  <a href="ai_consult.html" class="btn ai-consult">AI CONSULTATION</a>
+
+  <button class="btn home" onclick="goHome()">BACK TO TEC HOME</button>
 
   <div class="footer-links">
     <a href="terms_commerce.html">Terms of Service</a>
@@ -293,7 +307,6 @@
 
     // === زر العودة للصفحة الرئيسية ===
     function goHome() {
-      // بما أن الملف يقع في /tec/commerce/index.html، يجب أن يكون الرابط هو المسار للأعلى
       window.location.href = "../index.html"; 
     }
   </script>
