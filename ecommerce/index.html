@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ecommerce.PI – Empowering Digital Commerce with AI</title>
+  <title>Commerce.PI – Empower Your Vision with AI</title>
   <style>
     * {
       box-sizing: border-box;
@@ -83,8 +83,10 @@
       text-decoration: none;
       color: #fff;
       cursor: pointer;
+      text-align: center; 
     }
 
+    /* زر START NOW - يذهب لصفحة categories.html الآن */
     .btn.start {
       background: transparent;
       border-color: #a45cff;
@@ -95,16 +97,30 @@
       background: rgba(164, 92, 255, 0.2);
     }
 
-    .btn.consult {
+    /* زر SELLER DASHBOARD */
+    .btn.consult { 
+      background: transparent;
+      border-color: #61d7ff; 
+      box-shadow: 0 0 20px rgba(97, 215, 255, 0.5);
+    }
+
+    .btn.consult:hover {
+      background: rgba(97, 215, 255, 0.15);
+    }
+    
+    /* زر AI CONSULTATION */
+    .btn.ai-consult { 
       background: transparent;
       border-color: #00ffe7;
       box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
     }
 
-    .btn.consult:hover {
+    .btn.ai-consult:hover {
       background: rgba(0, 255, 231, 0.15);
     }
 
+
+    /* زر BACK TO HOME */
     .btn.home {
       background: transparent;
       border-color: #999;
@@ -148,6 +164,31 @@
     body.light #toggleMode:hover {
       background: rgba(0, 0, 0, 0.15);
     }
+
+    /* Legal Links Style */
+    .footer-links {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      z-index: 10;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .footer-links a {
+      color: #61d7ff; 
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover {
+      color: #b67eff; 
+    }
+    body.light .footer-links {
+      color: rgba(0, 0, 0, 0.6);
+    }
+    body.light .footer-links a {
+      color: #4b0082;
+    }
   </style>
 </head>
 <body>
@@ -155,12 +196,23 @@
 
   <button id="toggleMode">🌙 Night</button>
 
-  <h1>Ecommerce.PI</h1>
-  <p>Empowering Digital Commerce with AI.</p>
+  <h1>Commerce.PI</h1>
+  <p>Empower Your Vision with AI.</p>
 
-  <button class="btn start" onclick="alert('🛍️ Launching AI Ecommerce Platform...')">START NOW</button>
-  <button class="btn consult" onclick="alert('🤖 Connecting to AI Commerce Consultant...')">AI CONSULTATION</button>
-  <button class="btn home" onclick="goHome()">BACK TO HOME</button>
+  <a href="categories.html" class="btn start">START NOW (Buyer)</a> 
+
+  <a href="seller_dashboard.html" class="btn consult">SELLER DASHBOARD</a>
+  
+  <a href="ai_consult.html" class="btn ai-consult">AI CONSULTATION</a>
+
+  <button class="btn home" onclick="goHome()">BACK TO TEC HOME</button>
+
+  <div class="footer-links">
+    <a href="terms_commerce.html">Terms of Service</a>
+    |
+    <a href="privacy_commerce.html">Privacy Policy</a>
+    <p style="margin-top: 5px; font-size: 0.8rem; opacity: 0.7;">© 2025 Commerce.PI</p>
+  </div>
 
   <script>
     // === نظام الجسيمات ===
@@ -259,7 +311,7 @@
 
     // === زر العودة للصفحة الرئيسية ===
     function goHome() {
-      window.location.href = "https://yasser1728.github.io/life-nexus/";
+      window.location.href = "../index.html"; 
     }
   </script>
 </body>
