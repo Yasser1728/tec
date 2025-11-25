@@ -27,6 +27,7 @@
       text-align: center;
       position: relative;
       background: radial-gradient(circle at top, #3b0a66, #1a042e);
+      padding-bottom: 70px; /* مسافة للشريط السفلي */
     }
 
     body.light {
@@ -83,9 +84,10 @@
       text-decoration: none;
       color: #fff;
       cursor: pointer;
-      text-align: center; /* لضمان توسيط النص في الروابط A */
+      text-align: center; 
     }
 
+    /* زر START NOW - يذهب لصفحة categories.html الآن */
     .btn.start {
       background: transparent;
       border-color: #a45cff;
@@ -96,9 +98,10 @@
       background: rgba(164, 92, 255, 0.2);
     }
 
-    .btn.consult { /* سيستخدم هذا النمط للوحة البائع الآن */
+    /* زر SELLER DASHBOARD */
+    .btn.consult { 
       background: transparent;
-      border-color: #61d7ff; /* تغيير اللون قليلاً للتمييز */
+      border-color: #61d7ff; 
       box-shadow: 0 0 20px rgba(97, 215, 255, 0.5);
     }
 
@@ -106,7 +109,8 @@
       background: rgba(97, 215, 255, 0.15);
     }
     
-    .btn.ai-consult { /* نمط جديد للاستشارة الآلية */
+    /* زر AI CONSULTATION */
+    .btn.ai-consult { 
       background: transparent;
       border-color: #00ffe7;
       box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
@@ -117,6 +121,7 @@
     }
 
 
+    /* زر BACK TO HOME */
     .btn.home {
       background: transparent;
       border-color: #999;
@@ -161,7 +166,7 @@
       background: rgba(0, 0, 0, 0.15);
     }
 
-    /* NEW: Legal Links Style */
+    /* Legal Links Style */
     .footer-links {
       position: absolute;
       bottom: 20px;
@@ -171,19 +176,54 @@
       color: rgba(255, 255, 255, 0.6);
     }
     .footer-links a {
-      color: #61d7ff; /* لون الروابط */
+      color: #61d7ff; 
       text-decoration: none;
       margin: 0 10px;
       transition: color 0.3s;
     }
     .footer-links a:hover {
-      color: #b67eff; /* لون عند التحويم */
+      color: #b67eff; 
     }
     body.light .footer-links {
       color: rgba(0, 0, 0, 0.6);
     }
     body.light .footer-links a {
       color: #4b0082;
+    }
+
+    /* شريط التنقل السفلي الثابت (Bottom Navigation Bar) */
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #3b0a66; 
+        border-top: 1px solid #5a198c;
+        display: flex;
+        justify-content: space-around;
+        padding: 8px 0;
+        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+    }
+
+    .nav-item {
+        text-align: center;
+        text-decoration: none;
+        color: #ccc;
+        font-size: 0.7rem;
+        display: block;
+        padding: 5px;
+        transition: color 0.3s;
+    }
+
+    .nav-item.active {
+        color: #00ffe7; /* لون النشاط */
+    }
+
+    .nav-item i {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 2px;
     }
   </style>
 </head>
@@ -195,7 +235,7 @@
   <h1>Commerce.PI</h1>
   <p>Empower Your Vision with AI.</p>
 
-  <a href="products.html" class="btn start">START NOW (Buyer)</a> 
+  <a href="categories.html" class="btn start">START NOW (Buyer)</a> 
 
   <a href="seller_dashboard.html" class="btn consult">SELLER DASHBOARD</a>
   
@@ -208,6 +248,25 @@
     |
     <a href="privacy_commerce.html">Privacy Policy</a>
     <p style="margin-top: 5px; font-size: 0.8rem; opacity: 0.7;">© 2025 Commerce.PI</p>
+  </div>
+
+  <div class="bottom-nav">
+      <a href="index.html" class="nav-item active">
+          <i>🏠</i>
+          <span>Home</span>
+      </a>
+      <a href="categories.html" class="nav-item">
+          <i>🏷️</i>
+          <span>Categories</span>
+      </a>
+      <a href="products.html" class="nav-item">
+          <i>🛒</i>
+          <span>Cart</span>
+      </a>
+      <a href="user_account.html" class="nav-item">
+          <i>👤</i>
+          <span>You</span>
+      </a>
   </div>
 
   <script>
