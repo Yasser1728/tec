@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard - Commerce.PI</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a042e; 
+            color: #e0e0e0;
+            padding: 30px;
+            margin: 0;
+        }
+        h1 {
+            color: #b67eff;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #3b0a66;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+        .section-header {
+            color: #61d7ff;
+            border-bottom: 2px solid #5a198c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #5a198c;
+            background-color: #2e084a;
+            color: #e0e0e0;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .price-output {
+            background-color: #2e084a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px dashed #61d7ff;
+        }
+        .price-output strong {
+            color: #a45cff;
+            font-size: 1.2rem;
+        }
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #00ffe7;
+            color: #1a042e;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-submit:hover {
+            background-color: #61d7ff;
+        }
+        .go-back {
+            display: block;
+            margin-top: 30px;
+            color: #61d7ff;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Commerce.PI Seller Dashboard</h1>
+        
+        <h2 class="section-header">1. Product Listing & Pricing</h2>
+        <form id="product-form">
+            
+            <div class="form-group">
+                <label for="name">Product Name:</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category (Classification):</label>
+                <select id="category" required>
+                    <option value="" disabled selected>Select a Category</option>
+                    <option value="Tech">Tech & Electronics</option>
+                    <option value="Fashion">Fashion & Apparel</option>
+                    <option value="Home">Home & Living</option>
+                    <option value="Arts">Arts & Collectibles</option>
+                    <option value="Other">Other / New Category</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" required></textarea>
+            </div>
+
+            <h3 class="section-header" style="font-size: 1.2rem; border: none; margin-bottom: 15px;">Pricing Details (Pi & USD)</h3>
+
+            <div class="form-group">
+                <label for="base_pi">Base Price (Your Profit) in Pi:</label>
+                <input type="number" id="base_pi" step="0.01" value="0.00" oninput="calculatePrice()" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shipping_usd">Shipping Cost (Carrier Fee) in USD:</label>
+                <input type="number" id="shipping_usd" step="0.01" value="0.00" oninput="calculatePrice()" required>
+            </div>
+
+            <div class="price-output">
+                <p>Exchange Rate (Mock): 1 Pi = **$40 USD** (GCO Value)</p>
+                <p id="pi_shipping">Shipping Cost in Pi: 0.00 Pi</p>
+                <p>Platform Commission: 10% from Base Price</p>
+                <p>Total Required Pi Payment from Buyer: <strong id="total_pi">0.00 Pi</strong></p>
+            </div>
+            
+            <button type="button" class="btn-submit" onclick="listProduct()">LIST PRODUCT</button>
+
+        </form>
+        
+        <hr style="margin: 40px 0; border-color: #5a198c;">
+
+        <h2 class="section-header">2. Order Fulfillment Status</h2>
+        <p style="text-align: center; opacity: 0.7;">Here the seller tracks new orders, inputs tracking numbers, and monitors the 14-day ESCROW period.</p>
+        
+        <a href="../index.html" class="go-back">← Back to TEC Home</a>
+
+    </div>
+
+    <script>
+        // Mock GCO Exchange Rate
+        const PI_GCO_RATE = 40; // 1 Pi = 40 USD
+
+        function calculatePrice() {
+            const basePi = parseFloat(document.getElementById('base_pi').value) || 0;
+            const shippingUsd = parseFloat(document.getElementById('shipping_usd').value) || 0;
+
+            // 1. حساب تكلفة الشحن بالـ Pi
+            const shippingPi = shippingUsd / PI_GCO_RATE;
+
+            // 2. حساب العمولة (10% من السعر الأساسي فقط)
+            const commissionPi = basePi * 0.10;
+
+            // 3. السعر الإجمالي للمشتري
+            // (سعر المنتج + عمولة) + (تكلفة الشحن)
+            const totalPiForBuyer = basePi + commissionPi + shippingPi;
+
+            // تحديث الواجهة
+            document.getElementById('pi_shipping').textContent = `Shipping Cost in Pi: ${shippingPi.toFixed(2)} Pi`;
+            document.getElementById('total_pi').textContent = `${totalPiForBuyer.toFixed(2)} Pi`;
+        }
+
+        function listProduct() {
+            const name = document.getElementById('name').value;
+            const category = document.getElementById('category').value;
+            const description = document.getElementById('description').value;
+            const basePi = parseFloat(document.getElementById('base_pi').value);
+            const shippingUsd = parseFloat(document.getElementById('shipping_usd').value);
+            
+            const shippingPi = shippingUsd / PI_GCO_RATE;
+            const commissionPi = basePi * 0.10;
+            const totalPiForBuyer = basePi + commissionPi + shippingPi;
+
+
+            if (name && category && description && basePi > 0 && shippingUsd >= 0) {
+                // محاكاة إدراج المنتج في قاعدة البيانات (في هذه المرحلة، ستكون Array مؤقتة)
+                console.log("--- New Product Listed ---");
+                console.log(`Name: ${name}`);
+                console.log(`Category: ${category}`);
+                console.log(`Base Pi (Profit): ${basePi.toFixed(2)} Pi`);
+                console.log(`USD Shipping: $${shippingUsd.toFixed(2)}`);
+                console.log(`Platform Commission: ${commissionPi.toFixed(2)} Pi`);
+                console.log(`TOTAL BUYER PAYS: ${totalPiForBuyer.toFixed(2)} Pi`);
+                console.log("--------------------------");
+
+                alert(`✅ Product '${name}' listed successfully!\nBuyer payment required: ${totalPiForBuyer.toFixed(2)} Pi`);
+
+                // في النظام الحقيقي، هنا يتم إرسال البيانات إلى الخادم ليتم إضافتها إلى القائمة المعروضة في products.html
+                // (هذه الخطوة تتطلب قاعدة بيانات حقيقية).
+            } else {
+                alert("Please fill all required fields and ensure prices are valid.");
+            }
+        }
+
+        // حساب السعر الأولي عند تحميل الصفحة
+        window.onload = calculatePrice;
+    </script>
+</body>
+</html>
