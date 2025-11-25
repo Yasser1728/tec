@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products List - Commerce.PI</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a042e; /* خلفية TEC الداكنة */
+            color: #e0e0e0;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            color: #b67eff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        .main-content {
+            display: flex;
+            max-width: 1300px; 
+            margin: 0 auto;
+        }
+        /* تصميم الشريط الجانبي (للفلترة السريعة داخل الصفحة) */
+        .sidebar {
+            width: 200px;
+            margin-right: 35px;
+            padding: 15px;
+            background-color: #2b084a; 
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            height: fit-content;
+        }
+        .sidebar h3 {
+            color: #00ffe7;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #5a198c;
+            margin-bottom: 15px;
+        }
+        .category-link {
+            display: block;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background-color: transparent;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .category-link:hover, .category-link.active {
+            background-color: #a45cff; 
+            color: white;
+        }
+        .products-container {
+            flex-grow: 1;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; 
+        }
+        /* تصميم بطاقة المنتج (Product Card) الاحترافي */
+        .product-card {
+            background-color: #3b0a66; 
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden; 
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: none;
+        }
+        .product-card.show {
+            display: block;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(182, 126, 255, 0.3);
+        }
+        
+        .product-image-placeholder {
+            width: 100%;
+            height: 180px;
+            background-color: #5a198c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #61d7ff;
+            margin-bottom: 15px;
+        }
+
+        .product-details {
+            padding: 0 15px 15px 15px; 
+        }
+
+        .product-card h2 {
+            font-size: 1.25rem; 
+            color: #61d7ff;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .product-card .category-tag {
+            font-size: 0.8rem;
+            color: #b67eff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .price-row .pi {
+            font-weight: bold;
+            color: #00ffe7; 
+            font-size: 1.4rem;
+        }
+        .btn-buy {
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            width: auto;
+            border-radius: 6px;
+            background-color: #a45cff;
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-buy:hover {
+            background-color: #b67eff;
+        }
+        
+        .product-description-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        .go-back-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 20px;
+            background-color: #2b084a;
+            color: #00ffe7;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #00ffe7;
+            transition: background-color 0.3s;
+        }
+        .go-back-link:hover {
+            background-color: #00ffe7;
+            color: #1a042e;
+        }
+    </style>
+</head>
+<body>
+    <h1>Commerce.PI Product Marketplace</h1>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <h3>SHOP BY CATEGORY</h3>
+            <a href="products.html?cat=All" class="category-link" onclick="filterProducts('All', this)">All Products</a>
+            <a href="products.html?cat=Tech" class="category-link" onclick="filterProducts('Tech', this)">Mobiles & Tech</a>
+            <a href="products.html?cat=Fashion" class="category-link" onclick="filterProducts('Fashion', this)">Apparel & Fashion</a>
+            <a href="products.html?cat=Watches" class="category-link" onclick="filterProducts('Watches', this)">Watches & Accessories</a>
+            <a href="products.html?cat=Home" class="category-link" onclick="filterProducts('Home', this)">Home & Living</a>
+            <a href="products.html?cat=Tools" class="category-link" onclick="filterProducts('Tools', this)">Tools & Hardware</a>
+            <a href="products.html?cat=Sports" class="category-link" onclick="filterProducts('Sports', this)">Sports & Outdoors</a>
+            <a href="products.html?cat=Beauty" class="category-link" onclick="filterProducts('Beauty', this)">Health & Beauty</a>
+            <hr style="border-color: #5a198c;">
+            <a href="categories.html" class="category-link" style="color: #61d7ff; font-weight: bold;">← Change Category (Icons)</a>
+            <a href="index.html" class="category-link" style="color: #00ffe7;">← Go Back Home</a>
+        </div>
+
+        <div class="products-container">
+            <div class="products-grid" id="products-container">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. تعريف المنتجات (تم تحديث التصنيفات لتطابق صفحة categories.html)
+        const products = [
+            { id: 1, name: "Pi-Powered Smart Watch", price_pi: 5.5, base_pi: 5.0, shipping_pi: 0.5, shipping_usd: 20, description: "Next-gen smartwatch integrated with Pi Network utilities.", category: "Watches" },
+            { id: 2, name: "Luxury Leather Wallet", price_pi: 2.0, base_pi: 1.8, shipping_pi: 0.2, shipping_usd: 8, description: "Handcrafted wallet made from premium leather.", category: "Fashion" },
+            { id: 3, name: "Advanced Drone Kit", price_pi: 15.0, base_pi: 14.5, shipping_pi: 0.5, shipping_usd: 25, description: "Professional grade drone with 4K camera.", category: "Tech" },
+            { id: 4, name: "Wireless Bluetooth Earbuds", price_pi: 3.2, base_pi: 3.0, shipping_pi: 0.2, shipping_usd: 10, description: "High-quality sound with long battery life.", category: "Tech" },
+            { id: 5, name: "Premium Cotton T-Shirt", price_pi: 1.5, base_pi: 1.3, shipping_pi: 0.2, shipping_usd: 5, description: "Soft, breathable cotton T-shirt, multiple colors.", category: "Fashion" },
+            { id: 6, name: "Smart Home Security Camera", price_pi: 4.8, base_pi: 4.5, shipping_pi: 0.3, shipping_usd: 12, description: "Indoor security camera with night vision.", category: "Home" },
+            { id: 7, name: "Laser Level Tool", price_pi: 6.5, base_pi: 6.0, shipping_pi: 0.5, shipping_usd: 25, description: "High-precision laser level for construction.", category: "Tools" },
+            { id: 8, name: "Running Shoes", price_pi: 7.0, base_pi: 6.5, shipping_pi: 0.5, shipping_usd: 20, description: "Lightweight and durable shoes for sports.", category: "Sports" },
+            { id: 9, name: "Organic Face Cream", price_pi: 3.5, base_pi: 3.0, shipping_pi: 0.5, shipping_usd: 15, description: "Natural face cream for daily moisturizing.", category: "Beauty" }
+        ];
+
+        const container = document.getElementById('products-container');
+
+        // 2. دالة لرسم جميع المنتجات في الواجهة
+        function renderProducts() {
+            // إفراغ الحاوية قبل إعادة العرض لتجنب التكرار
+            container.innerHTML = ''; 
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.setAttribute('data-category', product.category);
+                
+                card.innerHTML = `
+                    <div class="product-image-placeholder">
+                        [Image Placeholder for ${product.name}]
+                    </div>
+                    <div class="product-details">
+                        <span class="category-tag">/ ${product.category}</span>
+                        <h2>${product.name}</h2>
+                        <p class="product-description-text">${product.description}</p>
+                        
+                        <div class="price-row">
+                            <span class="pi">${product.price_pi.toFixed(2)} Pi</span>
+                            <button class="btn-buy" onclick="startCheckout(${product.id}, ${product.price_pi})">
+                                Buy (${product.price_pi.toFixed(2)} Pi)
+                            </button>
+                        </div>
+                         <p class="shipping-note" style="margin-top: 8px;">Shipping: ${product.shipping_pi.toFixed(2)} Pi (~$${product.shipping_usd})</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 3. دالة فلترة المنتجات حسب التصنيف
+        function filterProducts(category, clickedLink) {
+            // إزالة التحديد من جميع الروابط
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // إضافة التحديد للرابط الذي تم الضغط عليه
+            if (clickedLink) {
+                clickedLink.classList.add('active');
+            }
+
+            // فلترة المنتجات وعرض المطابق منها
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                if (category === 'All' || card.getAttribute('data-category') === category) {
+                    card.classList.add('show');
+                } else {
+                    card.classList.remove('show');
+                }
+            });
+        }
+
+        // 4. دالة لقراءة التصنيف من URL
+        function getCategoryFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // الافتراضي هو 'All'
+            return urlParams.get('cat') || 'All'; 
+        }
+
+        // 5. دالة محاكاة عملية الدفع (Escrow)
+        const PI_GCO_RATE = 40; 
+        function startCheckout(id, price) {
+            const product = products.find(p => p.id === id);
+            
+            if (!product) { alert("Error: Product not found."); return; }
+
+            const confirmation = confirm(
+                `CONFIRM PURCHASE:\n` +
+                `Product: ${product.name}\n` +
+                `Total Amount: ${price.toFixed(2)} Pi\n` +
+                `Shipping: ${product.shipping_pi.toFixed(2)} Pi (Approx. $${product.shipping_usd})\n\n` +
+                `By clicking OK, the amount will be held in ESCROW for 14 days.`
+            );
+
+            if (confirmation) {
+                console.log(`Transaction Initiated for Product ID ${id}. Amount: ${price.toFixed(2)} Pi.`);
+                alert(`✅ Payment of ${price.toFixed(2)} Pi successfully transferred to ESCROW.\n\n` + 
+                      `Funds will be released in 14 days or upon your confirmation of receipt.`);
+            } else {
+                alert("Purchase canceled.");
+            }
+        }
+
+        // بدء عرض المنتجات عند تحميل الصفحة
+        window.onload = () => {
+            renderProducts();
+            
+            // تحديد التصنيف الأولي بناءً على رابط URL
+            const initialCategory = getCategoryFromURL();
+            
+            // البحث عن رابط التصنيف في الشريط الجانبي لتحديده
+            const initialLink = document.querySelector(`.category-link[onclick*="'${initialCategory}'"]`);
+            
+            filterProducts(initialCategory, initialLink);
+        };
+    </script>
+</body>
+</html>
