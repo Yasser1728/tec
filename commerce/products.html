@@ -2,11 +2,127 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products List - Commerce.PI</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a042e; /* خلفية داكنة */
+            color: #e0e0e0;
+            padding: 20px;
+            margin: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #b67eff;
+            margin-bottom: 30px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background-color: #3b0a66;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(182, 126, 255, 0.2);
+        }
+        .product-card h2 {
+            font-size: 1.4rem;
+            color: #61d7ff;
+            margin-top: 0;
+        }
+        .price {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        .price .pi {
+            font-weight: bold;
+            color: #a45cff;
+        }
+        .btn-buy {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #a45cff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn-buy:hover {
+            background-color: #b67eff;
+        }
+    </style>
 </head>
 <body>
-    <h1>Products List Coming Soon</h1>
-    <p>We are preparing the marketplace for physical goods. Please check back later!</p>
-    <a href="index.html">Go Back</a>
+    <h1>Commerce.PI Product Marketplace</h1>
+    <div class="products-grid" id="products-container">
+        </div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: "Pi-Powered Smart Watch",
+                price_pi: 5.5,
+                price_usd: 120,
+                description: "Next-gen smartwatch integrated with Pi Network utilities and health tracking features.",
+                category: "Tech"
+            },
+            {
+                id: 2,
+                name: "Luxury Leather Wallet",
+                price_pi: 2.0,
+                price_usd: 45,
+                description: "Handcrafted wallet made from premium leather, featuring RFID protection.",
+                category: "Fashion"
+            },
+            {
+                id: 3,
+                name: "Advanced Drone Kit",
+                price_pi: 15.0,
+                price_usd: 350,
+                description: "Professional grade drone with 4K camera and 30-minute flight time.",
+                category: "Tech"
+            },
+            {
+                id: 4,
+                name: "Ergonomic Office Chair",
+                price_pi: 9.9,
+                price_usd: 250,
+                description: "High-back chair with lumbar support for long working hours.",
+                category: "Home"
+            }
+        ];
+
+        const container = document.getElementById('products-container');
+
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <h2>${product.name}</h2>
+                <p><strong>Category:</strong> ${product.category}</p>
+                <p>${product.description}</p>
+                <div class="price">
+                    Price: <span class="pi">${product.price_pi.toFixed(2)} Pi</span> (~$${product.price_usd})
+                </div>
+                <a href="#" class="btn-buy" onclick="alert('Proceeding to checkout for ${product.name}')">BUY NOW</a>
+            `;
+            container.appendChild(card);
+        });
+    </script>
 </body>
 </html>
