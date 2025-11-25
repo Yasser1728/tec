@@ -1,14 +1,13 @@
 from django.db import models
-from products.models import Product # Assuming Product model is imported correctly
+from products.models import Product
+from accounts.models import Customer 
 
-# 1. Order Model
 class Order(models.Model):
-    # Assuming Customer model exists in accounts.models
-    # customer = models.ForeignKey('accounts.Customer', on_delete=models.CASCADE) 
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE) 
     
     STATUS_CHOICES = [
-        ('PENDING', 'Pending'),
-        ('PROCESSING', 'Processing'),
+        ('PENDING', 'Pending Payment'),
+        ('PROCESSING', 'Processing Order'),
         ('SHIPPED', 'Shipped'),
         ('DELIVERED', 'Delivered'),
         ('CANCELED', 'Canceled'),
@@ -19,18 +18,14 @@ class Order(models.Model):
     shipping_address = models.TextField()
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
     
+    # 🌟 New Payment Fields
+    payment_reference = models.CharField(max_length=255, null=True, blank=True)
+    payment_status_gateway = models.CharField(max_length=50, null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name_plural = "Orders"
-
-# 2. Order Detail Model (Items within an order)
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.PROTECT) 
-    
     quantity = models.IntegerField()
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
-    
-    class Meta:
-        verbose_name_plural = "Order Details"
