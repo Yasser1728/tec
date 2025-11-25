@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #1a042e; /* خلفية داكنة */
+            background-color: #1a042e;
             color: #e0e0e0;
             padding: 20px;
             margin: 0;
@@ -49,6 +49,12 @@
             font-weight: bold;
             color: #a45cff;
         }
+        .shipping-note {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-top: -5px;
+            margin-bottom: 15px;
+        }
         .btn-buy {
             display: block;
             width: 100%;
@@ -60,6 +66,8 @@
             text-align: center;
             font-weight: bold;
             transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
         }
         .btn-buy:hover {
             background-color: #b67eff;
@@ -72,12 +80,16 @@
         </div>
 
     <script>
+        // 1. تعريف المنتجات
+        // (ملاحظة: السعر الإجمالي بالـ Pi = سعر المنتج + سعر الشحن بالـ Pi المحسوب)
         const products = [
             {
                 id: 1,
                 name: "Pi-Powered Smart Watch",
-                price_pi: 5.5,
-                price_usd: 120,
+                price_pi: 5.5, // Total Pi
+                base_pi: 5.0,  // Product Price
+                shipping_pi: 0.5, // Shipping Price
+                shipping_usd: 20, // USD equivalent for seller to pay carrier
                 description: "Next-gen smartwatch integrated with Pi Network utilities and health tracking features.",
                 category: "Tech"
             },
@@ -85,7 +97,9 @@
                 id: 2,
                 name: "Luxury Leather Wallet",
                 price_pi: 2.0,
-                price_usd: 45,
+                base_pi: 1.8,
+                shipping_pi: 0.2,
+                shipping_usd: 8,
                 description: "Handcrafted wallet made from premium leather, featuring RFID protection.",
                 category: "Fashion"
             },
@@ -93,22 +107,17 @@
                 id: 3,
                 name: "Advanced Drone Kit",
                 price_pi: 15.0,
-                price_usd: 350,
+                base_pi: 14.5,
+                shipping_pi: 0.5,
+                shipping_usd: 25,
                 description: "Professional grade drone with 4K camera and 30-minute flight time.",
                 category: "Tech"
-            },
-            {
-                id: 4,
-                name: "Ergonomic Office Chair",
-                price_pi: 9.9,
-                price_usd: 250,
-                description: "High-back chair with lumbar support for long working hours.",
-                category: "Home"
             }
         ];
 
         const container = document.getElementById('products-container');
 
+        // 2. عرض المنتجات في الواجهة
         products.forEach(product => {
             const card = document.createElement('div');
             card.className = 'product-card';
@@ -117,12 +126,53 @@
                 <p><strong>Category:</strong> ${product.category}</p>
                 <p>${product.description}</p>
                 <div class="price">
-                    Price: <span class="pi">${product.price_pi.toFixed(2)} Pi</span> (~$${product.price_usd})
+                    Total Price: <span class="pi">${product.price_pi.toFixed(2)} Pi</span>
                 </div>
-                <a href="#" class="btn-buy" onclick="alert('Proceeding to checkout for ${product.name}')">BUY NOW</a>
+                <p class="shipping-note">(Includes ${product.shipping_pi.toFixed(2)} Pi for Shipping)</p>
+                
+                <button class="btn-buy" onclick="startCheckout(${product.id}, ${product.price_pi})">
+                    BUY NOW
+                </button>
             `;
             container.appendChild(card);
         });
+
+        // 3. دالة محاكاة عملية الدفع والتجميد
+        function startCheckout(id, price) {
+            const product = products.find(p => p.id === id);
+
+            if (!product) {
+                alert("Error: Product not found.");
+                return;
+            }
+
+            // محاكاة عملية الدفع عبر Pi SDK
+            const confirmation = confirm(
+                `CONFIRM PURCHASE:\n` +
+                `Product: ${product.name}\n` +
+                `Total Amount: ${price.toFixed(2)} Pi\n` +
+                `Shipping: ${product.shipping_pi.toFixed(2)} Pi (Approx. $${product.shipping_usd})\n\n` +
+                `By clicking OK, you authorize the payment and agree that the ${price.toFixed(2)} Pi will be held in ESCROW for 14 days (or until confirmed).`
+            );
+
+            if (confirmation) {
+                // محاكاة تحويل الأموال إلى حساب ESCROW
+                console.log(`Transaction Initiated for Product ID ${id}. Amount: ${price.toFixed(2)} Pi.`);
+                
+                // هنا في التطبيق الحقيقي، سيتم استدعاء Pi SDK لتنفيذ التحويل
+                // Pi.authenticate(..., onIncompletePayment: (payment) => {...});
+
+                alert(`✅ Payment of ${price.toFixed(2)} Pi successfully transferred to ESCROW.\n\n` + 
+                      `A notification has been sent to the seller to ship the product.\n` +
+                      `Funds will be released in 14 days or upon your confirmation of receipt.`);
+                
+                // يمكن توجيه المستخدم لصفحة تأكيد الطلب
+                // window.location.href = "order_status.html?id=" + id;
+
+            } else {
+                alert("Purchase canceled.");
+            }
+        }
     </script>
 </body>
 </html>
