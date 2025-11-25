@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #1a042e;
+            background-color: #1a042e; /* خلفية TEC الداكنة */
             color: #e0e0e0;
             padding: 20px;
             margin: 0;
@@ -16,31 +16,32 @@
             color: #b67eff;
             text-align: center;
             margin-bottom: 30px;
+            font-size: 2.5rem;
         }
         .main-content {
             display: flex;
-            max-width: 1200px;
+            max-width: 1300px; /* توسيع العرض قليلاً */
             margin: 0 auto;
         }
+        /* تصميم الشريط الجانبي (تحسين بسيط) */
         .sidebar {
             width: 200px;
-            margin-right: 25px;
+            margin-right: 35px;
             padding: 15px;
-            background-color: #3b0a66;
+            background-color: #2b084a; /* لون أغمق قليلاً للخلفية */
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             height: fit-content;
         }
         .sidebar h3 {
             color: #00ffe7;
-            margin-top: 0;
             padding-bottom: 10px;
             border-bottom: 1px solid #5a198c;
             margin-bottom: 15px;
         }
         .category-link {
             display: block;
-            padding: 10px;
+            padding: 10px 12px;
             margin-bottom: 8px;
             background-color: transparent;
             color: #e0e0e0;
@@ -48,11 +49,11 @@
             border-radius: 6px;
             transition: background-color 0.3s, color 0.3s;
             cursor: pointer;
-            text-align: left;
+            font-weight: 500;
         }
         .category-link:hover, .category-link.active {
-            background-color: #5a198c;
-            color: #fff;
+            background-color: #a45cff; /* لون بنفسجي بارز للتحديد */
+            color: white;
         }
         .products-container {
             flex-grow: 1;
@@ -60,59 +61,83 @@
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 20px; /* تقليل الفراغ قليلاً */
         }
+        /* تصميم بطاقة المنتج (Product Card) الاحترافي */
         .product-card {
-            background-color: #3b0a66;
+            background-color: #3b0a66; /* لون خلفية للبطاقة */
             border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            padding: 0;
+            overflow: hidden; /* مهم لقطع حدود الصورة */
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
             text-align: left;
             transition: transform 0.3s, box-shadow 0.3s;
-            display: none; /* إخفاء جميع الكروت مبدئياً */
+            display: none;
         }
         .product-card.show {
-            display: block; /* إظهار الكروت التي تطابق الفلتر */
+            display: block;
         }
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(182, 126, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(182, 126, 255, 0.3);
         }
-        .product-card h2 {
-            font-size: 1.4rem;
-            color: #61d7ff;
-            margin-top: 0;
-        }
-        .price {
-            margin: 10px 0;
-            font-size: 1.1rem;
-        }
-        .price .pi {
+        
+        .product-image-placeholder {
+            width: 100%;
+            height: 180px;
+            background-color: #5a198c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0e0e0;
+            font-size: 0.9rem;
             font-weight: bold;
-            color: #a45cff;
-        }
-        .shipping-note {
-            font-size: 0.85rem;
-            color: #ccc;
-            margin-top: -5px;
+            text-align: center;
+            border-bottom: 1px solid #61d7ff;
             margin-bottom: 15px;
         }
-        .btn-buy {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #a45cff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            cursor: pointer;
-            border: none;
+
+        .product-details {
+            padding: 0 15px 15px 15px; /* مسافة داخلية للبيانات أسفل الصورة */
         }
-        .btn-buy:hover {
-            background-color: #b67eff;
+
+        .product-card h2 {
+            font-size: 1.25rem; /* أصغر قليلاً للمظهر الاحترافي */
+            color: #61d7ff;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .product-card .category-tag {
+            font-size: 0.8rem;
+            color: #b67eff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .price-row .pi {
+            font-weight: bold;
+            color: #00ffe7; /* لون مميز للسعر النهائي */
+            font-size: 1.4rem;
+        }
+        .btn-buy {
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            width: auto;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .product-description-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -121,14 +146,14 @@
 
     <div class="main-content">
         <div class="sidebar">
-            <h3>Categories</h3>
+            <h3>SHOP BY CATEGORY</h3>
             <a href="#" class="category-link active" onclick="filterProducts('All', this)">All Products</a>
             <a href="#" class="category-link" onclick="filterProducts('Tech', this)">Mobiles & Tech</a>
             <a href="#" class="category-link" onclick="filterProducts('Fashion', this)">Apparel & Fashion</a>
             <a href="#" class="category-link" onclick="filterProducts('Watches', this)">Watches & Accessories</a>
             <a href="#" class="category-link" onclick="filterProducts('Home', this)">Home & Living</a>
             <hr style="border-color: #5a198c;">
-            <a href="index.html" class="category-link" style="color: #00ffe7;">← Go Back</a>
+            <a href="index.html" class="category-link" style="color: #00ffe7; margin-top: 15px;">← Go Back</a>
         </div>
 
         <div class="products-container">
@@ -138,7 +163,7 @@
     </div>
 
     <script>
-        // 1. تعريف المنتجات مع تصنيفات مفصلة
+        // 1. تعريف المنتجات
         const products = [
             { id: 1, name: "Pi-Powered Smart Watch", price_pi: 5.5, base_pi: 5.0, shipping_pi: 0.5, shipping_usd: 20, description: "Next-gen smartwatch integrated with Pi Network utilities.", category: "Watches" },
             { id: 2, name: "Luxury Leather Wallet", price_pi: 2.0, base_pi: 1.8, shipping_pi: 0.2, shipping_usd: 8, description: "Handcrafted wallet made from premium leather.", category: "Fashion" },
@@ -156,39 +181,41 @@
             products.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                card.setAttribute('data-category', product.category); // إضافة خاصية التصنيف
+                card.setAttribute('data-category', product.category);
                 
                 card.innerHTML = `
-                    <h2>${product.name}</h2>
-                    <p><strong>Category:</strong> ${product.category}</p>
-                    <p>${product.description}</p>
-                    <div class="price">
-                        Total Price: <span class="pi">${product.price_pi.toFixed(2)} Pi</span>
+                    <div class="product-image-placeholder">
+                        [Image Placeholder for ${product.name}]
                     </div>
-                    <p class="shipping-note">(Includes ${product.shipping_pi.toFixed(2)} Pi for Shipping)</p>
-                    <button class="btn-buy" onclick="startCheckout(${product.id}, ${product.price_pi})">
-                        BUY NOW
-                    </button>
+                    <div class="product-details">
+                        <span class="category-tag">/ ${product.category}</span>
+                        <h2>${product.name}</h2>
+                        <p class="product-description-text">${product.description}</p>
+                        
+                        <div class="price-row">
+                            <span class="pi">${product.price_pi.toFixed(2)} Pi</span>
+                            <button class="btn-buy" onclick="startCheckout(${product.id}, ${product.price_pi})">
+                                Buy (${product.price_pi.toFixed(2)} Pi)
+                            </button>
+                        </div>
+                         <p class="shipping-note" style="margin-top: 8px;">Shipping: ${product.shipping_pi.toFixed(2)} Pi (~$${product.shipping_usd})</p>
+                    </div>
                 `;
                 container.appendChild(card);
             });
-            // عند التحميل، يتم فلترة الكل تلقائياً
             filterProducts('All', document.querySelector('.category-link.active'));
         }
 
-        // 3. دالة فلترة المنتجات حسب التصنيف
+        // 3. دالة فلترة المنتجات حسب التصنيف (بدون تغيير)
         function filterProducts(category, clickedLink) {
-            // إزالة التحديد من جميع الروابط
             document.querySelectorAll('.category-link').forEach(link => {
                 link.classList.remove('active');
             });
 
-            // إضافة التحديد للرابط الذي تم الضغط عليه
             if (clickedLink) {
                 clickedLink.classList.add('active');
             }
 
-            // فلترة المنتجات وعرض المطابق منها
             const productCards = document.querySelectorAll('.product-card');
             productCards.forEach(card => {
                 if (category === 'All' || card.getAttribute('data-category') === category) {
@@ -199,7 +226,7 @@
             });
         }
 
-        // 4. دالة محاكاة عملية الدفع (كما في الكود السابق)
+        // 4. دالة محاكاة عملية الدفع (بدون تغيير)
         const PI_GCO_RATE = 40; 
         function startCheckout(id, price) {
             const product = products.find(p => p.id === id);
