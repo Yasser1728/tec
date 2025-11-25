@@ -148,6 +148,31 @@
     body.light #toggleMode:hover {
       background: rgba(0, 0, 0, 0.15);
     }
+
+    /* NEW: Legal Links Style */
+    .footer-links {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      z-index: 10;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .footer-links a {
+      color: #61d7ff; /* لون الروابط */
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover {
+      color: #b67eff; /* لون عند التحويم */
+    }
+    body.light .footer-links {
+      color: rgba(0, 0, 0, 0.6);
+    }
+    body.light .footer-links a {
+      color: #4b0082;
+    }
   </style>
 </head>
 <body>
@@ -161,6 +186,13 @@
   <button class="btn start" onclick="alert('🛍️ Launching Smart Commerce Engine...')">START NOW</button>
   <button class="btn consult" onclick="alert('💼 Connecting to AI Commerce Consultant...')">AI CONSULTATION</button>
   <button class="btn home" onclick="goHome()">BACK TO HOME</button>
+
+  <div class="footer-links">
+    <a href="terms_commerce.html">Terms of Service</a>
+    |
+    <a href="privacy_commerce.html">Privacy Policy</a>
+    <p style="margin-top: 5px; font-size: 0.8rem; opacity: 0.7;">© 2025 Commerce.PI</p>
+  </div>
 
   <script>
     // === نظام الجسيمات ===
@@ -259,7 +291,8 @@
 
     // === زر العودة للصفحة الرئيسية ===
     function goHome() {
-      window.location.href = "https://yasser1728.github.io/life-nexus/";
+      // بما أن الملف يقع في /tec/commerce/index.html، يجب أن يكون الرابط هو المسار للأعلى
+      window.location.href = "../index.html"; 
     }
   </script>
 </body>
