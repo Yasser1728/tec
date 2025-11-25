@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <!-- Google Analytics -->
+  <!-- Google Analytics - مع التحسينات عشان تشتغل فورًا -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-375968541"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-375968541');
+    gtag('config', 'G-375968541', {
+      send_page_view: true,
+      transport_type: 'beacon'
+    });
   </script>
 
   <meta charset="UTF-8">
@@ -72,7 +75,7 @@
   <button id="themeToggle">Light Mode</button>
   <canvas id="bg"></canvas>
 
-  <header id="home">
+  <header>
     <a href="/" style="text-decoration:none;"><div class="logo-tec">TEC</div></a>
     <h1>Titan Elite Commerce</h1>
     <div class="dynamic-text" id="dynamicText">Elite</div>
