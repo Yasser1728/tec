@@ -81,7 +81,7 @@
       font-size: 1rem;
       transition: 0.3s;
       text-decoration: none;
-      color: #fff;
+      color: #fff; /* تم التأكد من بقاء لون النص أبيض داخل الأزرار */
       cursor: pointer;
     }
 
@@ -183,8 +183,10 @@
   <h1>Commerce.PI</h1>
   <p>Empower Your Vision with AI.</p>
 
-  <button class="btn start" onclick="alert('🛍️ Launching Smart Commerce Engine...')">START NOW</button>
-  <button class="btn consult" onclick="alert('💼 Connecting to AI Commerce Consultant...')">AI CONSULTATION</button>
+  <a href="products.html" class="btn start">START NOW</a> 
+
+  <a href="ai_consult.html" class="btn consult">AI CONSULTATION</a>
+  
   <button class="btn home" onclick="goHome()">BACK TO HOME</button>
 
   <div class="footer-links">
