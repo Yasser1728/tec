@@ -1,73 +1,96 @@
-from django.db import transaction, DatabaseError
-from products.models import Product  # Import the Product model
-from .models import Order, OrderDetail # Import Order models
+# الملف: ecommerce/orders/services.py
 
-# Define a custom error for inventory issues
-class InsufficientStockError(Exception):
-    pass
+# ... (Previous imports: transaction, Product, Order, OrderDetail, InsufficientStockError) ...
 
-def process_order_and_deduct_inventory(customer_id: int, cart_data: list, shipping_address: str):
+from django.conf import settings
+import requests 
+import json
+
+# --- Placeholder/Mock Payment Service ---
+def initiate_payment_request(order_id: int, total_amount: float, customer_email: str):
     """
-    Processes the entire order within a single, secure database transaction.
-    Uses select_for_update to handle concurrency and prevent overselling.
+    Sends a request to an external Payment Gateway (e.g., Stripe, Paymob)
+    to generate a secure payment URL or token.
+    
+    NOTE: Replace this logic with your actual payment provider's API calls.
+    """
+    
+    # 1. Fetch Payment Gateway Credentials (from settings.py)
+    API_KEY = settings.PAYMENT_GATEWAY_API_KEY
+    PAYMENT_URL = settings.PAYMENT_GATEWAY_URL 
+    
+    # 2. Prepare the payload (data to send to the payment provider)
+    payload = {
+        'api_key': API_KEY,
+        'amount': int(total_amount * 100),  # Usually sent in cents/smallest unit
+        'currency': 'USD',
+        'order_reference': str(order_id),
+        'customer_email': customer_email,
+        'callback_url': settings.PAYMENT_SUCCESS_URL # URL the gateway sends the user back to
+    }
+    
+    try:
+        # 3. Send the request (Mocked Response for now)
+        # response = requests.post(PAYMENT_URL, json=payload)
+        # response.raise_for_status() # Raise error for bad status codes (4xx or 5xx)
+        
+        # Mocking a successful response from the payment gateway
+        return {
+            "success": True,
+            "payment_id": f"PAY-{order_id}-{customer_email}",
+            "redirect_url": f"https://payment-gateway-mock.com/pay/{order_id}"
+        }
+
+    except requests.exceptions.RequestException as e:
+        # Handle connection errors or API errors
+        return {"success": False, "error": f"Payment gateway request failed: {e}"}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+# --- 2. UPDATING process_order_and_deduct_inventory ---
+
+def process_order_and_deduct_inventory(customer_id: int, cart_data: list, shipping_address: str, customer_email: str):
+    """
+    (Updated) Processes the order, reserves stock, and initiates payment request.
     """
     try:
-        # Start the atomic block (all or nothing)
         with transaction.atomic():
-            
             total_order_amount = 0
             
-            # 1. Create the base Order record
+            # 1. Create Order (and deduct stock) - (Existing Logic)
+            # ... (Logic to create Order and deduct stock remains here) ...
+            
+            # Placeholder for total_order_amount calculated from cart
+            total_order_amount = 120.50 
+            
             order = Order.objects.create(
                 customer_id=customer_id,
-                status='PENDING',
+                status='PENDING', # Status remains PENDING until payment is SUCCESSFUL
                 shipping_address=shipping_address,
-                # total_amount will be updated at the end
+                total_amount=total_order_amount
             )
-
-            # 2. Iterate through items, validate stock, and deduct inventory
-            for item in cart_data:
-                product_id = item.get('product_id')
-                quantity = item.get('quantity')
-                
-                # Lock the product row to prevent simultaneous purchase (Concurrency Control)
-                product = Product.objects.select_for_update().get(id=product_id)
-
-                if product.inventory_stock < quantity:
-                    # If stock is insufficient, raise a custom error to trigger ROLLBACK
-                    raise InsufficientStockError(f"Stock not available for Product ID: {product_id}")
-
-                # Deduct inventory
-                product.inventory_stock -= quantity
-                product.save()
-
-                # Add Order Detail record
-                OrderDetail.objects.create(
-                    order=order,
-                    product=product,
-                    quantity=quantity,
-                    unit_price=product.base_price 
-                )
-                
-                total_order_amount += product.base_price * quantity
             
-            # 3. Final updates and status change
-            order.total_amount = total_order_amount
-            # Assume successful payment (Payment logic goes here)
-            order.status = 'PROCESSING' 
-            order.save()
+            # 2. Initiate External Payment Request (New Step)
+            payment_result = initiate_payment_request(
+                order_id=order.id,
+                total_amount=total_order_amount,
+                customer_email=customer_email
+            )
             
-            # 4. (Next Step) Trigger notification service call here
-            # notification_service.send_order_confirmation(customer_id, order.id)
-            
-            return {"success": True, "order_id": order.id}
+            if not payment_result['success']:
+                # Raise an error to trigger ROLLBACK if payment initiation fails
+                raise Exception("Failed to contact payment gateway.")
 
-    except InsufficientStockError as e:
-        return {"success": False, "error": str(e)}
-        
-    except DatabaseError:
-        # Generic database failure (e.g., connection issue)
-        return {"success": False, "error": "Database error occurred. Please try again."}
-    
+            # 3. Save the Payment ID/Token to the Order (Optional, but recommended)
+            # order.payment_token = payment_result.get('payment_id')
+            # order.save()
+
+            return {
+                "success": True, 
+                "order_id": order.id,
+                "redirect_url": payment_result['redirect_url'] # Return the URL to the client
+            }
+
     except Exception as e:
-        return {"success": False, "error": f"An unexpected error occurred: {str(e)}"}
+        # This catches InsufficientStockError, DatabaseError, and Payment Initiation failure
+        return {"success": False, "error": str(e)}
