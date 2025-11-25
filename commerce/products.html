@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Categories - Commerce.PI</title>
+    <title>Products List - Commerce.PI</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -11,6 +11,7 @@
             color: #e0e0e0;
             padding: 20px;
             margin: 0;
+            padding-bottom: 70px; /* مسافة للشريط السفلي الثابت */
         }
         h1 {
             color: #b67eff;
@@ -20,15 +21,15 @@
         }
         .main-content {
             display: flex;
-            max-width: 1300px; /* توسيع العرض قليلاً */
+            max-width: 1300px; 
             margin: 0 auto;
         }
-        /* تصميم الشريط الجانبي (تحسين بسيط) */
+        /* تصميم الشريط الجانبي (للفلترة السريعة داخل الصفحة) */
         .sidebar {
             width: 200px;
             margin-right: 35px;
             padding: 15px;
-            background-color: #2b084a; /* لون أغمق قليلاً للخلفية */
+            background-color: #2b084a; 
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             height: fit-content;
@@ -52,7 +53,7 @@
             font-weight: 500;
         }
         .category-link:hover, .category-link.active {
-            background-color: #a45cff; /* لون بنفسجي بارز للتحديد */
+            background-color: #a45cff; 
             color: white;
         }
         .products-container {
@@ -61,14 +62,14 @@
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; /* تقليل الفراغ قليلاً */
+            gap: 20px; 
         }
         /* تصميم بطاقة المنتج (Product Card) الاحترافي */
         .product-card {
-            background-color: #3b0a66; /* لون خلفية للبطاقة */
+            background-color: #3b0a66; 
             border-radius: 12px;
             padding: 0;
-            overflow: hidden; /* مهم لقطع حدود الصورة */
+            overflow: hidden; 
             box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
             text-align: left;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -98,11 +99,11 @@
         }
 
         .product-details {
-            padding: 0 15px 15px 15px; /* مسافة داخلية للبيانات أسفل الصورة */
+            padding: 0 15px 15px 15px; 
         }
 
         .product-card h2 {
-            font-size: 1.25rem; /* أصغر قليلاً للمظهر الاحترافي */
+            font-size: 1.25rem; 
             color: #61d7ff;
             margin-top: 0;
             margin-bottom: 5px;
@@ -122,7 +123,7 @@
         }
         .price-row .pi {
             font-weight: bold;
-            color: #00ffe7; /* لون مميز للسعر النهائي */
+            color: #00ffe7; 
             font-size: 1.4rem;
         }
         .btn-buy {
@@ -131,13 +132,71 @@
             font-size: 0.95rem;
             width: auto;
             border-radius: 6px;
-            text-align: center;
+            background-color: #a45cff;
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-buy:hover {
+            background-color: #b67eff;
         }
         
         .product-description-text {
             font-size: 0.9rem;
             opacity: 0.8;
             margin-bottom: 15px;
+        }
+        .go-back-link {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 20px;
+            background-color: #2b084a;
+            color: #00ffe7;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid #00ffe7;
+            transition: background-color 0.3s;
+        }
+        .go-back-link:hover {
+            background-color: #00ffe7;
+            color: #1a042e;
+        }
+        
+        /* شريط التنقل السفلي الثابت */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #3b0a66; 
+            border-top: 1px solid #5a198c;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            text-decoration: none;
+            color: #ccc;
+            font-size: 0.7rem;
+            display: block;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+
+        .nav-item.active {
+            color: #00ffe7; /* لون النشاط */
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 2px;
         }
     </style>
 </head>
@@ -147,13 +206,17 @@
     <div class="main-content">
         <div class="sidebar">
             <h3>SHOP BY CATEGORY</h3>
-            <a href="#" class="category-link active" onclick="filterProducts('All', this)">All Products</a>
-            <a href="#" class="category-link" onclick="filterProducts('Tech', this)">Mobiles & Tech</a>
-            <a href="#" class="category-link" onclick="filterProducts('Fashion', this)">Apparel & Fashion</a>
-            <a href="#" class="category-link" onclick="filterProducts('Watches', this)">Watches & Accessories</a>
-            <a href="#" class="category-link" onclick="filterProducts('Home', this)">Home & Living</a>
+            <a href="products.html?cat=All" class="category-link" onclick="filterProducts('All', this)">All Products</a>
+            <a href="products.html?cat=Tech" class="category-link" onclick="filterProducts('Tech', this)">Mobiles & Tech</a>
+            <a href="products.html?cat=Fashion" class="category-link" onclick="filterProducts('Fashion', this)">Apparel & Fashion</a>
+            <a href="products.html?cat=Watches" class="category-link" onclick="filterProducts('Watches', this)">Watches & Accessories</a>
+            <a href="products.html?cat=Home" class="category-link" onclick="filterProducts('Home', this)">Home & Living</a>
+            <a href="products.html?cat=Tools" class="category-link" onclick="filterProducts('Tools', this)">Tools & Hardware</a>
+            <a href="products.html?cat=Sports" class="category-link" onclick="filterProducts('Sports', this)">Sports & Outdoors</a>
+            <a href="products.html?cat=Beauty" class="category-link" onclick="filterProducts('Beauty', this)">Health & Beauty</a>
             <hr style="border-color: #5a198c;">
-            <a href="index.html" class="category-link" style="color: #00ffe7; margin-top: 15px;">← Go Back</a>
+            <a href="categories.html" class="category-link" style="color: #61d7ff; font-weight: bold;">← Change Category (Icons)</a>
+            <a href="index.html" class="category-link" style="color: #00ffe7;">← Go Back Home</a>
         </div>
 
         <div class="products-container">
@@ -162,8 +225,27 @@
         </div>
     </div>
 
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i>🏠</i>
+            <span>Home</span>
+        </a>
+        <a href="categories.html" class="nav-item">
+            <i>🏷️</i>
+            <span>Categories</span>
+        </a>
+        <a href="products.html" class="nav-item active">
+            <i>🛒</i>
+            <span>Cart</span>
+        </a>
+        <a href="user_account.html" class="nav-item">
+            <i>👤</i>
+            <span>You</span>
+        </a>
+    </div>
+
     <script>
-        // 1. تعريف المنتجات
+        // 1. تعريف المنتجات (تم تحديث التصنيفات لتطابق صفحة categories.html)
         const products = [
             { id: 1, name: "Pi-Powered Smart Watch", price_pi: 5.5, base_pi: 5.0, shipping_pi: 0.5, shipping_usd: 20, description: "Next-gen smartwatch integrated with Pi Network utilities.", category: "Watches" },
             { id: 2, name: "Luxury Leather Wallet", price_pi: 2.0, base_pi: 1.8, shipping_pi: 0.2, shipping_usd: 8, description: "Handcrafted wallet made from premium leather.", category: "Fashion" },
@@ -171,13 +253,18 @@
             { id: 4, name: "Wireless Bluetooth Earbuds", price_pi: 3.2, base_pi: 3.0, shipping_pi: 0.2, shipping_usd: 10, description: "High-quality sound with long battery life.", category: "Tech" },
             { id: 5, name: "Premium Cotton T-Shirt", price_pi: 1.5, base_pi: 1.3, shipping_pi: 0.2, shipping_usd: 5, description: "Soft, breathable cotton T-shirt, multiple colors.", category: "Fashion" },
             { id: 6, name: "Smart Home Security Camera", price_pi: 4.8, base_pi: 4.5, shipping_pi: 0.3, shipping_usd: 12, description: "Indoor security camera with night vision.", category: "Home" },
-            { id: 7, name: "Classic Diver Watch", price_pi: 8.0, base_pi: 7.5, shipping_pi: 0.5, shipping_usd: 25, description: "Water-resistant stainless steel classic design.", category: "Watches" }
+            { id: 7, name: "Laser Level Tool", price_pi: 6.5, base_pi: 6.0, shipping_pi: 0.5, shipping_usd: 25, description: "High-precision laser level for construction.", category: "Tools" },
+            { id: 8, name: "Running Shoes", price_pi: 7.0, base_pi: 6.5, shipping_pi: 0.5, shipping_usd: 20, description: "Lightweight and durable shoes for sports.", category: "Sports" },
+            { id: 9, name: "Organic Face Cream", price_pi: 3.5, base_pi: 3.0, shipping_pi: 0.5, shipping_usd: 15, description: "Natural face cream for daily moisturizing.", category: "Beauty" }
         ];
 
         const container = document.getElementById('products-container');
 
         // 2. دالة لرسم جميع المنتجات في الواجهة
         function renderProducts() {
+            // إفراغ الحاوية قبل إعادة العرض لتجنب التكرار
+            container.innerHTML = ''; 
+
             products.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
@@ -203,19 +290,21 @@
                 `;
                 container.appendChild(card);
             });
-            filterProducts('All', document.querySelector('.category-link.active'));
         }
 
-        // 3. دالة فلترة المنتجات حسب التصنيف (بدون تغيير)
+        // 3. دالة فلترة المنتجات حسب التصنيف
         function filterProducts(category, clickedLink) {
+            // إزالة التحديد من جميع الروابط
             document.querySelectorAll('.category-link').forEach(link => {
                 link.classList.remove('active');
             });
 
+            // إضافة التحديد للرابط الذي تم الضغط عليه
             if (clickedLink) {
                 clickedLink.classList.add('active');
             }
 
+            // فلترة المنتجات وعرض المطابق منها
             const productCards = document.querySelectorAll('.product-card');
             productCards.forEach(card => {
                 if (category === 'All' || card.getAttribute('data-category') === category) {
@@ -226,7 +315,14 @@
             });
         }
 
-        // 4. دالة محاكاة عملية الدفع (بدون تغيير)
+        // 4. دالة لقراءة التصنيف من URL
+        function getCategoryFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // الافتراضي هو 'All'
+            return urlParams.get('cat') || 'All'; 
+        }
+
+        // 5. دالة محاكاة عملية الدفع (Escrow)
         const PI_GCO_RATE = 40; 
         function startCheckout(id, price) {
             const product = products.find(p => p.id === id);
@@ -251,7 +347,17 @@
         }
 
         // بدء عرض المنتجات عند تحميل الصفحة
-        window.onload = renderProducts;
+        window.onload = () => {
+            renderProducts();
+            
+            // تحديد التصنيف الأولي بناءً على رابط URL
+            const initialCategory = getCategoryFromURL();
+            
+            // البحث عن رابط التصنيف في الشريط الجانبي لتحديده
+            const initialLink = document.querySelector(`.category-link[onclick*="'${initialCategory}'"]`);
+            
+            filterProducts(initialCategory, initialLink);
+        };
     </script>
 </body>
 </html>
