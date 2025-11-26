@@ -1,64 +1,64 @@
-from accounts.models import Customer
-from orders.models import Order 
-# NOTE: These imports are placeholders for external libraries (e.g., Firebase, SendGrid, etc.)
-# import firebase_admin.messaging as messaging 
-# import smtplib
-# from django.core.mail import send_mail # Django's built-in email utility
+# File: tec/ecommerce/notifications/services.py
 
-# --- Email Templates (Simple Example) ---
-def get_email_template(order_status: str, order_id: int):
-    """Retrieves dynamic subject and body content based on the order status."""
-    if order_status == 'PROCESSING':
-        return {
-            'subject': f"Order #{order_id} Confirmed!",
-            'body': "Your order has been confirmed and is being prepared for shipping."
-        }
-    if order_status == 'SHIPPED':
-        return {
-            'subject': f"Order #{order_id} is on its way!",
-            'body': "Your order has shipped! Tracking number: [Tracking Number Placeholder]."
-        }
-    return None
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import Notification
+from django.utils import timezone
+from django.contrib.auth import get_user_model
 
-def send_push_notification(customer: Customer, title: str, body: str):
-    """Placeholder function to call the Firebase Cloud Messaging (FCM) or APNS service."""
-    # This assumes you have stored a device token on the Customer model (e.g., customer.device_token)
-    # try:
-    #     fcm_service.send_message(token=customer.device_token, title=title, body=body)
-    #     return True
-    # except Exception as e:
-    #     # Log the error for debugging
-    #     print(f"Push Failed for user {customer.id}: {e}")
-    return False
+User = get_user_model()
 
+# ----------------------------------------------------
+# 1. Email Sender Function
+# ----------------------------------------------------
 def send_email_notification(recipient_email: str, subject: str, body: str):
-    """Placeholder function to call the SMTP or external email service (e.g., SendGrid)."""
-    # try:
-    #     # Example using Django's built-in mail sender:
-    #     # send_mail(subject, body, 'noreply@yourcommerce.com', [recipient_email], fail_silently=False)
-    #     return True
-    # except Exception as e:
-    #     # Log the error
-    #     print(f"Email Failed for {recipient_email}: {e}")
-    return False
+    """ Sends an immediate email notification. """
+    try:
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [recipient_email],
+            fail_silently=False, 
+        )
+        return True
+    except Exception as e:
+        print(f"Error sending email to {recipient_email}: {e}")
+        return False
 
-# --- Main Notification Dispatch Function ---
-def send_order_status_update(order: Order):
+# ----------------------------------------------------
+# 2. Main Notification Creator and Sender
+# ----------------------------------------------------
+def create_and_send_notification(user: User, message: str, notification_type: str, related_id: int = None, send_email: bool = False):
     """
-    Central function called when the order status changes.
+    Creates the notification record in the database and sends it via requested channels.
     """
-    customer = order.customer
     
-    # --- A. Push Notification Logic ---
-    push_title = f"Order Update: #{order.id}"
-    push_body = f"Status changed to: {order.get_status_display()}" 
+    # 1. Create and save the notification record
+    notification = Notification.objects.create(
+        user=user,
+        message=message,
+        notification_type=notification_type,
+        related_object_id=related_id,
+        is_sent=False 
+    )
     
-    send_push_notification(customer, push_title, push_body)
+    email_sent = False
     
-    # --- B. Email Notification Logic ---
-    email_data = get_email_template(order.status, order.id)
+    # 2. Send via Email (if requested and user has email)
+    if send_email and user.email:
+        # Assuming PROJECT_NAME is defined in settings
+        project_name = getattr(settings, 'PROJECT_NAME', 'ECommerce Platform') 
+        subject = f"[{notification_type} Update] - {project_name}" 
+        email_sent = send_email_notification(
+            recipient_email=user.email,
+            subject=subject,
+            body=message
+        )
     
-    if email_data and customer.user.email:
-        send_email_notification(customer.user.email, email_data['subject'], email_data['body'])
-            
-    return {"success": True, "status": order.status}
+    # 3. Update the notification status
+    if email_sent: 
+        notification.is_sent = True
+        notification.save(update_fields=['is_sent'])
+        
+    return notification
