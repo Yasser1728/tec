@@ -1,26 +1,41 @@
-# File: tec/ecommerce/products/models.py (Final Consolidated Version)
+# File: tec/ecommerce/products/models.py (Final Consolidated Version with Tags)
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings 
-# Make sure your User model is set correctly in settings.AUTH_USER_MODEL
+# from taggit.managers import TaggableManager # Optional: Use Taggit for flexibility
+
+User = settings.AUTH_USER_MODEL
+
+# --- New Model: Tags for flexible product classification ---
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True, verbose_name=_('Tag Name'))
+    slug = models.SlugField(max_length=50, unique=True)
+    
+    class Meta:
+        verbose_name = _('Tag')
+        verbose_name_plural = _('Tags')
+        
+    def __str__(self):
+        return self.name
+# ----------------------------------------------------
 
 class Category(models.Model):
     
     # --- Identification ---
     name = models.CharField(max_length=100, unique=True, verbose_name=_('Name'))
-    slug = models.SlugField(max_length=100, unique=True, verbose_name=_('Slug')) # ADDED: for cleaner URLs
+    slug = models.SlugField(max_length=100, unique=True, verbose_name=_('Slug')) 
     
     # --- Hierarchy ---
     parent = models.ForeignKey(
         'self', 
-        on_delete=models.SET_NULL, # Changed to SET_NULL for better data integrity
+        on_delete=models.SET_NULL, 
         null=True, 
         blank=True, 
         related_name='sub_categories',
         verbose_name=_('Parent Category')
     )
-    description = models.TextField(blank=True, verbose_name=_('Description')) # Added: Description for context
+    description = models.TextField(blank=True, verbose_name=_('Description')) 
 
     class Meta:
         verbose_name = _('Category')
@@ -31,28 +46,35 @@ class Category(models.Model):
 
 class Product(models.Model):
     
-    # --- Identification & Description (Using standard fields for translation layers) ---
+    # --- Identification & Description ---
     name = models.CharField(max_length=255, verbose_name=_('Product Name'))
-    slug = models.SlugField(max_length=255, unique=True, verbose_name=_('Slug')) # ADDED: for SEO/URLs
+    slug = models.SlugField(max_length=255, unique=True, verbose_name=_('Slug')) 
     description = models.TextField(verbose_name=_('Full Description'))
 
-    # --- Links ---
+    # --- Links & Tags ---
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, 
                                  related_name='products', verbose_name=_('Category'))
-    seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, 
-                               related_name='products', verbose_name=_('Seller')) # ADDED: Seller identification
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, 
+                               related_name='products', verbose_name=_('Seller'))
+    # New Field: Flexible Tags
+    tags = models.ManyToManyField(Tag, blank=True, related_name='products', verbose_name=_('Tags')) 
+    # tags = TaggableManager() # Alternative if using django-taggit
     
-    # --- Pricing (HIGH PRECISION FOR PI) ---
-    PI_PRECISION = {'max_digits': 18, 'decimal_places': 9} # Constant for Pi currency
+    # --- Pricing ---
+    PI_PRECISION = {'max_digits': 18, 'decimal_places': 9} 
 
-    base_price_pi = models.DecimalField(**PI_PRECISION, verbose_name=_('Base Price (Pi)')) # Updated for Pi
+    base_price_pi = models.DecimalField(**PI_PRECISION, verbose_name=_('Base Price (Pi)')) 
     sale_price_pi = models.DecimalField(**PI_PRECISION, null=True, blank=True, 
-                                        verbose_name=_('Sale Price (Pi)')) # Updated for Pi
+                                        verbose_name=_('Sale Price (Pi)')) 
     
-    # --- Inventory and Ratings ---
-    inventory_stock = models.PositiveIntegerField(default=0, verbose_name=_('Inventory Stock')) # PositiveInteger is better
+    # --- Inventory and Status ---
+    inventory_stock = models.PositiveIntegerField(default=0, verbose_name=_('Inventory Stock')) 
     rating_avg = models.DecimalField(max_digits=3, decimal_places=2, default=0.0, 
-                                     verbose_name=_('Average Rating')) # Kept for display
+                                     verbose_name=_('Average Rating'))
+    
+    # New Status Fields
+    is_available = models.BooleanField(default=True, verbose_name=_('Is Available for Purchase'))
+    is_featured = models.BooleanField(default=False, verbose_name=_('Is Featured'))
     
     # --- Timestamps ---
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created At'))
@@ -66,7 +88,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
         
-# ProductImage model (kept for completeness)
+# ProductImage model (No change)
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images', 
                                 verbose_name=_('Product'))
