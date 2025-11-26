@@ -1,318 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Commerce.PI – Empower Your Vision with AI</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      transition: background 0.5s, color 0.5s;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commerce.PI - Empower Your Vision with AI.</title>
+    <style>
+        /* التنسيق الأساسي والوضع الليلي */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a042e; /* خلفية TEC الداكنة */
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* لمنع شريط التمرير إذا كان هناك جسيمات */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding-bottom: 70px; /* مسافة للشريط السفلي الثابت */
+        }
+        
+        /* تأثير الجسيمات (Particles) */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(164, 92, 255, 0.1) 0%, rgba(26, 4, 46, 0.5) 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
+        /* حاوية المحتوى فوق الجسيمات */
+        .content-container {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+        }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #e0e0e0;
-      text-align: center;
-      position: relative;
-      background: radial-gradient(circle at top, #3b0a66, #1a042e);
-    }
+        h1 {
+            color: #d1baff; /* لون بنفسجي فاتح */
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(182, 126, 255, 0.6);
+        }
 
-    body.light {
-      background: radial-gradient(circle at top, #e4e1ff, #d4e3ff);
-      color: #222;
-    }
+        h2 {
+            color: #a45cff;
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
+        /* تصميم أزرار النيون */
+        .btn-neon {
+            display: block;
+            width: 300px;
+            padding: 15px 30px;
+            margin: 20px auto;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid;
+            background: rgba(0, 0, 0, 0.3); 
+        }
 
-    h1, p, .btn, #toggleMode {
-      position: relative;
-      z-index: 1;
-    }
+        /* START NOW (Buyer) - بنفسجي */
+        .btn-purple {
+            color: #b67eff;
+            border-color: #b67eff;
+            box-shadow: 0 0 10px #b67eff, inset 0 0 10px #b67eff;
+        }
+        .btn-purple:hover {
+            color: #1a042e;
+            background: #b67eff;
+            box-shadow: 0 0 20px #b67eff, 0 0 40px #b67eff;
+        }
 
-    h1 {
-      font-size: 2.8rem;
-      background: linear-gradient(90deg, #b67eff, #61d7ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(182, 126, 255, 0.6);
-      margin-bottom: 10px;
-    }
+        /* AI CONSULTATION - سماوي */
+        .btn-cyan {
+            color: #00ffe7;
+            border-color: #00ffe7;
+            box-shadow: 0 0 10px #00ffe7, inset 0 0 10px #00ffe7;
+        }
+        .btn-cyan:hover {
+            color: #1a042e;
+            background: #00ffe7;
+            box-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7;
+        }
 
-    body.light h1 {
-      background: none;
-      -webkit-text-fill-color: #4b0082;
-      text-shadow: none;
-    }
+        /* BACK TO HOME - رمادي/أبيض */
+        .btn-light {
+            color: #e0e0e0;
+            border-color: #e0e0e0;
+            box-shadow: 0 0 5px #e0e0e0, inset 0 0 5px #e0e0e0;
+            background: none;
+        }
+        .btn-light:hover {
+            color: #1a042e;
+            background: #e0e0e0;
+        }
 
-    p {
-      font-size: 1rem;
-      opacity: 0.85;
-      margin-bottom: 40px;
-    }
+        /* روابط السياسات في الأسفل */
+        .footer-links {
+            position: fixed;
+            bottom: 80px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            font-size: 0.8rem;
+        }
+        .footer-links a {
+            color: #a45cff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .copyright {
+            color: #888;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
 
-    .btn {
-      display: block;
-      width: 220px;
-      padding: 14px 0;
-      margin: 12px 0;
-      border: 2px solid transparent;
-      border-radius: 30px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 1rem;
-      transition: 0.3s;
-      text-decoration: none;
-      color: #fff;
-      cursor: pointer;
-      text-align: center; 
-    }
+        /* شريط التنقل السفلي الثابت (المحدث) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #3b0a66; 
+            border-top: 1px solid #5a198c;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
 
-    /* زر START NOW - يذهب لصفحة categories.html الآن */
-    .btn.start {
-      background: transparent;
-      border-color: #a45cff;
-      box-shadow: 0 0 15px rgba(164, 92, 255, 0.4);
-    }
+        .nav-item {
+            text-align: center;
+            text-decoration: none;
+            color: #ccc;
+            font-size: 0.7rem;
+            display: block;
+            padding: 5px;
+            transition: color 0.3s;
+        }
 
-    .btn.start:hover {
-      background: rgba(164, 92, 255, 0.2);
-    }
+        .nav-item.active {
+            color: #00ffe7; /* لون النشاط */
+        }
 
-    /* زر SELLER DASHBOARD */
-    .btn.consult { 
-      background: transparent;
-      border-color: #61d7ff; 
-      box-shadow: 0 0 20px rgba(97, 215, 255, 0.5);
-    }
+        .nav-item .icon {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+            font-weight: bold; /* الأيقونات النصية */
+        }
 
-    .btn.consult:hover {
-      background: rgba(97, 215, 255, 0.15);
-    }
-    
-    /* زر AI CONSULTATION */
-    .btn.ai-consult { 
-      background: transparent;
-      border-color: #00ffe7;
-      box-shadow: 0 0 20px rgba(0, 255, 231, 0.5);
-    }
-
-    .btn.ai-consult:hover {
-      background: rgba(0, 255, 231, 0.15);
-    }
-
-
-    /* زر BACK TO HOME */
-    .btn.home {
-      background: transparent;
-      border-color: #999;
-      box-shadow: 0 0 12px rgba(160, 160, 160, 0.3);
-    }
-
-    .btn.home:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    body.light .btn {
-      color: #222;
-    }
-
-    #toggleMode {
-      position: absolute;
-      top: 20px;
-      right: 25px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      color: #fff;
-      padding: 8px 18px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: 0.3s;
-      z-index: 10;
-    }
-
-    #toggleMode:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    body.light #toggleMode {
-      background: rgba(0, 0, 0, 0.1);
-      color: #222;
-      border-color: rgba(0, 0, 0, 0.3);
-    }
-
-    body.light #toggleMode:hover {
-      background: rgba(0, 0, 0, 0.15);
-    }
-
-    /* Legal Links Style */
-    .footer-links {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      z-index: 10;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-    .footer-links a {
-      color: #61d7ff; 
-      text-decoration: none;
-      margin: 0 10px;
-      transition: color 0.3s;
-    }
-    .footer-links a:hover {
-      color: #b67eff; 
-    }
-    body.light .footer-links {
-      color: rgba(0, 0, 0, 0.6);
-    }
-    body.light .footer-links a {
-      color: #4b0082;
-    }
-  </style>
+        /* زر الوضع الليلي/النهاري */
+        .mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #d1baff;
+            cursor: pointer;
+            z-index: 20;
+            border: 1px solid #a45cff;
+        }
+    </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
 
-  <button id="toggleMode">🌙 Night</button>
+    <div class="particles"></div>
+    
+    <div class="mode-toggle" onclick="alert('Light/Night Mode Switch not implemented yet!')">
+        🌙 Night
+    </div>
 
-  <h1>Commerce.PI</h1>
-  <p>Empower Your Vision with AI.</p>
+    <div class="content-container">
+        <h1>Commerce.PI</h1>
+        <h2>Empower Your Vision with AI.</h2>
 
-  <a href="categories.html" class="btn start">START NOW (Buyer)</a> 
+        <a href="categories.html" class="btn-neon btn-purple">START NOW (Buyer)</a>
+        
+        <a href="seller_dashboard.html" class="btn-neon btn-cyan">SELLER DASHBOARD</a>
+        
+        <a href="#" class="btn-neon btn-light" onclick="alert('🚀 Launching Smart Commerce Engine... Connecting to AI Commerce Consultant...')">AI CONSULTATION</a>
+        
+        <a href="../index.html" class="btn-neon btn-light" style="margin-top: 10px;">BACK TO TEC HOME</a>
+    </div>
 
-  <a href="seller_dashboard.html" class="btn consult">SELLER DASHBOARD</a>
-  
-  <a href="ai_consult.html" class="btn ai-consult">AI CONSULTATION</a>
+    <div class="footer-links">
+        <a href="terms.html">Terms of Service</a> | 
+        <a href="privacy.html">Privacy Policy</a>
+        <div class="copyright">© 2025 Titan Elite Commerce — All rights reserved.</div>
+    </div>
 
-  <button class="btn home" onclick="goHome()">BACK TO TEC HOME</button>
-
-  <div class="footer-links">
-    <a href="terms_commerce.html">Terms of Service</a>
-    |
-    <a href="privacy_commerce.html">Privacy Policy</a>
-    <p style="margin-top: 5px; font-size: 0.8rem; opacity: 0.7;">© 2025 Commerce.PI</p>
-  </div>
-
-  <script>
-    // === نظام الجسيمات ===
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let particlesArray = [];
-    const numParticles = 80;
-    let isLightMode = false;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
-    });
-
-    class Particle {
-      constructor(x, y, size, speedX, speedY) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.speedX = speedX;
-        this.speedY = speedY;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = isLightMode
-          ? 'rgba(120, 100, 255, 0.6)'
-          : 'rgba(182, 126, 255, 0.6)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      particlesArray = [];
-      for (let i = 0; i < numParticles; i++) {
-        const size = Math.random() * 2 + 1;
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const speedX = (Math.random() - 0.5) * 0.8;
-        const speedY = (Math.random() - 0.5) * 0.8;
-        particlesArray.push(new Particle(x, y, size, speedX, speedY));
-      }
-    }
-
-    function connectParticles() {
-      for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a; b < particlesArray.length; b++) {
-          let dx = particlesArray[a].x - particlesArray[b].x;
-          let dy = particlesArray[a].y - particlesArray[b].y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 100) {
-            ctx.strokeStyle = isLightMode
-              ? 'rgba(0,0,0,0.08)'
-              : 'rgba(97, 215, 255, 0.1)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let particle of particlesArray) {
-        particle.update();
-        particle.draw();
-      }
-      connectParticles();
-      requestAnimationFrame(animate);
-    }
-
-    initParticles();
-    animate();
-
-    // === الوضع الليلي والنهاري ===
-    const toggleButton = document.getElementById('toggleMode');
-    toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      isLightMode = document.body.classList.contains('light');
-      toggleButton.textContent = isLightMode ? '🌞 Day' : '🌙 Night';
-    });
-
-    // === زر العودة للصفحة الرئيسية ===
-    function goHome() {
-      window.location.href = "../index.html"; 
-    }
-  </script>
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <span class="icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="categories.html" class="nav-item">
+            <span class="icon">🏷️</span>
+            <span>Category</span>
+        </a>
+        <a href="cart.html" class="nav-item">
+            <span class="icon">🛒</span>
+            <span>Cart</span>
+        </a>
+        <a href="user_account.html" class="nav-item">
+            <span class="icon">👤</span>
+            <span>You</span>
+        </a>
+    </div>
 </body>
 </html>
