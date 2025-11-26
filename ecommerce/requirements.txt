@@ -1,0 +1,28 @@
+# --- Core Django Framework ---
+Django==4.2.11 
+Pillow==10.3.0  # Required for handling product images and image processing
+
+# --- Django REST Framework (DRF) ---
+djangorestframework==3.15.0
+
+# --- Authentication & Authorization (accounts App) ---
+djangorestframework-simplejwt==5.3.1  # For JWT login, refresh, and registration
+# Optional: Used for permissions like IsSellerOrReadOnly
+django-filter==24.2
+
+# --- Database & Performance ---
+# Required if using PostgreSQL in production
+psycopg2-binary==2.9.9 
+# Optional: For database connection pooling or performance monitoring
+# python-dotenv==1.0.1 
+
+# --- Search Functionality (search App) ---
+# If you are using a dedicated search engine like Elasticsearch
+elasticsearch-dsl==7.4.0 
+# Optional: For integrating Django with Elasticsearch if needed
+
+# --- Asynchronous Tasks & Notifications (notifications/orders Apps) ---
+# Required for Celery (to handle complex tasks like sending notifications, payment processing)
+celery==5.3.6 
+redis==5.0.1  # Common message broker for Celery
+
