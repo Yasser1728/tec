@@ -4,17 +4,17 @@ import os
 from datetime import timedelta
 
 # 1. Security Core Settings
-# ملاحظة هامة: يجب تحميل مفتاح السرية من متغيرات البيئة في بيئة الإنتاج
+# IMPORTANT: Load SECRET_KEY from environment variables in production
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-insecure-key-for-development')
 
-# هذا يجب أن يتم تجاوزه (Overridden) في settings_prod.py
+# This should be overridden in settings_prod.py for production
 DEBUG = True 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-# يجب إضافة أسماء النطاقات (Domain names) الخاصة بك هنا في الإنتاج
+# Add your production domain names here when DEBUG is False
 
 # 2. CORS (Cross-Origin Resource Sharing) Settings
-CORS_ALLOW_ALL_ORIGINS = True # تغيير هذا إلى False في الإنتاج
+CORS_ALLOW_ALL_ORIGINS = True # Change this to False in production
 CORS_ALLOW_CREDENTIALS = True 
 
 # 3. Custom User Model
@@ -22,15 +22,15 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # 4. Django REST Framework Settings
 REST_FRAMEWORK = {
-    # استخدام JWT كطريقة مصادقة افتراضية
+    # Default authentication: JWT (JSON Web Tokens)
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # إعدادات الصلاحيات الافتراضية: يجب أن يكون المستخدم مصادقاً (مسجل دخول)
+    # Default permission: User must be authenticated
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-    # إعدادات ترقيم الصفحات (Pagination)
+    # Pagination setup
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
 }
